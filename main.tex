@@ -1,0 +1,398 @@
+% Team Note of AC-Complete
+% These codes should be guaranteed, fast enough, short and easy to type.
+
+\documentclass[landscape, 8pt, a4paper, oneside, twocolumn]{extarticle}
+\usepackage{kotex}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{import}
+
+\usepackage{teamnote}
+
+\teamnote{Soongsil University}{AC-complete}{0xC0DEF, enochjung, jhnah917}
+
+\ShowUsage
+\ShowComplexity
+\HideAuthor
+
+\begin{document}
+
+\maketitlepage
+
+% Make Pagebreak if you want.
+\pagebreak 
+
+\section{DataStructure}
+
+\Algorithm{Bipartite Union Find}
+{Union-Find with friend, enemy relations}{}
+{cpp}{code/DataStructure/BipartiteUF.cpp}
+{JusticeHui}
+
+\Algorithm{Erasable Priority Queue}
+{}{}
+{cpp}{code/DataStructure/ErasablePQ.cpp}
+{JusticeHui}
+
+\Algorithm{Convex Hull Trick}
+{call init() before use}{}
+{cpp}{code/DataStructure/ConvexHullTrick.cpp}
+{JusticeHui}
+
+\Algorithm{Persistent Segment Tree}
+{call init(root[0], s, e) before use}{}
+{cpp}{code/DataStructure/PersistentSegmentTree.cpp}
+{JusticeHui}
+
+\Algorithm{Splay Tree, Link-Cut Tree}
+{}{}
+{cpp}{code/DataStructure/Splay-LCT.cpp}
+{JusticeHui}
+
+\section{Geometry}
+
+\Algorithm{Rotating Calipers}
+{}{}
+{cpp}{code/Geometry/Calipers.cpp}
+{JusticeHui}
+
+\Algorithm{Point in Convex Polygon}
+{}{}
+{cpp}{code/Geometry/PointInConvexPolygon.cpp}
+{JusticeHui}
+
+\Algorithm{Half Plane Intersection}
+{Line : $ax + by + c = 0$}{}
+{cpp}{code/Geometry/HPI.cpp}
+{DeobureoMinkyuParty}
+
+\Algorithm{K-D Tree}
+{}{}
+{cpp}{code/Geometry/KD-Tree.cpp}
+{JusticeHui}
+
+\Algorithm{Dual Graph}
+{}{}
+{cpp}{code/Geometry/DualGraph.cpp}
+{JusticeHui}
+
+\Algorithm{Bulldozer Trick (Rotating Sweep Line)}
+{}{}
+{cpp}{code/Geometry/Bulldozer.cpp}
+{JusticeHui}
+
+\Algorithm{Delaunay Triangulation}
+{}{}
+{cpp}{code/Geometry/Delaunay.cpp}
+{kactl}
+
+\section{Graph}
+
+\Algorithm{Euler Tour}
+{}{}
+{cpp}{code/Graph/EulerTour.cpp}
+{JusticeHui}
+
+\Algorithm{SCC + 2-SAT}
+{CNF: (A or B) / alwaysTrue: A => B / setValue / mostOne / exactlyOne}{}
+{cpp}{code/Graph/TwoSat.cpp}
+{JusticeHui}
+
+\Algorithm{BCC}
+{call tarjan() before use}{}
+{cpp}{code/Graph/BCC.cpp}
+{JusticeHui}
+
+\Algorithm{Maximum Clique}
+{}{}
+{cpp}{code/Graph/MaximumClique.cpp}
+{molamola}
+
+\Algorithm{Bipartite Matching}
+{}{}
+{cpp}{code/Graph/BipartiteMatching.cpp}
+{DeobureoMinkyuParty}
+
+\Algorithm{Maximum Flow, Minimum Cut}
+{}{}
+{cpp}{code/Graph/Dinic.cpp}
+{JusticeHui}
+
+\Algorithm{MCMF}
+{}{}
+{cpp}{code/Graph/MCMF.cpp}
+{JusticeHui}
+
+\Algorithm{LR Flow}
+{}{}
+{cpp}{code/Graph/LR-Flow.cpp}
+{JusticeHui}
+
+\Algorithm{Hungarian Method}
+{}{}
+{cpp}{code/Graph/Hungarian.cpp}
+{e-maxx.ru}
+
+\Algorithm{Gomory-Hu Tree}
+{}{}
+{cpp}{code/Graph/GomoryHu.cpp}
+{DeobureoMinkyuParty}
+
+\Algorithm{$O(V^3)$ Global Min Cut}
+{}{}
+{cpp}{code/Graph/GlobalMinCut.cpp}
+{JusticeHui}
+
+\Algorithm{$O((V+E) \log V)$ Dominator Tree}
+{}{}
+{cpp}{code/Graph/DominatorTree.cpp}
+{0xC0DEF}
+
+\Algorithm{$O(N^2)$ Stable Marriage Problem}
+{}{}
+{cpp}{code/Graph/StableMarriage.cpp}
+{JusticeHui}
+
+\Algorithm{$O(VE)$ Vizing Theorem}
+{}{}
+{cpp}{code/Graph/Vizing.cpp}
+{molamola}
+
+\Algorithm{$O(E \log V)$ Directed MST}
+{}{}
+{cpp}{code/Graph/DMST.cpp}
+{kactl}
+
+\Algorithm{$O(V^3)$ General Matching}
+{}{}
+{cpp}{code/Graph/GeneralMatching.cpp}
+{JusticeHui}
+
+\Algorithm{$O(V^3)$ Weighted General Matching}
+{}{}
+{cpp}{code/Graph/WeightedMatching.cpp}
+{DeobureoMinkyuParty}
+
+\section{Math}
+
+\Algorithm{Extend GCD, CRT, Combination}
+{}{}
+{cpp}{code/Math/BasicMath.cpp}
+{JusticeHui}
+
+\Algorithm{FloorSum}
+{}{}
+{cpp}{code/Math/FloorSum.cpp}
+{Aeren}
+
+\Algorithm{XOR Basis(XOR Maximization)}
+{}{}
+{cpp}{code/Math/xor-basis.cpp}
+{todo}
+
+\Algorithm{Gauss Jordan Elimination}
+{}{}
+{cpp}{code/Math/Matrix.cpp}
+{JusticeHui}
+
+\Algorithm{Gauss Jordan Elimination (Binary)}
+{}{}
+{cpp}{code/Math/BinaryMatrix.cpp}
+{0xC0DEF}
+
+\Algorithm{Berlekamp + Kitamasa}
+{}{$O(NK + N \log mod), O(N^2 \log X)$}
+{cpp}{code/Math/Berlekamp-Kitamasa.cpp}
+{DeobureoMinkyuParty}
+
+\Algorithm{Miller Rabin + Pollard Rho}
+{}{}
+{cpp}{code/Math/MillerRabin-PollardRho.cpp}
+{JusticeHui}
+
+\Algorithm{Linear Sieve}
+{}{}
+{cpp}{code/Math/LinearSieve.cpp}
+{ahgus89}
+
+\Algorithm{Discrete Log / Sqrt}
+{}{Log : $O(\sqrt P \log P)$, $O(\sqrt P)$ with hash set\\Sqrt : $O(\log^2 P)$, $O(\log P)$ in random data}
+{cpp}{code/Math/DiscreteLogSqrt.cpp}
+{JusticeHui / gratus907}
+
+\Algorithm{De Bruijn Sequence}
+{}{}
+{cpp}{code/Math/DeBruijnSequence.cpp}
+{DeobureoMinkyuParty}
+
+\Algorithm{Simplex / LP Duality}
+{}{}
+{cpp}{code/Math/Simplex.cpp}
+{molamola}
+
+\noindent
+\textbf{Simplex Example}\\
+Maximize $p = 6x + 14y + 13z$\\
+Constraints \\
+- $0.5x + 2y + z \leq 24$\\
+- $x + 2y + 4z \leq 60$\\
+Coding\\
+- $n = 2, m = 3, a = \begin{pmatrix} 0.5 & 2 & 1 \\ 1 & 2 & 4 \end{pmatrix}, b = \begin{pmatrix} 24 \\ 60 \end{pmatrix}, c = [6, 14, 13]$
+
+\noindent
+\textbf{LP Duality \& Example}\\
+tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제의 답)\\
+- Primal : $n = 2, m = 3, a = \begin{pmatrix} 0.5 & 2 & 1 \\ 1 & 2 & 4 \end{pmatrix}, b = \begin{pmatrix} 24 \\ 60 \end{pmatrix}, c = [6, 14, 13]$\\
+- Dual : $n = 3, m = 2, a = \begin{pmatrix} -0.5 & -1 \\ -2 & -2 \\ -1 & -4 \end{pmatrix}, b = \begin{pmatrix} -6 \\ -14 \\ -13 \end{pmatrix}, c = [-24, -60]$\\
+공식\\
+- Primal : $\max_{x} c^Tx$, Constraints $Ax \leq b, x \geq 0$\\
+- Dual : $\min_{y} b^Ty$,Constraints $A^Ty \geq c, y \geq 0$ 
+
+
+\Algorithm{FFT, NTT, Polynomial, Fast Kitamasa}
+{}{}
+{cpp}{code/Math/FFT-Friends.cpp}
+{JusticeHui}
+
+\section{String}
+
+\Algorithm{KMP, Hash, Manacher, Z}
+{}{}
+{cpp}{code/String/BasicStringAlgo.cpp}
+{JusticeHui}
+
+\Algorithm{Aho-Corasick}
+{}{}
+{cpp}{code/String/Aho-Corasick.cpp}
+{JongManBook}
+
+\Algorithm{$O(N \log N)$ SA + LCP}
+{}{}
+{cpp}{code/String/SA-LCP.cpp}
+{kajebiii}
+
+\Algorithm{Bitset LCS}
+{}{}
+{cpp}{code/String/BitsetLCS.cpp}
+
+\Algorithm{Lyndon Factorization, Minimum Rotation}
+{}{}
+{cpp}{code/String/Lyndon.cpp}
+{cp-algorithms.com}
+
+\section{Misc}
+
+\Algorithm{Ternary Search}
+{}{}
+{cpp}{code/Misc/TernarySearch.cpp}
+{JusticeHui}
+
+\Algorithm{Aliens Trick}
+{}{}
+{cpp}{code/Misc/Aliens.cpp}
+{JusticeHui}
+
+\Algorithm{Slope Trick}
+{}{}
+{cpp}{code/Misc/SlopeTrick.cpp}
+{0xC0DEF}
+
+\Algorithm{Random, PBDS, Bit Trick}{}{}{cpp}{code/Misc/Cpp-Grammer.cpp}{JusticeHui}%
+
+\Algorithm{Fast I/O, Fast Div/Mod, Hilbert Mo's}{}{}{cpp}{code/Misc/NDS-Optimize.cpp}{JusticeHui}%
+
+\Algorithm{DP Opt, Tree Opt, Well-Known Ideas}{}{}{cpp}{code/Misc/WellKnown-Optimize.cpp}{JusticeHui}%
+
+\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff}
+{}{}{}{}{}
+\begin{itemize}
+\setlength\itemsep{0.1em}
+    
+\item 카탈란 수\\
+1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012,742900\\
+$C_n = binomial(n * 2, n) / (n + 1);$\\
+- 길이가 2n인 올바른 괄호 수식의 수\\
+- n + 1개의 리프를 가진 풀 바이너리 트리의 수\\
+- n + 2각형을 n개의 삼각형으로 나누는 방법의 수
+
+\item Burnside’s Lemma
+\begin{itemize}
+    \item 수식\\
+    G=(X,A): 집합X와 액션A로 정의되는 군G에 대해, $\vert A\vert\vert X/A \vert=sum(\vert \text{Fixed points of a}\vert,\text{for all a in A})$\\
+    X/A 는 Action으로 서로 변형가능한 X의 원소들을 동치로 묶었을때 동치류(파티션) 집합
+    \item 풀어쓰기\\
+    orbit: 그룹에 대해 두 원소 a,b와 액션f에 대해 f(a)=b인거에 간선연결한 컴포넌트(연결집합)\\
+    orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개수
+    \item 자유도 치트시트
+    회전 n개: 회전i의 고정점 자유도=gcd(n,i)\\
+    임의뒤집기 n=홀수: n개 원소중심축(자유도 (n+1)/2)\\
+    임의뒤집기 n=짝수: n/2개 원소중심축(자유도 n/2+1) + n/2개 원소안지나는축(자유도 n/2)
+\end{itemize}
+
+\item 알고리즘 게임\\
+- Nim Game의 해법 : 각 더미의 돌의 개수를 모두 XOR했을 때 0 이 아니면 첫번째, 0 이면 두번째 플레이어가 승리.\\
+- Grundy Number : 어떤 상황의 Grundy Number는, 가능한 다음 상황들의 Grundy Number를 모두 모은 다음, 그 집합에 포함 되지 않는 가장 작은 수가 현재 state의 Grundy Number가 된다. 만약 다음 state가 독립된 여러개의 state들로 나뉠 경우, 각각의 state의 Grundy Number의 XOR 합을 생각한다.\\
+- Subtraction Game : 한 번에 k 개까지의 돌만 가져갈 수 있는 경우, 각 더미의 돌의 개수를 k + 1로 나눈 나머지를 XOR 합하여 판단한다.\\
+- Index-k Nim : 한 번에 최대 k개의 더미를 골라 각각의 더미에서 아무렇게나 돌을 제거할 수 있을 때, 각 binary digit에 대하여 합을 k + 1로 나눈 나머지를 계산한다. 만약 이 나머지가 모든 digit에 대하여 0이라면 두번째, 하나라도 0이 아니라면 첫번째 플레이어가 승리.
+
+\item Pick’s Theorem\\
+격자점으로 구성된 simple polygon이 주어짐. I 는 polygon 내부의 격자점 수, B 는 polygon 선분 위 격자점 수, A는 polygon의 넓이라고 할 때, 다음과 같은 식이 성립한다. $A=I+B/2-1$
+
+\item 홀의 결혼 정리 : 이분그래프(L-R)에서, 모든 L을 매칭하는 필요충분 조건 = L에서 임의의 부분집합 S를 골랐을 때, 반드시 (S의 크기) $<=$ (S와 연결되어있는 모든 R의 크기)이다.
+
+\item Simpson 공식 (적분) : Simpson 공식, $S_n(f) = \frac{h}{3}[f(x_0)+f(x_n)+ 4\sum f(x_{2i+1}) + 2\sum f(x_{2i})]$\\
+- $M = \max \vert f^4(x) \vert$이라고 하면 오차 범위는 최대 $E_n \leq \frac{M(b-a)}{180}h^4$
+
+\item Kirchhoff’s Theorem : 그래프의 스패닝 트리 개수\\
+- m[i][j] :=  -(i-j 간선 개수) (i ≠ j)\\
+- m[i][i] :=  정점 i의 degree\\
+- res =  (m의 첫 번째 행과 첫 번째 열을 없앤 (n-1) by (n-1) matrix의 행렬식)
+
+\item Tutte Matrix : 그래프의 최대 매칭\\
+- m[i][j] := 간선 $(i, j)$가 없으면 0, 있으면 $i < j ? r : -r$, r은 $[0,P)$ 구간의 임의의 정수\\
+- $rank(m) / 2$가 높은 확률로 최대 매칭
+
+\end{itemize}
+
+\Algorithm{About Graph Matching(Graph with $\vert V \vert \leq 500$)}{}{}{}{}{}
+\begin{itemize}
+    \setlength\itemsep{0.1em}
+    \item \textbf{Game on a Graph} : $s$에 토큰이 있음. 플레이어는 각자의 턴마다 토큰을 인접한 정점으로 옮기고 못 옮기면 짐.\\
+    $s$를 포함하지 않는 최대 매칭이 존재함 $\leftrightarrow$ 후공이 이김
+    \item \textbf{Chinese Postman Problem} : 모든 간선을 방문하는 최소 가중치 Walk를 구하는 문제.\\
+    Floyd를 돌린 다음, 홀수 정점들을 모아서 최소 가중치 매칭 (홀수 정점은 짝수 개 존재)
+    \item \textbf{Unweighted Edge Cover} : 모든 정점을 덮는 가장 작은(minimum cardinality/weight) 간선 집합을 구하는 문제\\
+    $\vert V\vert - \vert M\vert$, 길이 3짜리 경로 없음, star graph 여러 개로 구성
+    \item \textbf{Weighted Edge Cover} : $sum_{v \in V}(w(v)) - sum_{(u,v) \in M}(w(u) + w(v) - d(u,v))$, $w(x)$는 $x$와 인접한 간선의 최소 가중치
+    \item \textbf{NEERC'18 B} : 각 기계마다 2명의 노동자가 다뤄야 하는 문제.\\
+    기계마다 두 개의 정점을 만들고 간선으로 연결하면 정답은 $\vert M\vert - \vert\text{기계}\vert$임. 정답에 1/2씩 기여한다는 점을 생각해보면 좋음.
+    \item \textbf{Min Disjoint Cycle Cover} : 정점이 중복되지 않으면서 모든 정점을 덮는 길이 3 이상의 사이클 집합을 찾는 문제.\\
+    모든 정점은 2개의 서로 다른 간선, 일부 간선은 양쪽 끝점과 매칭되어야 하므로 플로우를 생각할 수 있지만 용량 2짜리 간선에 유량을 1만큼 흘릴 수 있으므로 플로우는 불가능.\\
+    각 정점과 간선을 2개씩($(v, v')$, $(e_{i,u},e_{i,v})$)로 복사하자. 모든 간선 $e=(u,v)$에 대해 $e_u$와 $e_v$를 잇는 가중치 w짜리 간선을 만들고(like NEERC18), $(u,e_{i,u}), (u',e_{i,u}), (v,e_{i,v}), (v',e_{i,v})$를 연결하는 가중치 0짜리 간선을 만들자. Perfect 매칭이 존재함 $\leftrightarrow$ Disjoint Cycle Cover 존재. 최대 가중치 매칭 찾은 뒤 모든 간선 가중치 합에서 매칭 빼면 됨.
+    \item \textbf{Two Matching} : 각 정점이 최대 2개의 간선과 인접할 수 있는 최대 가중치 매칭 문제.\\
+    각 컴포넌트는 정점 하나/경로/사이클이 되어야 함. 모든 서로 다른 정점 쌍에 대해 가중치 0짜리 간선 만들고, 가중치 0짜리 $(v,v')$ 간선 만들면 Disjoing Cycle Cover 문제가 됨. 정점 하나만 있는 컴포넌트는 self-loop, 경로 형태의 컴포넌트는 양쪽 끝점을 연결한다고 생각하면 편함.
+\end{itemize}
+
+\Algorithm{Checklist}{}{}{}{}{}
+\begin{itemize}
+    \setlength\itemsep{0.1em}
+    \item 비슷한 문제를 풀어본 적이 있던가?
+    \item 단순한 방법에서 시작할 수 있을까? (Brute Force)
+    \item 내가 문제를 푸는 과정을 수식화할 수 있을까? (예제를 직접 해결해보면서)
+    \item 문제를 단순화할 수 없을까?
+    \item 그림으로 그려볼 수 있을까?
+    \item 수식으로 표현할 수 있을까?
+    \item 문제를 분해할 수 있을까?
+    \item 뒤에서부터 생각해서 풀 수 있을까?
+    \item 순서를 강제할 수 있을까?
+    \item 특정 형태의 답만을 고려할 수 있을까? (정규화)
+    \item 구간을 통째로 가져간다 : 플로우 + 적당한 자료구조 $(i,i+1,k,0),(s,e,1,w),(N,T,k,0)$
+    \item a = b : a만 움직이기, b만 움직이기, 두 개 동시에 움직이기, 반대로 움직이기
+    \item 말도 안 되는 것들을 한 번은 생각해보기 / "당연하다고 생각한 것" 다시 생각해보기
+    \item Directed MST / Dominator Tree
+    \item 일정 비율 충족 or 2~3개로 모두 커버 : 랜덤
+    \item 확률 : DP, 이분 탐색(NYPC 2019 Finals C)
+    \item 최대/최소 : 이분 탐색, 그리디(Prefix 고정, Exchange Argument), DP(순서 고정)
+\end{itemize}
+
+\end{document}

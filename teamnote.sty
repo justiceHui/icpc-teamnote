@@ -1,0 +1,78 @@
+\ProvidesPackage{teamnote}
+
+\usepackage[left=0.3cm,right=0.3cm,top=1.8cm,bottom=0.5cm,a4paper]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{minted}
+\usepackage{color}
+\usepackage{indentfirst}
+
+
+\setlength{\columnseprule}{0.4pt}
+\pagenumbering{arabic}
+\setminted{breaklines=true, tabsize = 2, breaksymbolleft=}
+\usemintedstyle{perldoc}
+
+\newcommand{\revised}{Should be \textcolor{red}{\textbf{revised}}.}
+\newcommand{\tested}{Should be \textcolor{red}{\textbf{tested}}.}
+\newcommand{\added}{Should be \textcolor{red}{\textbf{added}}.}
+\newcommand{\WIP}{\textcolor{red}{\textbf{WIP}}}
+
+\newcommand{\schoolname}{Soongsil University}
+\newcommand{\teamname}{AC-complete}
+\newcommand{\authorname}{0xC0DEF, enochjung, jhnah917}
+
+\newcommand{\maketitlepage}{\maketitle
+	
+\tableofcontents
+
+\thispagestyle{fancy}
+    
+}
+\DeclareRobustCommand{\teamnote}[3]{
+	\renewcommand{\schoolname}{#1}
+    \renewcommand{\teamname}{#2}
+    \renewcommand{\authorname}{#3}
+}
+\pagestyle{fancy}
+\lhead{\schoolname{} -- \teamname}
+\rhead{Page \thepage{} of
+\ifthenelse{\pageref{LastPage} < 26}{\pageref{LastPage}}{\textcolor{red}{\textbf{\pageref{LastPage}}}}}
+\fancyfoot{}
+
+\title{Team Note of \teamname}
+\author{\authorname}
+\date{Compiled on \today}
+
+
+
+
+\newboolean{BangShowUsage}
+\setboolean{BangShowUsage}{false} 
+\newcommand{\ShowUsage}{\setboolean{BangShowUsage}{false}}
+\newcommand{\HideUsage}{\setboolean{BangShowUsage}{true}}
+
+
+\newboolean{BangShowComplexity}
+\setboolean{BangShowComplexity}{false} 
+\newcommand{\ShowComplexity}{\setboolean{BangShowComplexity}{false}}
+\newcommand{\HideComplexity}{\setboolean{BangShowComplexity}{true}}
+
+
+\newboolean{BangShowAuthor}
+\setboolean{BangShowAuthor}{false} 
+\newcommand{\ShowAuthor}{\setboolean{BangShowAuthor}{false}}
+\newcommand{\HideAuthor}{\setboolean{BangShowAuthor}{true}}
+
+\newcommand{\Algorithm}[6]{
+	\subsection{#1}
+	
+	\ifthenelse{\equal{#2}{} \OR \boolean{BangShowUsage}}{}{\textbf{Usage:} #2}
+	
+	\ifthenelse{\equal{#3}{} \OR \boolean{BangShowComplexity}}{}{\textbf{Time Complexity:} #3}
+	
+	\ifthenelse{\equal{#6}{} \OR \boolean{BangShowAuthor}}{}{\textbf{Author:} #6}
+	
+	\ifthenelse{\equal{#5}{}}{}{\ifthenelse{\equal{#4}{}}{\inputminted[]{cpp}{#5}}{\inputminted[]{#4}{#5}}}
+}
+
