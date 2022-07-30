@@ -1,66 +1,57 @@
-ull mul(ull a, ull b, ull mod){ return (__uint128_t)a * b % mod; }
-bool isp[10101010];
-vector<int> prime;
-void sieve(){
-  memset(isp, 1, sizeof isp);
-  isp[0] = isp[1] = 0;
-  for(ll i=2; i<=10000000; i++){
-    if(isp[i]) prime.push_back(i);
-    for(auto j : prime){
-      if(i*j > 10000000) break;
-      isp[i*j] = 0;
+constexpr int SZ = 10'000'000; bool PrimeCheck[SZ+1]; vector<int> Primes;
+void Sieve(){
+  memset(PrimeCheck, true, sizeof PrimeCheck);
+  PrimeCheck[0] = PrimeCheck[1] = false;
+  for(int i=2; i<=SZ; i++){
+    if(PrimeCheck[i]) Primes.push_back(i);
+    for(auto j : Primes){
+      if(i*j > SZ) break;
+      PrimeCheck[i*j] = false;
       if(i % j == 0) break;
     }
   }
 }
+ull MulMod(ull a, ull b, ull c){ return (__uint128_t)a * b % c; }
 // 32bit : 2, 7, 61
 // 64bit : 2, 325, 9375, 28178, 450775, 9780504, 1795265022
-bool MR(ull n, ull a){ // Miller Rabin
-  if(a % n == 0) return 1;
-  int cnt = __builtin_ctzll(n-1);
-  ull d = n >> cnt;
-  ull p = pw(a, d, n);
-  if(p == 1 || p == n - 1) return 1;
-  while(cnt--){
-    p = mul(p, p, n);
-    if(p == n-1) return 1;
-  }
-  return 0;
+bool MillerRabin(ull n, ull a){
+  if(a % n == 0) return true;
+  int cnt = __builtin_ctzll(n - 1);
+  ull p = PowMod(a, n >> cnt, n);
+  if(p == 1 || p == n - 1) return true;
+  while(cnt--) if((p=MulMod(p,p,n)) == n - 1) return true;
+  return false;
 }
-bool isPrime(ll n){
-  if(n < 10000001) return isp[n];
+bool IsPrime(ll n){
+  if(n <= SZ) return PrimeCheck[n];
   if(n <= 2) return n == 2;
-  if(!(n & 1)) return 0;
-  if(n%3 == 0 || n%5 == 0 || n%7 == 0 || n%11 == 0) return 0;
-  for(int p : {2,325,9375,28178,450775,9780504,1795265022}){
-    if(!MR(n, p)) return 0;
-  }
-  return 1;
+  if(n % 2 == 0 || n % 3 == 0 || n % 5 == 0 || n % 7 == 0 || n % 11 == 0) return false;
+  for(int p : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) if(!MillerRabin(n, p)) return false;
+  return true;
 }
-ll rho(ll n){
-  while(1){
-    ll x = rand() % (n - 2) + 2;
-    ll y = x, c = rand() % (n-1) + 1;
-    while(1){
-      x = (mul(x, x, n) + c) % n;
-      y = (mul(y, y, n) + c) % n;
-      y = (mul(y, y, n) + c) % n;
+ll Rho(ll n){
+  while(true){
+    ll x = rand() % (n - 2) + 2, y = x, c = rand() % (n - 1) + 1;
+    while(true){
+      x = (MulMod(x, x, n) + c) % n; y = (MulMod(y, y, n) + c) % n; y = (MulMod(y, y, n) + c) % n;
       ll d = __gcd(abs(x - y), n);
       if(d == 1) continue;
-      if(!isPrime(d)){ n = d; break; }
-      else return d;
+      if(IsPrime(d)) return d;
+      else{ n = d; break; }
     }
   }
 }
-vector<ll> pollard_rho(ll n){
-  vector<ll> v;
-  while(~n & 1) n >>= 1, v.push_back(2);
-  if(n == 1) return move(v);
-  while(!isPrime(n)){
-    ll d = rho(n);
-    while(n % d == 0) v.push_back(d), n /= d;
+vector<pair<ll,ll>> Factorize(ll n){
+  vector<pair<ll,ll>> v;
+  int two = __builtin_ctzll(n);
+  if(two > 0) v.emplace_back(2, two), n >>= two;
+  if(n == 1) return v;
+  while(!IsPrime(n)){
+    ll d = Rho(n), cnt = 0;
+    while(n % d == 0) cnt++, n /= d;
+    v.emplace_back(d, cnt);
     if(n == 1) break;
   }
-  if(n != 1) v.push_back(n);
-  return move(v);
+  if(n != 1) v.emplace_back(n, 1);
+  return v;
 }

@@ -9,7 +9,7 @@
 
 \usepackage{teamnote}
 
-\teamnote{Soongsil University}{AC-complete}{0xC0DEF, enochjung, jhnah917}
+\teamnote{Soongsil University}{SCCC}{chansol, edenooo, jhnah917}
 
 \ShowUsage
 \ShowComplexity
@@ -61,10 +61,10 @@
 {cpp}{code/Geometry/PointInConvexPolygon.cpp}
 {JusticeHui}
 
-\Algorithm{Half Plane Intersection}
+\Algorithm{Half Plane Intersection, Tangent of Convex Hull}
 {Line : $ax + by + c = 0$}{}
 {cpp}{code/Geometry/HPI.cpp}
-{DeobureoMinkyuParty}
+{DeobureoMinkyuParty & JusticeHui}
 
 \Algorithm{K-D Tree}
 {}{}
@@ -79,6 +79,11 @@
 \Algorithm{Bulldozer Trick (Rotating Sweep Line)}
 {}{}
 {cpp}{code/Geometry/Bulldozer.cpp}
+{JusticeHui}
+
+\Algorithm{Smallest Enclosing Circle}
+{}{}
+{cpp}{code/Geometry/EnclosingCircle.cpp}
 {JusticeHui}
 
 \Algorithm{Delaunay Triangulation}
@@ -113,15 +118,14 @@
 {cpp}{code/Graph/BipartiteMatching.cpp}
 {DeobureoMinkyuParty}
 
-\Algorithm{Maximum Flow, Minimum Cut}
-{}{}
-{cpp}{code/Graph/Dinic.cpp}
-{JusticeHui}
+%\Algorithm{Maximum Flow, Minimum Cut}{}{}{cpp}{code/Graph/Dinic.cpp}{JusticeHui}
 
-\Algorithm{MCMF}
+%\Algorithm{MCMF}{}{}{cpp}{code/Graph/MCMF.cpp}{JusticeHui}
+
+\Algorithm{Push Relabel}
 {}{}
-{cpp}{code/Graph/MCMF.cpp}
-{JusticeHui}
+{cpp}{code/Graph/PushRelabel.cpp}
+{}
 
 \Algorithm{LR Flow}
 {}{}
@@ -133,15 +137,20 @@
 {cpp}{code/Graph/Hungarian.cpp}
 {e-maxx.ru}
 
+\Algorithm{$O(V^3)$ Global Min Cut}
+{}{}
+{cpp}{code/Graph/GlobalMinCut.cpp}
+{JusticeHui}
+
 \Algorithm{Gomory-Hu Tree}
 {}{}
 {cpp}{code/Graph/GomoryHu.cpp}
 {DeobureoMinkyuParty}
 
-\Algorithm{$O(V^3)$ Global Min Cut}
+\Algorithm{Rectlinear MST}
 {}{}
-{cpp}{code/Graph/GlobalMinCut.cpp}
-{JusticeHui}
+{cpp}{code/Graph/RectlinearMST.cpp}
+{Aeren}
 
 \Algorithm{$O((V+E) \log V)$ Dominator Tree}
 {}{}
@@ -163,10 +172,12 @@
 {cpp}{code/Graph/DMST.cpp}
 {kactl}
 
-\Algorithm{$O(V^3)$ General Matching}
+\Algorithm{Chordal Graph, Tree Decomposition}
 {}{}
-{cpp}{code/Graph/GeneralMatching.cpp}
-{JusticeHui}
+{cpp}{code/Graph/Chordal.cpp}
+{edenooo}
+
+%\Algorithm{$O(V^3)$ General Matching}{}{}{cpp}{code/Graph/GeneralMatching.cpp}{JusticeHui}
 
 \Algorithm{$O(V^3)$ Weighted General Matching}
 {}{}
@@ -179,6 +190,11 @@
 {}{}
 {cpp}{code/Math/BasicMath.cpp}
 {JusticeHui}
+
+\Algorithm{Partition Number}
+{}{}
+{cpp}{code/Math/PartitionNumber.cpp}
+{Aeren}
 
 \Algorithm{FloorSum}
 {}{}
@@ -195,10 +211,7 @@
 {cpp}{code/Math/Matrix.cpp}
 {JusticeHui}
 
-\Algorithm{Gauss Jordan Elimination (Binary)}
-{}{}
-{cpp}{code/Math/BinaryMatrix.cpp}
-{0xC0DEF}
+%\Algorithm{Gauss Jordan Elimination (Binary)}{}{}{cpp}{code/Math/BinaryMatrix.cpp}{0xC0DEF}
 
 \Algorithm{Berlekamp + Kitamasa}
 {}{$O(NK + N \log mod), O(N^2 \log X)$}
@@ -214,6 +227,11 @@
 {}{}
 {cpp}{code/Math/LinearSieve.cpp}
 {ahgus89}
+
+\Algorithm{Power Tower}
+{}{}
+{cpp}{code/Math/PowerTower.cpp}
+{}
 
 \Algorithm{Discrete Log / Sqrt}
 {}{Log : $O(\sqrt P \log P)$, $O(\sqrt P)$ with hash set\\Sqrt : $O(\log^2 P)$, $O(\log P)$ in random data}
@@ -249,10 +267,15 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 - Dual : $\min_{y} b^Ty$,Constraints $A^Ty \geq c, y \geq 0$ 
 
 
-\Algorithm{FFT, NTT, Polynomial, Fast Kitamasa}
+\Algorithm{FFT, NTT, FWHT, Multipoint Evaluation, Interpolation}
 {}{}
-{cpp}{code/Math/FFT-Friends.cpp}
+{cpp}{code/Math/Convolution.cpp}
 {JusticeHui}
+
+\Algorithm{Matroid Intersection}
+{}{}
+{cpp}{code/Math/MatroidIntersection.cpp}
+{Aeren}
 
 \section{String}
 
@@ -303,7 +326,7 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 
 \Algorithm{DP Opt, Tree Opt, Well-Known Ideas}{}{}{cpp}{code/Misc/WellKnown-Optimize.cpp}{JusticeHui}%
 
-\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff}
+\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, Area of Quadrangle}
 {}{}{}{}{}
 \begin{itemize}
 \setlength\itemsep{0.1em}
@@ -351,6 +374,30 @@ $C_n = binomial(n * 2, n) / (n + 1);$\\
 \item Tutte Matrix : 그래프의 최대 매칭\\
 - m[i][j] := 간선 $(i, j)$가 없으면 0, 있으면 $i < j ? r : -r$, r은 $[0,P)$ 구간의 임의의 정수\\
 - $rank(m) / 2$가 높은 확률로 최대 매칭
+
+\item 브라마굽타 : 원에 내접하는 사각형의 각 선분의 길이가 $a, b, c, d$일 때\\
+사각형의 넓이 $S=\sqrt{(s-a)(s-b)(s-c)(s-d)}$, $s=(a+b+c+d)/2$
+
+\item 브레치나이더 : 임의의 사각형의 각 변의 길이를 $a,b,c,d$라고 하고, 마주보는 두 각의 합을 2로 나눈 값을 $\theta$라 하면, $S=\sqrt{(s-a)(s-b)(s-c)(s-d)-abcd\times cos^2 \theta}$
+
+\item $g^0+g^1+g^2+\cdots g^{p-2}\equiv -1 \pmod p$ iff $g=1$, otherwise $0$.
+
+\end{itemize}
+
+\Algorithm{inclusive and exclusive, Stirling Number, Bell Number}
+{}{}{}{}{}
+\begin{itemize}
+\setlength\itemsep{0.1em}
+
+\item 공 구별 X, 상자 구별 O, 전사함수 : 포함배제 $\sum_{i=1}^{k} (-1)^{k-i} \times kCi \times i^n$
+\item 공 구별 O, 상자 구별 X, 전사함수 : 제 2종 스털링 수 $S(n,k)=k\times S(n-1,k) + S(n-1, k-1)$\\
+포함배제하면 $O(K \log N)$, $S(n,k) = 1/k! \times \sum_{i=1}^{k} (-1)^{k-i} \times kCi \times i^n$
+\item 공 구별 O, 상자 구별 X, 제약없음 : 벨 수 $B(n,k) = \sum_{i=0}^{k} S(n,i)$ 몇 개의 상자를 버릴지 다 돌아보기\\
+수식 정리하면 $O(\min(N,K)\log N)$에 됨. $B(n,n) = \sum_{i=0}^{n-1} (n-1)Ci \times B(i,i)$\\
+$B(n,k)=\sum_{j=0}^{k}S(n,j) = \sum_{j=0}^{k} 1/j! \sum_{i=0}^{j} (-1)^{j-i} jCi \times i^n=\sum_{j=0}^{k}\sum_{i=0}^{j} \frac{(-1)^{j-i}}{i!(j-i)!}i^n$\\
+$=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\sum_{j=0}^{k-i}\frac{(-1)^j}{i!j!}i^n = \sum_{i=0}^k \frac{i^n}{i!}\sum_{j=0}^{k-i} \frac{(-1)^j}{j!}$
+
+
 
 \end{itemize}
 

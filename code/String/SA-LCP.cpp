@@ -5,34 +5,50 @@
    for(int i=0; i<N-1; i++) if((sa[i] >= A) != (sa[i+1] >= A)){
    int t = min(lcp[i], A-1 - min(sa[i], sa[i+1]));
    if(t > res) res = t, pos = sa[i]; } */
-int sa[1010101], lcp[1010101], pos[1010101];
-void getSA(const string &s){
-  int n = s.size(), m = 500;
-  vector<int> cnt(max(n, m)+1), x(n+1), y(n+1);
-  for(int i=1; i<=n; i++) cnt[x[i]=s[i-1]]++;
-  for(int i=1; i<=m; i++) cnt[i] += cnt[i-1];
-  for(int i=n; i; i--) sa[cnt[x[i]]--] = i;
-  for(int len=1, pv=0, i; pv<n; len<<=1, m=pv){
-    for(pv=0, i=n-len+1; i<=n; i++) y[++pv] = i;
-    for(i=1; i<=n; i++) if(sa[i] > len) y[++pv] = sa[i] - len;
-    for(i=0; i<=m; i++) cnt[i] = 0;
-    for(i=1; i<=n; i++) cnt[x[y[i]]]++;
-    for(i=1; i<=m; i++) cnt[i] += cnt[i-1];
-    for(i=n; i>=1; i--) sa[cnt[x[y[i]]]--] = y[i];
-    swap(x, y); pv = 1; x[sa[1]] = 1;
-    for(i=1; i<n; i++){
-      int a = sa[i], b = sa[i+1], a_len = a + len, b_len = b + len;
-      if(a_len <= n && b_len <= n && y[a] == y[b] && y[a_len] == y[b_len]) x[sa[i+1]] = pv;
-      else x[sa[i+1]] = ++pv;
+vector<int> GetSA(const string &S){
+  int N = S.size(), SZ = 256;
+  vector<int> SA(N), C(max(N, SZ) + 1), X(N), Pos(N);
+  for(int i=0; i<N; i++) Pos[i] = S[i];
+  for(int i=0; i<N; i++) C[Pos[i]]++;
+  for(int i=1; i<=SZ; i++) C[i] += C[i - 1];
+  for(int i=N-1; ~i; i--) SA[--C[Pos[i]]] = i;
+  for(int j=1; ; j<<=1){
+    int p = 0; for(int i=N-j; i<N; i++) X[p++] = i;
+    for(int i=0; i<N; i++) if(SA[i] >= j) X[p++] = SA[i] - j;
+    fill(C.begin(), C.end(), 0); for(int i=0; i<N; i++) C[Pos[i]]++;
+    partial_sum(C.begin(), C.end(), C.begin());
+    for(int i=N-1; ~i; i--) SA[--C[Pos[X[i]]]] = X[i];
+    X[SA[0]] = 0;
+    for(int i=1; i<N; i++){
+      X[SA[i]] = X[SA[i-1]];
+      if(SA[i-1]+j < N && SA[i]+j < N && Pos[SA[i-1]] == Pos[SA[i]] && Pos[SA[i-1]+j] == Pos[SA[i]+j]) continue;
+      X[SA[i]]++;
     }
+    for(int i=0; i<N; i++) Pos[i] = X[i];
+    SZ = Pos[SA[N-1]]; if(SZ == N-1) break;
   }
-  for(int i=0; i<n; i++) sa[i] = sa[i+1]-1, pos[sa[i]] = i;
+  return move(SA);
 }
-void getLCP(const string &s){
-  int n = s.size();
-  for(int i=0,k=0; i<n; i++, k=max(k-1, 0)){
-    if(pos[i] == n-1) continue;
-    for(int j=sa[pos[i]+1]; s[i+k]==s[j+k]; k++);
-    lcp[pos[i]] = k;
+vector<int> GetLCP(const string &S, const vector<int> &SA){
+  int N = S.size();
+  vector<int> Pos(N), LCP(N);
+  for(int i=0; i<N; i++) Pos[SA[i]] = i;
+  for(int i=0, j=0; i<N; i++, j=max(j-1, 0)){
+    if(Pos[i] == 0) continue;
+    while(SA[Pos[i]-1]+j < N && SA[Pos[i]]+j < N && S[SA[Pos[i]-1]+j] == S[SA[Pos[i]]+j]) j++;
+    LCP[Pos[i]] = j;
   }
+  return move(LCP);
 }
+void Build(string A, string B){ // X=A.size(), Y=B.size()
+  string S = A + "#" + B; vector<int> SA, LCP(X, 0);
+  LCP = GetLCP(S, SA = GetSA(S));
+  for(int i=0, len=X; i<N; i++){
+    if(SA[i] >= X) len = X;
+    else len = min(len, LCP[i]), Len[SA[i]] = max(Len[SA[i]], len);
+  }
+  for(int i=N-1, len=X; i>=0; i--){
+    if(SA[i] >= X) len = X;
+    else len = min(len, LCP[i+1]), Len[SA[i]] = max(Len[SA[i]], len);
+  }
+} // SA[i] < X, SA[i]+1 ~ SA+Len[SA[i]]

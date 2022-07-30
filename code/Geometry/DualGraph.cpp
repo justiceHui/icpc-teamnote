@@ -1,41 +1,35 @@
-const int MV = 101010, ME = 101010; // MAX_V, MAX_E
-p pt[MV]; // vertex's coord
-vector<p> g[MV]; // g[s].emplace_back(e, edge_id);
-vector<int> dual_pt; // coord compress
-int par[ME * 2]; // Union Find
-void uf_init(){ iota(par, par+ME*2, 0); }
-int find(int v){return v == par[v] ? v : par[v] = find(par[v]);}
-void merge(int u, int v){ u = find(u); v = find(v); if(u != v)par[u] = v; }
-p base; // sort by angle
-bool cmp_angle(const p &_a, const p &_b){
-  p a = pt[_a.x], b = pt[_b.x];
-  if((a > base) != (b > base)) return a > b;
-  return ccw(a, base, b) > 0;
+constexpr int quadrant_id(const Point p){
+  constexpr int arr[9] = { 5, 4, 3, 6, -1, 2, 7, 0, 1 };
+  return arr[sign(p.x)*3+sign(p.y)+4];
 }
-void addEdge(int s, int e, int id){
-  g[s].emplace_back(e, id); g[e].emplace_back(s, id);
-}
-int out; //outer face
-void getDual(int n, int m){
-  uf_init();
-  for(int i=1; i<=n; i++){
-    base = pt[i]; sort(all(g[i]), cmp_angle);
-    // up, left : *2+1 / down, right : *2
+pair<vector<int>, int> dual_graph(const vector<Point> &points, const vector<pair<int,int>> &edges){
+  int n = points.size(), m = edges.size();
+  vector<int> uf(2*m); iota(uf.begin(), uf.end(), 0);
+  function<int(int)> find = [&](int v){ return v == uf[v] ? v : uf[v] = find(uf[v]); };
+  function<bool(int,int)> merge = [&](int u, int v){ return find(u) != find(v) && (uf[uf[u]]=uf[v], true); };
+  vector<vector<pair<int,int>>> g(n);
+  for(int i=0; i<m; i++){
+    g[edges[i].first].emplace_back(edges[i].second, i);
+    g[edges[i].second].emplace_back(edges[i].first, i);
+  }
+  for(int i=0; i<n; i++){
+    const auto base = points[i];
+    sort(g[i].begin(), g[i].end(), [&](auto a, auto b){
+      auto p1 = points[a.first] - base, p2 = points[b.first] - base;
+      return quadrant_id(p1) != quadrant_id(p2) ? quadrant_id(p1) < quadrant_id(p2) : p1.cross(p2) > 0;
+    });
     for(int j=0; j<g[i].size(); j++){
-      int k = j ? j - 1 : g[i].size()-1;
-      int u = g[i][k].y << 1 | 1, v = g[i][j].y << 1;
-      p p1 = pt[g[i][k].x], p2 = pt[g[i][j].x];
-      if(p1 > base) u ^= 1;
-      if(p2 > base) v ^= 1;
+      int k = j ? j - 1 : g[i].size() - 1;
+      int u = g[i][k].second << 1, v = g[i][j].second << 1 | 1;
+      auto p1 = points[g[i][k].first], p2 = points[g[i][j].first];
+      if(p1 < base) u ^= 1; if(p2 < base) v ^= 1;
       merge(u, v);
     }
   }
-  int mn_idx = min_element(pt+1, pt+n+1) - pt;
-  out = find(g[mn_idx][0].y << 1 | 1);
-  for(int i=1; i<=m; i++){
-    dual_pt.push_back(find(i << 1));
-    dual_pt.push_back(find(i << 1 | 1));
-  }
-  compress(dual_pt);
-  // @TODO coord compress
+  vector<int> res(2*m);
+  for(int i=0; i<2*m; i++) res[i] = find(i);
+  auto comp = res; compress(comp);
+  for(auto &i : res) i = IDX(comp, i);
+  int mx_idx = max_element(points.begin(), points.end()) - points.begin();
+  return {res, res[g[mx_idx].back().second << 1 | 1]};
 }

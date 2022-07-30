@@ -1,26 +1,27 @@
 // ll gcd(ll a, ll b), ll lcm(ll a, ll b), ll mod(ll a, ll b)
-ll ext_gcd(ll a, ll b, ll &x, ll &y) { //ax + by = gcd(a, b)
-  ll g = a; x = 1, y = 0;
-  if (b) g = ext_gcd(b, a % b, y, x), y -= a / b * x;
-  return g;
+tuple<ll,ll,ll> ext_gcd(ll a, ll b){ // return [g,x,y] s.t. ax+by=gcd(a,b)=g
+  if(b == 0) return {a, 1, 0};
+  auto [g,x,y] = ext_gcd(b, a % b);
+  return {g, y, x - a/b * y};
 }
-ll inv(ll a, ll m){ //return x when (ax mod m = 1), fail -> -1
-  ll x, y, g = ext_gcd(a, m, x, y);
-  if(g > 1) return -1;
-  return mod(x, m);
+ll inv(ll a, ll m){ //return x when ax mod m = 1, fail -> -1
+  auto [g,x,y] = ext_gcd(a, m);
+  return g == 1 ? mod(x, m) : -1;
 }
-pair<ll,ll> crt(ll a1, ll m1, ll a2, ll m2){ // Return (z, M), fail -> M = -1
-  ll s, t; ll g = ext_gcd(m1, m2, s, t);
-  if(a1 % g != a2 % g) return {0, -1};
-  s = mod(s*a2, m2); t = mod(t*a1, m1);
-  ll res = mod(s*(m1/g) + t*(m2/g), m1/g*m2), M = m1/g*m2;
-  return {res, M};
+pair<ll,ll> crt(ll a1, ll m1, ll a2, ll m2){
+  ll g = gcd(m1, m2), m = m1 / g * m2;
+  if((a2 - a1) % g) return {-1, -1};
+  ll md = m2/g, s = mod((a2-a1)/g, m2/g);
+  ll t = mod(get<1>(ext_gcd(m1/g%md, m2/g)), md);
+  return { a1 + s * t % md * m1, m };
 }
 pair<ll,ll> crt(const vector<ll> &a, const vector<ll> &m){
-  if(a.size() == 1) return {a[0], m[0]};
-  pair<ll,ll> ret = crt(a[0], m[0], a[1], m[1]);
-  for(int i=2; i<a.size(); i++) ret = crt(ret.x, ret.y, a[i], m[i]);
-  return ret;
+  ll ra = a[0], rm = m[0];
+  for(int i=1; i<m.size(); i++){
+    auto [aa,mm] = crt(ra, rm, a[i], m[i]);
+    if(mm == -1) return {-1, -1}; else tie(ra,rm) = tie(aa,mm);
+  }
+  return {ra, rm};
 }
 struct Lucas{ // init : O(P), query : O(log P)
   const size_t P;
@@ -49,7 +50,7 @@ Lucas(size_t P) : P(P), fac(P), inv(P) {
 template<ll p, ll e> struct CombinationPrimePower{ // init : O(p^e), query : O(log p)
   vector<ll> val; ll m;
   CombinationPrimePower(){
-    val.resize(m); val[0] = 1; m = 1; for(int i=0; i<e; i++) m *= p;
+    m = 1; for(int i=0; i<e; i++) m *= p; val.resize(m); val[0] = 1;
     for(int i=1; i<m; i++) val[i] = val[i-1] * (i % p ? i : 1) % m;
   }
   pair<ll,ll> factorial(int n){
