@@ -9,7 +9,7 @@
 
 \usepackage{teamnote}
 
-\teamnote{Soongsil University}{SCCC}{chansol, edenooo, jhnah917}
+\teamnote{Soongsil University}{NLP}{Jeounghui \textcolor{red}{\textbf{N}}ah, Seongseo \textcolor{red}{\textbf{L}}ee, Chansol \textcolor{red}{\textbf{P}}ark}
 
 \ShowUsage
 \ShowComplexity
@@ -113,6 +113,11 @@
 {cpp}{code/Graph/MaximumClique.cpp}
 {molamola}
 
+\Algorithm{Tree Isomorphism}
+{}{}
+{cpp}{code/Graph/TreeIsomorphism.cpp}
+{JusticeHui}
+
 \Algorithm{Bipartite Matching}
 {}{}
 {cpp}{code/Graph/BipartiteMatching.cpp}
@@ -172,17 +177,24 @@
 {cpp}{code/Graph/DMST.cpp}
 {kactl}
 
+\Algorithm{$O(E \log V + K \log K)$ K Shortest Path}
+{}{}
+{cpp}{code/Graph/Eppstein.cpp}
+{koosaga}
+
 \Algorithm{Chordal Graph, Tree Decomposition}
 {}{}
 {cpp}{code/Graph/Chordal.cpp}
 {edenooo}
 
-%\Algorithm{$O(V^3)$ General Matching}{}{}{cpp}{code/Graph/GeneralMatching.cpp}{JusticeHui}
-
-\Algorithm{$O(V^3)$ Weighted General Matching}
+\Algorithm{$O(V^3)$ General Matching}
 {}{}
-{cpp}{code/Graph/WeightedMatching.cpp}
-{DeobureoMinkyuParty}
+{cpp}{code/Graph/GeneralMatching.cpp}
+{JusticeHui}
+
+%\Algorithm{$O(V^3)$ Weighted General Matching}{}{}{cpp}{code/Graph/WeightedMatching.cpp}{DeobureoMinkyuParty}
+
+\Algorithm{$O(V^3)$ Weighted General Matching}{}{}{cpp}{code/Graph/WeightedMatchingShort.cpp}{}
 
 \section{Math}
 
@@ -238,11 +250,6 @@
 {cpp}{code/Math/DiscreteLogSqrt.cpp}
 {JusticeHui / gratus907}
 
-\Algorithm{De Bruijn Sequence}
-{}{}
-{cpp}{code/Math/DeBruijnSequence.cpp}
-{DeobureoMinkyuParty}
-
 \Algorithm{Simplex / LP Duality}
 {}{}
 {cpp}{code/Math/Simplex.cpp}
@@ -266,6 +273,10 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 - Primal : $\max_{x} c^Tx$, Constraints $Ax \leq b, x \geq 0$\\
 - Dual : $\min_{y} b^Ty$,Constraints $A^Ty \geq c, y \geq 0$ 
 
+\Algorithm{De Bruijn Sequence}
+{}{}
+{cpp}{code/Math/DeBruijnSequence.cpp}
+{DeobureoMinkyuParty}
 
 \Algorithm{FFT, NTT, FWHT, Multipoint Evaluation, Interpolation}
 {}{}
@@ -310,6 +321,11 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/Misc/TernarySearch.cpp}
 {JusticeHui}
 
+\Algorithm{Monotone Queue Optimization}
+{}{}
+{cpp}{code/Misc/MonotoneQueueOpt.cpp}
+{aeren}
+
 \Algorithm{Aliens Trick}
 {}{}
 {cpp}{code/Misc/Aliens.cpp}
@@ -338,28 +354,39 @@ $C_n = binomial(n * 2, n) / (n + 1);$\\
 - n + 1개의 리프를 가진 풀 바이너리 트리의 수\\
 - n + 2각형을 n개의 삼각형으로 나누는 방법의 수
 
-\item Burnside’s Lemma
-\begin{itemize}
-    \item 수식\\
-    G=(X,A): 집합X와 액션A로 정의되는 군G에 대해, $\vert A\vert\vert X/A \vert=sum(\vert \text{Fixed points of a}\vert,\text{for all a in A})$\\
-    X/A 는 Action으로 서로 변형가능한 X의 원소들을 동치로 묶었을때 동치류(파티션) 집합
-    \item 풀어쓰기\\
-    orbit: 그룹에 대해 두 원소 a,b와 액션f에 대해 f(a)=b인거에 간선연결한 컴포넌트(연결집합)\\
-    orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개수
-    \item 자유도 치트시트
-    회전 n개: 회전i의 고정점 자유도=gcd(n,i)\\
-    임의뒤집기 n=홀수: n개 원소중심축(자유도 (n+1)/2)\\
-    임의뒤집기 n=짝수: n/2개 원소중심축(자유도 n/2+1) + n/2개 원소안지나는축(자유도 n/2)
-\end{itemize}
+\item Burnside’s Lemma\\
+- 수식\\
+G=(X,A): 집합X와 액션A로 정의되는 군G에 대해, $\vert A\vert\vert X/A \vert=sum(\vert \text{Fixed points of a}\vert,\text{for all a in A})$\\
+X/A 는 Action으로 서로 변형가능한 X의 원소들을 동치로 묶었을때 동치류(파티션) 집합
+- 풀어쓰기\\
+orbit: 그룹에 대해 두 원소 a,b와 액션f에 대해 f(a)=b인거에 간선연결한 컴포넌트(연결집합)\\
+orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개수
+- 자유도 치트시트\\
+회전 n개: 회전i의 고정점 자유도=gcd(n,i)\\
+임의뒤집기 n=홀수: n개 원소중심축(자유도 (n+1)/2)\\
+임의뒤집기 n=짝수: n/2개 원소중심축(자유도 n/2+1) + n/2개 원소안지나는축(자유도 n/2)
 
 \item 알고리즘 게임\\
 - Nim Game의 해법 : 각 더미의 돌의 개수를 모두 XOR했을 때 0 이 아니면 첫번째, 0 이면 두번째 플레이어가 승리.\\
 - Grundy Number : 어떤 상황의 Grundy Number는, 가능한 다음 상황들의 Grundy Number를 모두 모은 다음, 그 집합에 포함 되지 않는 가장 작은 수가 현재 state의 Grundy Number가 된다. 만약 다음 state가 독립된 여러개의 state들로 나뉠 경우, 각각의 state의 Grundy Number의 XOR 합을 생각한다.\\
 - Subtraction Game : 한 번에 k 개까지의 돌만 가져갈 수 있는 경우, 각 더미의 돌의 개수를 k + 1로 나눈 나머지를 XOR 합하여 판단한다.\\
-- Index-k Nim : 한 번에 최대 k개의 더미를 골라 각각의 더미에서 아무렇게나 돌을 제거할 수 있을 때, 각 binary digit에 대하여 합을 k + 1로 나눈 나머지를 계산한다. 만약 이 나머지가 모든 digit에 대하여 0이라면 두번째, 하나라도 0이 아니라면 첫번째 플레이어가 승리.
+- Index-k Nim : 한 번에 최대 k개의 더미를 골라 각각의 더미에서 아무렇게나 돌을 제거할 수 있을 때, 각 binary digit에 대하여 합을 k + 1로 나눈 나머지를 계산한다. 만약 이 나머지가 모든 digit에 대하여 0이라면 두번째, 하나라도 0이 아니라면 첫번째 플레이어가 승리.\\
+- Misere Nim : 모든 돌 무더기가 1이면 N이 홀수일 때 후공 승, 그렇지 않은 경우 XOR 합 0이면 후공 승
 
 \item Pick’s Theorem\\
 격자점으로 구성된 simple polygon이 주어짐. I 는 polygon 내부의 격자점 수, B 는 polygon 선분 위 격자점 수, A는 polygon의 넓이라고 할 때, 다음과 같은 식이 성립한다. $A=I+B/2-1$
+\begin{minted}{cpp}
+// number of (x, y) : (0 <= x < n && 0 < y <= k/d x + b/d)
+ll count_solve(ll n, ll k, ll b, ll d) { // argument should be positive
+  if (k == 0) {
+    return (b / d) * n;
+  }
+  if (k >= d || b >= d) {
+    return ((k / d) * (n - 1) + 2 * (b / d)) * n / 2 + count_solve(n, k % d, b % d, d);
+  }
+  return count_solve((k * n + b) / d, d, (k * n + b) % d, k);
+}
+\end{minted}
 
 \item 홀의 결혼 정리 : 이분그래프(L-R)에서, 모든 L을 매칭하는 필요충분 조건 = L에서 임의의 부분집합 S를 골랐을 때, 반드시 (S의 크기) $<=$ (S와 연결되어있는 모든 R의 크기)이다.
 

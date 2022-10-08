@@ -1,11 +1,6 @@
-double CCW(Point p1, Point p2, Point p3){
-  return (p2.x-p1.x) * (p3.y-p2.y) - (p3.x-p2.x) * (p2.y-p1.y);
-}
-bool same(double a, double b){ return abs(a - b) < eps; }
-const Point o = Point(0, 0);
+double CCW(p1, p2, p3); bool same(double a, double b); const Point o = Point(0, 0);
 struct Line{
-  double a, b, c;
-  Line() : Line(0, 0, 0) {}
+  double a, b, c; Line() : Line(0, 0, 0) {}
   Line(double a, double b, double c) : a(a), b(b), c(c) {}
   bool operator < (const Line &l) const {
     bool f1 = Point(a, b) > o, f2 = Point(l.a, l.b) > o;
@@ -42,29 +37,47 @@ vector<Point> HPI(vector<Line> v){
   for(auto &[x,y] : ret) x = -x, y = -y;
   return ret;
 }
-Point GetMaximumPoint(const vector<Point> &up, double dy, double dx){
-  if(up.size() == 1) return up.front();
+template<bool GET_MAX=true> // max - upper hull, min - lower hull
+Point GetPoint(const vector<Point> &hull, double dy, double dx){ // given slope
+  if(hull.size() == 1) return hull.front();
   if(dx < 0) dx = -dx, dy = -dy;
-  if(dx == 0) return dy > 0 ? up.front() : up.back();
-  if((up[1].y - up[0].y) * dx < (up[1].x - up[0].x) * dy) return up.front();
-  int l = 1, r = up.size() - 1;
+  if(dx == 0) return GET_MAX == (dy > 0) ? hull.front() : hull.back();
+  auto cmp = [&](double a, double b){ return GET_MAX ? a < b : a > b; };
+  if(cmp((hull[1].y - hull[0].y) * dx, (hull[1].x - hull[0].x) * dy)) return hull.front();
+  int l = 1, r = (int)hull.size() - 1;
   while(l < r){
-    int m = l + r + 1 >> 1;
-    if((up[m].y - up[m-1].y) * dx >= (up[m].x - up[m-1].x) * dy) l = m;
-    else r = m - 1;
+    int m = (l + r + 1) / 2;
+    if(cmp((hull[m].y - hull[m-1].y) * dx, (hull[m].x - hull[m-1].x) * dy)) r = m - 1;
+    else l = m;
   }
-  return up[l];
+  return hull[l];
 }
-Point GetMinimumPoint(const vector<Point> &lo, double dy, double dx){
-  if(lo.size() == 1) return lo.front();
-  if(dx < 0) dx = -dx, dy = -dy;
-  if(dx == 0) return dy > 0 ? lo.back() : lo.front();
-  if((lo[1].y - lo[0].y) * dx > (lo[1].x - lo[0].x) * dy) return lo.front();
-  int l = 1, r = lo.size() - 1;
-  while(l < r){
-    int m = l + r + 1 >> 1;
-    if((lo[m].y - lo[m-1].y) * dx <= (lo[m].x - lo[m-1].x) * dy) l = m;
-    else r = m - 1;
+int ConvexTangent(const vector<Point> &v, const Point &pt, int up=1){ //given outer point
+  auto sign = [&](ll c){ return c > 0 ? up : c == 0 ? 0 : -up; };
+  auto local = [&](Point p, Point a, Point b, Point c){
+    return sign(CCW(p, a, b)) <= 0 && sign(CCW(p, b, c)) >= 0;
+  }; // assert(v.size() >= 2);
+  int n = v.size() - 1, s = 0, e = n, m;
+  if(local(pt, v[1], v[0], v[n-1])) return 0;
+  while(s + 1 < e){
+    m = (s + e) / 2;
+    if(local(pt, v[m-1], v[m], v[m+1])) return m;
+    if(sign(CCW(pt, v[s], v[s+1])) < 0){ // up
+      if(sign(CCW(pt, v[m], v[m+1])) > 0) e = m;
+      else if(sign(CCW(pt, v[m], v[s])) > 0) s = m; else e = m;
+    }
+    else{ // down
+      if(sign(CCW(pt, v[m], v[m+1])) < 0) s = m;
+      else if(sign(CCW(pt, v[m], v[s])) < 0) s = m; else e = m;
+    }
   }
-  return lo[l];
+  if(s && local(pt, v[s-1], v[s], v[s+1])) return s;
+  if(e != n && local(pt, v[e-1], v[e], v[e+1])) return e;
+  return -1;
 }
+int Closest(const vector<Point> &v, const Point &out, int now){
+  int prv = now > 0 ? now-1 : v.size()-1, nxt = now+1 < v.size() ? now+1 : 0, res = now;
+  if(CCW(out, v[now], v[prv]) == 0 && Dist(out, v[res]) > Dist(out, v[prv])) res = prv;
+  if(CCW(out, v[now], v[nxt]) == 0 && Dist(out, v[res]) > Dist(out, v[nxt])) res = nxt;
+  return res; // if parallel, return closest point to out
+} // int point_idx =  Closest(convex_hull, pt, ConvexTangent(hull + hull[0], pt, +-1) % N);

@@ -1,12 +1,12 @@
 // ll gcd(ll a, ll b), ll lcm(ll a, ll b), ll mod(ll a, ll b)
 tuple<ll,ll,ll> ext_gcd(ll a, ll b){ // return [g,x,y] s.t. ax+by=gcd(a,b)=g
-  if(b == 0) return {a, 1, 0};
-  auto [g,x,y] = ext_gcd(b, a % b);
-  return {g, y, x - a/b * y};
+  if(b == 0) return {a, 1, 0}; auto [g,x,y] = ext_gcd(b, a % b); return {g, y, x - a/b * y};
 }
 ll inv(ll a, ll m){ //return x when ax mod m = 1, fail -> -1
-  auto [g,x,y] = ext_gcd(a, m);
-  return g == 1 ? mod(x, m) : -1;
+  auto [g,x,y] = ext_gcd(a, m); return g == 1 ? mod(x, m) : -1;
+}
+void DivList(ll n){ // {n/1, n/2, ... , n/n}, size <= 2 sqrt n
+  for(ll i=1, j=1; i<=n; i=j+1) cout << i << " " << (j=n/(n/i)) << " " << n/i << "\n";
 }
 pair<ll,ll> crt(ll a1, ll m1, ll a2, ll m2){
   ll g = gcd(m1, m2), m = m1 / g * m2;
@@ -26,25 +26,15 @@ pair<ll,ll> crt(const vector<ll> &a, const vector<ll> &m){
 struct Lucas{ // init : O(P), query : O(log P)
   const size_t P;
   vector<ll> fac, inv;
-  ll Pow(ll a, ll b){
-    ll ret = 1;
-    for(; b; b>>=1, a=a*a%P) if(b&1) ret=ret*a%P;
-    return ret;
+  ll Pow(ll a, ll b){ /* return a^b mod P */ }
+  Lucas(size_t P) : P(P), fac(P), inv(P) {
+    fac[0] = 1; for(int i=1; i<P; i++) fac[i] = fac[i-1] * i % P;
+    inv[P-1] = Pow(fac[P-1], P-2); for(int i=P-2; ~i; i--) inv[i] = inv[i+1] * (i+1) % P;
   }
-Lucas(size_t P) : P(P), fac(P), inv(P) {
-    fac[0] = 1;
-    for(int i=1; i<P; i++) fac[i] = fac[i-1] * i % P;
-    inv[P-1] = Pow(fac[P-1], P-2);
-    for(int i=P-2; ~i; i--) inv[i] = inv[i+1] * (i+1) % P;
-  }
-  ll small(ll n, ll r) const {
-    if(n < r) return 0;
-    return fac[n] * inv[r] % P * inv[n-r] % P;
-  }
+  ll small(ll n, ll r) const { return r <= n ? fac[n] * inv[r] % P * inv[n-r] % P : 0LL; }
   ll calc(ll n, ll r) const {
     if(n < r || n < 0 || r < 0) return 0;
-    if(!n || !r || n == r) return 1;
-    return small(n%P, r%P) * calc(n/P, r/P) % P;
+    if(!n || !r || n == r) return 1; else return small(n%P, r%P) * calc(n/P, r/P) % P;
   }
 };
 template<ll p, ll e> struct CombinationPrimePower{ // init : O(p^e), query : O(log p)

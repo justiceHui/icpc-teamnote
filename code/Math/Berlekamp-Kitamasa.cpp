@@ -1,24 +1,11 @@
-const int mod = 1e9+7;
-ll pw(ll a, ll b){
-  ll ret = 1; a %= mod;
-  while(b){
-    if(b & 1) ret = ret * a % mod;
-    b >>= 1; a = a * a % mod;
-  }
-  return ret;
-}
+const int mod = 1e9+7; ll pw(ll a, ll b){ /* return a^b mod m */ }
 vector<int> berlekamp_massey(vector<int> x){
-  vector<int> ls, cur;
-  int lf, ld;
+  vector<int> ls, cur; int lf, ld;
   for(int i=0; i<x.size(); i++){
     ll t = 0;
     for(int j=0; j<cur.size(); j++) t = (t + 1ll * x[i-j-1] * cur[j]) % mod;
     if((t - x[i]) % mod == 0) continue;
-    if(cur.empty()){
-      cur.resize(i+1);
-      lf = i; ld = (t - x[i]) % mod;
-      continue;
-    }
+    if(cur.empty()){ cur.resize(i+1); lf = i; ld = (t - x[i]) % mod; continue; }
     ll k = -(x[i] - t) * pw(ld, mod - 2) % mod;
     vector<int> c(i-lf-1); c.push_back(k);
     for(auto &j : ls) c.push_back(-j * k % mod);
@@ -29,14 +16,11 @@ vector<int> berlekamp_massey(vector<int> x){
     }
     cur = c;
   }
-  for(auto &i : cur) i = (i % mod + mod) % mod;
-  return cur;
+  for(auto &i : cur) i = (i % mod + mod) % mod; return cur;
 }
 int get_nth(vector<int> rec, vector<int> dp, ll n){
   int m = rec.size(); vector<int> s(m), t(m);
-  s[0] = 1;
-  if(m != 1) t[1] = 1;
-  else t[0] = rec[0];
+  s[0] = 1; if(m != 1) t[1] = 1; else t[0] = rec[0];
   auto mul = [&rec](vector<int> v, vector<int> w){
     int m = v.size();
     vector<int> t(2 * m);
@@ -48,8 +32,7 @@ int get_nth(vector<int> rec, vector<int> dp, ll n){
       t[j-k] += 1ll * t[j] * rec[k-1] % mod;
       if(t[j-k] >= mod) t[j-k] -= mod;
     }
-    t.resize(m);
-    return t;
+    t.resize(m); return t;
   };
   while(n){
     if(n & 1) s = mul(s, t);

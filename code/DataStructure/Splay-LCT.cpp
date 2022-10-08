@@ -12,12 +12,10 @@ struct Node{
     if(IsLeft()) r && (r->p = p), p->l = r, r = p;
     else l && (l->p = p), p->r = l, l = p;
     if(!p->IsRoot()) (p->IsLeft() ? p->p->l : p->p->r) = this;
-    auto t = p; p = t->p; t->p = this;
-    t->Update(); Update();
+    auto t = p; p = t->p; t->p = this; t->Update(); Update();
   }
   void Update(){
-    sz = 1 + GetSize(l) + GetSize(r);
-    sum = now + GetSum(l) + GetSum(r);
+    sz = 1 + GetSize(l) + GetSize(r); sum = now + GetSum(l) + GetSum(r);
   }
   void Update(const T &val){ now = val; Update(); }
   void Push(){
@@ -41,20 +39,14 @@ Node* Kth(int k){
     if(!k--) return Splay(x);
   }
 }
-Node* Gather(int s, int e){
-  auto t = Kth(e+1); return Splay(t, Kth(s-1))->l;
-}
-Node* Flip(int s, int e){
-  auto x = Gather(s, e); x->flip ^= 1; return x;
-}
+Node* Gather(int s, int e){ auto t = Kth(e+1); return Splay(t, Kth(s-1))->l; }
+Node* Flip(int s, int e){ auto x = Gather(s, e); x->flip ^= 1; return x; }
 Node* Shift(int s, int e, int k){
   if(k >= 0){
-    k %= e-s+1;
-    if(k) Flip(s, e), Flip(s, s+k-1), Flip(s+k, e);
+    k %= e-s+1; if(k) Flip(s, e), Flip(s, s+k-1), Flip(s+k, e);
   }
   else{
-    k = -k; k %= e-s+1;
-    if(k) Flip(s, e), Flip(s, e-k), Flip(e-k+1, e);
+    k = -k; k %= e-s+1; if(k) Flip(s, e), Flip(s, e-k), Flip(e-k+1, e);
   }
   return Gather(s, e);
 }
@@ -69,42 +61,27 @@ Node* Splay(Node *x){
 }
 void Access(Node *x){
   Splay(x); x->r = nullptr; x->Update();
-  for(auto y=x; x->p; Splay(x)){
-    y = x->p; Splay(y); y->r = x; y->Update();
-  }
+  for(auto y=x; x->p; Splay(x)) y = x->p, Splay(y), y->r = x, y->Update();
 }
-int GetDepth(Node *x){
-  Access(x); x->Push();
-  return GetSize(x->l);
-}
+int GetDepth(Node *x){ Access(x); x->Push(); return GetSize(x->l); }
 Node* GetRoot(Node *x){
-  Access(x); for(x->Push(); x->l; x->Push()) x = x->l;
-  return Splay(x);
+  Access(x); for(x->Push(); x->l; x->Push()) x = x->l; return Splay(x);
 }
 Node* GetPar(Node *x){
   Access(x); x->Push(); if(!x->l) return nullptr;
   x = x->l; for(x->Push(); x->r; x->Push()) x = x->r;
   return Splay(x);
 }
-void Link(Node *p, Node *c){
-  Access(c); Access(p);
-  c->l = p; p->p = c; c->Update();
-}
-void Cut(Node *c){
-  Access(c);
-  c->l->p = nullptr; c->l = nullptr; c->Update();
-}
+void Link(Node *p, Node *c){ Access(c); Access(p); c->l = p; p->p = c; c->Update(); }
+void Cut(Node *c){ Access(c); c->l->p = nullptr; c->l = nullptr; c->Update(); }
 Node* GetLCA(Node *x, Node *y){
-  Access(x); Access(y); Splay(x);
-  return x->p ? x->p : x;
+  Access(x); Access(y); Splay(x); return x->p ? x->p : x;
 }
 Node* Ancestor(Node *x, int k){
   k = GetDepth(x) - k; assert(k >= 0);
   for(;;x->Push()){
-    int s = GetSize(x->l);
-    if(s == k) return Access(x), x;
-    if(s < k) k -= s + 1, x = x->r;
-    else x = x->l;
+    int s = GetSize(x->l); if(s == k) return Access(x), x;
+    if(s < k) k -= s + 1, x = x->r; else x = x->l;
   }
 }
 void MakeRoot(Node *x){ Access(x); Splay(x); x->flip ^= 1; }
@@ -119,22 +96,17 @@ void PathUpdate(Node *x, Node *y, T val){
   lca->Update(lca->now - val);
 }
 T VertexQuery(Node *x, Node *y){
-  Node *l = GetLCA(x, y);
-  T ret = l->now;
-  Access(x); Splay(l);
-  if(l->r) ret = ret + l->r->sum;
-  Access(y); Splay(l);
-  if(l->r) ret = ret + l->r->sum;
+  Node *l = GetLCA(x, y); T ret = l->now;
+  Access(x); Splay(l); if(l->r) ret = ret + l->r->sum;
+  Access(y); Splay(l); if(l->r) ret = ret + l->r->sum;
   return ret;
 }
 Node* GetQueryResultNode(Node *u, Node *v){
   if(GetRoot(u) != GetRoot(v)) return 0;
-  MakeRoot(u); Access(v);
-  auto ret = v->l;
+  MakeRoot(u); Access(v); auto ret = v->l;
   while(ret->mx != ret->v){
     if (ret->l && ret->mx == ret->l->mx) ret = ret->l;
     else ret = ret->r;
   }
-  Access(ret);
-  return ret;
+  Access(ret); return ret;
 }

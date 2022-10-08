@@ -2,8 +2,7 @@
 constexpr int SZ = 1010;
 int N, G[SZ][SZ], Deg[SZ], Work[SZ];
 void DFS(int v){
-  for(int &i=Work[v]; i<=N; i++) while(G[v][i])
-    G[v][i]--, G[i][v]--, DFS(i);
+  for(int &i=Work[v]; i<=N; i++) while(G[v][I]) G[v][i]--, G[i][v]--, DFS(i);
   cout << v << " ";
 }
 // Directed / Path
