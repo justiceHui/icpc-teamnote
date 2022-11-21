@@ -48,3 +48,27 @@ int guess_nth_term(vector<int> x, ll n){
   if(v.empty()) return 0;
   return get_nth(v, x, n);
 }
+struct elem{int x, y, v;}; // A_(x, y) <- v, 0-based. no duplicate please..
+vector<int> get_min_poly(int n, vector<elem> M){
+    // smallest poly P such that A^i = sum_{j < i} {A^j \times P_j}
+    vector<int> rnd1, rnd2, gobs; mt19937 rng(0x14004);
+    auto randint = [&rng](int lb, int ub){ return uniform_int_distribution<int>(lb, ub)(rng); };
+    for(int i=0; i<n; i++) rnd1.push_back(randint(1, mod-1)), rnd2.push_back(randint(1, mod-1));
+    for(int i=0; i<2*n+2; i++){
+        int tmp = 0;
+        for(int j=0; j<n; j++) tmp = (tmp + 1ll * rnd2[j] * rnd1[j]) % mod;
+        gobs.push_back(tmp); vector<int> nxt(n);
+        for(auto &j : M) nxt[j.x] = (nxt[j.x] + 1ll * j.v * rnd1[j.y]) % mod;
+        rnd1 = nxt;
+    }
+    auto sol = berlekamp_massey(gobs); reverse(sol.begin(), sol.end()); return sol;
+}
+lint det(int n, vector<elem> M){
+    vector<int> rnd; mt19937 rng(0x14004);
+    auto randint = [&rng](int lb, int ub){ return uniform_int_distribution<int>(lb, ub)(rng); };
+    for(int i=0; i<n; i++) rnd.push_back(randint(1, mod - 1));
+    for(auto &i : M) i.v = 1ll * i.v * rnd[i.y] % mod;
+    auto sol = get_min_poly(n, M)[0]; if(n % 2 == 0) sol = mod - sol;
+    for(auto &i : rnd) sol = 1ll * sol * ipow(i, mod - 2) % mod;
+    return sol;
+}

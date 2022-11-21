@@ -24,10 +24,7 @@
 
 \section{DataStructure}
 
-\Algorithm{Bipartite Union Find}
-{Union-Find with friend, enemy relations}{}
-{cpp}{code/DataStructure/BipartiteUF.cpp}
-{JusticeHui}
+% \Algorithm{Bipartite Union Find}{Union-Find with friend, enemy relations}{}{cpp}{code/DataStructure/BipartiteUF.cpp}{JusticeHui}
 
 \Algorithm{Erasable Priority Queue}
 {}{}
@@ -50,6 +47,26 @@
 {JusticeHui}
 
 \section{Geometry}
+
+\Algorithm{Triangles}
+{}{}{}{}{Ryute}
+
+변 길이 $a, b, c; p = (a+b+c)/2$ \\
+넓이 $A = \sqrt{p(p-a)(p-b)(p-c)}$ \\
+외접원 반지름 $R = abc/4A$, 내접원 반지름 $r = A/p$ \\
+중선 길이 $m_a = 0.5\sqrt{2b^2 + 2c^2 - a^2}$ \\
+각 이등분선 길이 $s_a = \sqrt{bc(1-\frac{a}{b+c}^2)}$ \\
+사인 법칙 $\frac{sin A}{a} = 1/2R$, 코사인 법칙 $a^2 = b^2 + c^2 - 2bc\cos A$, 탄젠트 법칙 $\frac{a+b}{a-b} = \frac{\tan (A+B)/2}{\tan (A-B)/2}$ \\
+중심 좌표 $(\frac{\alpha x_a + \beta x_b + \gamma x_c}{\alpha+\beta+\gamma}, \frac{\alpha y_a + \beta y_b + \gamma y_c}{\alpha+\beta+\gamma})$ \\
+
+\begin{tabular}{|c|c|c|c|c|}
+    이름 & $\alpha$ & $\beta$ & $\gamma$ & \\ \hline
+    외심 & $a^2\mathcal{A}$ & $b^2\mathcal{B}$ & $c^2\mathcal{C}$ & $\mathcal{A}=b^2+c^2-a^2$ \\
+    내심 & $a$ & $b$ & $c$ & $\mathcal{B} = a^2 + c^2 - b^2$ \\
+    무게중심 & $1$ & $1$ & $1$ & $\mathcal{C} = a^2 + b^2 - c^2$ \\
+    수심 & $\mathcal{BC}$ & $\mathcal{CA}$ & $\mathcal{AB}$ & \\
+    방심(A) & $-a$ & $b$ & $c$ & 
+\end{tabular}
 
 \Algorithm{Rotating Calipers}
 {}{}
@@ -106,6 +123,11 @@
 \Algorithm{BCC}
 {call tarjan() before use}{}
 {cpp}{code/Graph/BCC.cpp}
+{JusticeHui}
+
+\Algorithm{Prufer Sequence}
+{}{}
+{cpp}{code/Graph/PruferSequence.cpp}
 {JusticeHui}
 
 \Algorithm{Maximum Clique}
@@ -203,6 +225,11 @@
 {cpp}{code/Math/BasicMath.cpp}
 {JusticeHui}
 
+\Algorithm{Diophantine}
+{}{}
+{cpp}{code/Math/Diophantine.cpp}
+{Aeren}
+
 \Algorithm{Partition Number}
 {}{}
 {cpp}{code/Math/PartitionNumber.cpp}
@@ -295,10 +322,7 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/String/BasicStringAlgo.cpp}
 {JusticeHui}
 
-\Algorithm{Aho-Corasick}
-{}{}
-{cpp}{code/String/Aho-Corasick.cpp}
-{JongManBook}
+% \Algorithm{Aho-Corasick}{}{}{cpp}{code/String/Aho-Corasick.cpp}{JongManBook}
 
 \Algorithm{$O(N \log N)$ SA + LCP}
 {}{}
@@ -315,6 +339,11 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cp-algorithms.com}
 
 \section{Misc}
+
+\Algorithm{CMakeLists.txt}
+{}{}
+{text}{code/Misc/CMakeLists.txt}
+{JusticeHui}
 
 \Algorithm{Ternary Search}
 {}{}
@@ -342,7 +371,7 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 
 \Algorithm{DP Opt, Tree Opt, Well-Known Ideas}{}{}{cpp}{code/Misc/WellKnown-Optimize.cpp}{JusticeHui}%
 
-\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, Area of Quadrangle}
+\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, Area of Quadrangle, Fermat Point}
 {}{}{}{}{}
 \begin{itemize}
 \setlength\itemsep{0.1em}
@@ -357,10 +386,10 @@ $C_n = binomial(n * 2, n) / (n + 1);$\\
 \item Burnside’s Lemma\\
 - 수식\\
 G=(X,A): 집합X와 액션A로 정의되는 군G에 대해, $\vert A\vert\vert X/A \vert=sum(\vert \text{Fixed points of a}\vert,\text{for all a in A})$\\
-X/A 는 Action으로 서로 변형가능한 X의 원소들을 동치로 묶었을때 동치류(파티션) 집합
+X/A 는 Action으로 서로 변형가능한 X의 원소들을 동치로 묶었을때 동치류(파티션) 집합\\
 - 풀어쓰기\\
 orbit: 그룹에 대해 두 원소 a,b와 액션f에 대해 f(a)=b인거에 간선연결한 컴포넌트(연결집합)\\
-orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개수
+orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개수\\
 - 자유도 치트시트\\
 회전 n개: 회전i의 고정점 자유도=gcd(n,i)\\
 임의뒤집기 n=홀수: n개 원소중심축(자유도 (n+1)/2)\\
@@ -406,6 +435,10 @@ ll count_solve(ll n, ll k, ll b, ll d) { // argument should be positive
 사각형의 넓이 $S=\sqrt{(s-a)(s-b)(s-c)(s-d)}$, $s=(a+b+c+d)/2$
 
 \item 브레치나이더 : 임의의 사각형의 각 변의 길이를 $a,b,c,d$라고 하고, 마주보는 두 각의 합을 2로 나눈 값을 $\theta$라 하면, $S=\sqrt{(s-a)(s-b)(s-c)(s-d)-abcd\times cos^2 \theta}$
+
+\item 페르마 포인트 : 삼각형의 세 꼭짓점으로부터 거리의 합이 최소가 되는 점\\
+$2\pi/3$ 보다 큰 각이 있으면 그 점이 페르마 포인트, 그렇지 않으면 각 변마다 정삼각형 그린 다음, 정삼각형의 끝점에서 반대쪽 삼각형의 꼭짓점으로 연결한 선분의 교점\\
+$2\pi/3$ 보다 큰 각이 없으면 거리의 합은 $\sqrt{(a^2 + b^2 + c^2 + 4\sqrt 3 S) / 2}$, $S$는 넓이
 
 \item $g^0+g^1+g^2+\cdots g^{p-2}\equiv -1 \pmod p$ iff $g=1$, otherwise $0$.
 

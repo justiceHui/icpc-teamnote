@@ -18,15 +18,8 @@ long long next_perm(long long v){
   long long t = v | (v-1);
   return (t + 1) | (((~t & -~t) - 1) >> (__builtin_ctz(v) + 1));
 }
-int main2(){ return 0; }
-int main(){
-  size_t  sz = 1<<29;  // 512MB
-  void* newstack = malloc(sz);
-  void* sp_dest = newstack + sz - sizeof(void*);
-  asm  __volatile__("movq %0, %%rax\n\t"
-            "movq %%rsp , (%%rax)\n\t"
-            "movq %0, %%rsp\n\t": : "r"(sp_dest): );
-  main2();
-  asm  __volatile__("pop %rsp\n\t");
-  return  0;
+int frq(int n, int i) { // # of digit i in [1, n]
+  int j, r = 0;
+  for (j = 1; j <= n; j *= 10) if (n / j / 10 >= !i) r += (n / 10 / j - !i) * j + (n / j % 10 > i ? j : n / j % 10 == i ? n % j + 1 : 0);
+  return r;
 }

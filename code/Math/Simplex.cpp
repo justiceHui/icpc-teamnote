@@ -1,82 +1,56 @@
-//입력: Ax<=b, obj
-//출력: maximize obj*x
-//numeric stability is sensitive by M
-//디버깅 노트
-//1. T=f64 해보기(정수값만 나오는거같아도 중간에 유리수나올때 있음)
-//2. M값 조절(답의 상한정도의 크기가 적절)
-//듀얼후 리덕션한 결과값 primal로 복원하기
-template<class T=f64,int M>
-void dualize(Arr<Arr<T>> &a,Arr<T> &b,Arr<T>& obj){
-  int m=sz(a), n=sz(a[0]);
-  transpose(a),swap(b,obj);
-  for(int i=0;i<n;i++){
-    for(auto& j:a[i])j=-j;
-    b[i]=-b[i];
+// Solves the canonical form: maximize c^T x, subject to ax <= b and x >= 0.
+template<class T> // T must be of floating type
+struct linear_programming_solver_simplex{
+  int m, n; vector<int> nn, bb; vector<vector<T>> mat;
+  static constexpr T eps = 1e-8, inf = 1/.0;
+  linear_programming_solver_simplex(const vector<vector<T>> &a, const vector<T> &b, const vector<T> &c) : m(b.size()), n(c.size()), nn(n+1), bb(m), mat(m+2, vector<T>(n+2)){
+    for(int i=0; i<m; i++) for(int j=0; j<n; j++) mat[i][j] = a[i][j];
+    for(int i=0; i<m; i++) bb[i] = n + i, mat[i][n] = -1, mat[i][n + 1] = b[i];
+    for(int j=0; j<n; j++) nn[j] = j, mat[m][j] = -c[j];
+    nn[n] = -1; mat[m + 1][n] = 1;
   }
-  for(auto& i:obj)i=-i;
-}
-template<class T=f64,int M>
-tuple<T,Arr<T>,Arr<T>> simplex(Arr<Arr<T>>& a,Arr<T>& b,Arr<T>& obj){
-  //return {maxval,argmax,dual_argmin}
-  int m=sz(a),n=sz(a[0]),s=0;
-  if(m>n){
-    dualize<T,M>(a,b,obj);
-    auto&& [x,y,z]=simplex<T,M>(a,b,obj);
-    x*=-1;
-    swap(y,z);
-    return {move(x),move(y),move(z)};
-  }
-  func(void,elim,int r1,int r2,int c){//elim r2
-    if(r1==r2){T x=a[r1][c]; for(auto& i:a[r1])i/=x;}
-    else{
-      T x=a[r2][c]/a[r1][c]; if(-eps<x&&x<eps)return;
-      for(int i=0;i<n+s+m+2;i++)
-        a[r2][i]-=x*a[r1][i];
+  void pivot(int r, int s){
+    T *a = mat[r].data(), inv = 1 / a[s];
+    for(int i=0; i<m+2; i++) if(i != r && abs(mat[i][s]) > eps) {
+      T *b = mat[i].data(), inv2 = b[s] * inv;
+      for(int j=0; j<n+2; j++) b[j] -= a[j] * inv2;
+      b[s] = a[s] * inv2;
     }
-  };
-
-  //make all b>=0
-  Arr<char> geq(m);
-  for(int i=0;i<m;i++)
-    if(b[i]<0){
-      for(auto& j:a[i])j=-j;
-      for(auto& r:a)r.emplb(0);
-      a[i][-1]=-1,b[i]=-b[i],geq[i]=true,s++;
-    }
-
-  //n vars, s slacks(-1), m slacks(1), 1 z, 1 b_value
-  Arr<int> p(m);//행의 기본변수
-  obj.resize(n+s+m+2);
-  for(int i=0;i<m;i++)
-    a[i].resize(n+s+m+2),a[i][p[i]=n+s+i]=1,a[i][-1]=b[i],obj[p[i]]=geq[i]?-M:0;
-  
-  //z=f(x) == z-f(x)=0
-  for(auto &i:obj)i=-i;
-  obj[-2]=1;
-  a.emplb(obj);
-  
-  for(int i=0;i<m;i++)
-    elim(i,m,p[i]);
-  
-  //now shape of a = (m+1)*(n+s+m+2)
-  while(true){
-    int ev=0,lvi=-1;
-    for(int i=0;i<n+s+m;i++)
-      ev=a[-1][ev]>a[-1][i]?i:ev;
-    if(a[-1][ev]>-eps)break;
-    for(int i=0;i<m;i++)
-      if(a[i][ev]>eps and (!~lvi or a[i][-1]/a[i][ev]<a[lvi][-1]/a[lvi][ev]))
-        lvi=i;
-    if(!~lvi) throw "unbounded";
-    for(int i=0;i<m+1;i++)elim(lvi,i,ev);
-    p[lvi]=ev;
+    for(int j=0; j<n+2; j++) if(j != s) mat[r][j] *= inv;
+    for(int i=0; i<m+2; i++) if(i != r) mat[i][s] *= -inv;
+    mat[r][s] = inv; swap(bb[r], nn[s]);
   }
-  //if(?) throw "infeasible"
-  Arr<T> ans(n+s+m+2);
-  for(int i=0;i<m;i++)
-    ans[p[i]]=a[i][-1];
-  Arr<T> dual(m);
-  for(int i=0;i<m;i++)
-    dual[i]=a[-1][n+s+i]+(geq[i]?+M:0);
-  return {a[-1][-1],ans,dual};
-}
+  bool simplex(int phase){
+    for(auto x=m+phase-1; ; ){
+      int s = -1, r = -1;
+      for(auto j=0; j<n+1; j++) if(nn[j] != -phase) if(s == -1 || pair(mat[x][j], nn[j]) < pair(mat[x][s], nn[s])) s = j;
+      if(mat[x][s] >= -eps) return true;
+      for(auto i=0; i<m; i++){
+        if(mat[i][s] <= eps) continue;
+        if(r == -1 || pair(mat[i][n + 1] / mat[i][s], bb[i]) < pair(mat[r][n + 1] / mat[r][s], bb[r])) r = i;
+      }
+      if(r == -1) return false;
+      pivot(r, s);
+    }
+  }
+  // Returns -inf if no solution, {inf, a vector satisfying the constraints}
+  //   if there are abritrarily good solutions, or {maximum c^T x, x} otherwise.
+  // O(n m (# of pivots)), O(2 ^ n) in general.
+  pair<T, vector<T>> solve(){
+    int r = 0;
+    for(int i=1; i<m; i++) if(mat[i][n+1] < mat[r][n+1]) r = i;
+    if(mat[r][n+1] < -eps){
+      pivot(r, n);
+      if(!simplex(2) || mat[m+1][n+1] < -eps) return {-inf, {}};
+      for(int i=0; i<m; i++) if(bb[i] == -1){
+          int s = 0;
+          for(int j=1; j<n+1; j++) if(s == -1 || pair(mat[i][j], nn[j]) < pair(mat[i][s], nn[s])) s = j;
+          pivot(i, s);
+        }
+    }
+    bool ok = simplex(1);
+    vector<T> x(n);
+    for(int i=0; i<m; i++) if(bb[i] < n) x[bb[i]] = mat[i][n + 1];
+    return {ok ? mat[m][n + 1] : inf, x};
+  }
+};

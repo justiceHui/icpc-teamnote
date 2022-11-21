@@ -1,25 +1,16 @@
 //NOTE: f(x)=min{f(x+i),i<a}+|x-k|+m -> pf(k)sf(k)ab(-a,m)
 //NOTE: sf_inc에 답구하는게 들어있어서, 반드시 한 연산에 대해 pf_dec->sf_inc순서로 호출
 struct LeftHull{
-  void pf_dec(int x){pq.empl(x-bias);}//x이하의 기울기들 -1
+  void pf_dec(int x){ pq.empl(x-bias); }//x이하의 기울기들 -1
   int sf_inc(int x){//x이상의 기울기들 +1, pop된 원소 반환(Right Hull관리에 사용됨)
-    if(pq.empty() or argmin()<=x)return x;
-    ans+=argmin()-x;//이 경우 최솟값이 증가함
-    pq.empl(x-bias);//x 이하 -1
-    int r=argmin();pq.pop();//전체 +1
+    if(pq.empty() or argmin()<=x) return x; ans += argmin()-x;//이 경우 최솟값이 증가함
+    pq.empl(x-bias);/*x 이하 -1*/int r=argmin(); pq.pop();/*전체 +1*/
     return r;
   }
-  void add_bias(int x,int y){bias+=x;ans+=y;}//그래프 x축 평행이동
-  int minval(){return ans;}//최소값
+  void add_bias(int x,int y){ bias+=x; ans+=y; } int minval(){ return ans; } //x축 평행이동, 최소값
   int argmin(){return pq.empty()?-inf<int>():pq.top()+bias;}//최소값 x좌표
-  void operator+=(LeftHull& a){
-    ans+=a.ans;
-    while(sz(a.pq))pf_dec(a.argmin()), a.pq.pop();
-  }
-  int size()const{return sz(pq);}
-// private:
-  PQMax<int> pq;
-  int ans=0,bias=0;
+  void operator+=(LeftHull& a){ ans+=a.ans; while(sz(a.pq)) pf_dec(a.argmin()), a.pq.pop(); }
+  int size()const{return sz(pq);} PQMax<int> pq; int ans=0, bias=0;
 };
 //NOTE: f(x)=min{f(x+i),a<i<b}+|x-k|+m -> pf(k)sf(k)ab(-a,b,m)
 struct SlopeTrick{
@@ -32,13 +23,9 @@ struct SlopeTrick{
     while(sz(a.l.pq)) pf_dec(a.l.argmin()),a.l.pq.pop();
     l.ans+=a.l.ans;
     while(sz(a.r.pq)) sf_inc(-a.r.argmin()),a.r.pq.pop();
-    r.ans+=a.r.ans;
-    ans+=a.ans;
+    r.ans+=a.r.ans; ans+=a.ans;
   }
-  int size()const{return l.size()+r.size();}
-// private:
-  LeftHull l,r;
-  int ans=0;
+  int size()const{return l.size()+r.size();} LeftHull l,r; int ans=0;
 };
 //LeftHull 역추적 방법: 스텝i의 argmin값을 am(i)라고 하자. 스텝n부터 스텝1까지 ans[i]=min(ans[i+1],am(i))하면 된다. 아래는 증명..은 아니고 간략한 이유
 //am(i)<=ans[i+1]일때: ans[i]=am(i)
