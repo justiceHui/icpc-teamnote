@@ -2,7 +2,7 @@ using lll = __int128; // using T = ll; (if coords are < 2e4)
 // return true if p strictly within circumcircle(a,b,c)
 bool inCircle(P p, P a, P b, P c) {
     a -= p, b -= p, c -= p; // assert(cross(a,b,c)>0);
-    lll x = (lll)norm(a)*cross(b,c)+(lll)norm(b)*cross(c,a)+(lll)norm(c)*cross(a,b);
+    lll x = (lll)norm(a)*cross(b,c) + (lll)norm(b)*cross(c,a) + (lll)norm(c)*cross(a,b);
     return x*(ccw(a,b,c)>0?1:-1) > 0;
 } using Q = struct Quad*;
 P arb(LLONG_MAX,LLONG_MAX); // not equal to any other point

@@ -33,6 +33,7 @@ vector<ll> multiply(const vector<ll> &_a, const vector<ll> &_b){
   for(int i=0; i<N; i++) a[i] *= b[i];
   vector<ll> ret(N); FFT(a, 1); // NTT : just return a
   for(int i=0; i<N; i++) ret[i] = llround(a[i].real());
+  while(ret.size() > 1 && ret.back() == 0) ret.pop_back();
   return ret;
 }
 vector<ll> multiply_mod(const vector<ll> &a, const vector<ll> &b, const ull mod){
@@ -58,6 +59,7 @@ vector<ll> multiply_mod(const vector<ll> &a, const vector<ll> &b, const ull mod)
     ret[i] = (av << 30) + (bv << 15) + cv;
     ret[i] %= mod; ret[i] += mod; ret[i] %= mod;
   }
+  while(ret.size() > 1 && ret.back() == 0) ret.pop_back();
   return ret;
 }
 template<char op> vector<ll> FWHT_Conv(vector<ll> a, vector<ll> b){
@@ -104,6 +106,17 @@ vector<ll> Division(vector<ll> a, vector<ll> b){
   return res;
 }
 vector<ll> Modular(vector<ll> a, vector<ll> b){ return a - Multiply(b, Division(a, b)); }
+ll Evaluate(const vector<ll> &a, ll x){
+  ll res = 0;
+  for(int i=(int)a.size()-1; i>=0; i--) res = (res * x + a[i]) % M;
+  return res >= 0 ? res : res + M;
+}
+vector<ll> Derivative(const vector<ll> &a){
+  if(a.size() <= 1) return {};
+  vector<ll> res(a.size() - 1);
+  for(int i=0; i+1<a.size(); i++) res[i] = (i+1) * a[i+1] % M;
+  return res;
+}
 vector<vector<ll>> PolynomialTree(const vector<ll> &x){
   int n = x.size(); vector<vector<ll>> tree(n*2-1);
   function<void(int,int,int)> build = [&](int node, int s, int e){
@@ -143,6 +156,21 @@ vector<double> interpolate(vector<double> x, vector<double> y, int n){ // n^2
   double last = 0; temp[0] = 1;
   for(int k=0; k<n; k++){
   for(int i=0; i<n; i++) res[i] += y[k] * temp[i], swap(last, temp[i]), temp[i] -= last * x[k];
+  }
+  return res;
+}
+vector<ll> Interpolation_0_to_n(vector<ll> y){ // n^2
+  int n = y.size();
+  vector<ll> res(n), tmp(n), x; // x[i] = i / (i+1)
+  for(int i=0; i<n; i++) x.push_back(Pow(i+1, M-2));
+  for(int k=0; k+1<n; k++) for(int i=k+1; i<n; i++)
+    y[i] = (y[i] - y[k] + M) * x[i-k-1] % M;
+  ll lst = 0; tmp[0] = 1;
+  for(int k=0; k<n; k++) for(int i=0; i<n; i++) {
+    res[i] = (res[i] + y[k] * tmp[i]) % M;
+    swap(lst, tmp[i]);
+    tmp[i] = (tmp[i] - lst * k) % M;
+    if(tmp[i] < 0) tmp[i] += M;
   }
   return res;
 }

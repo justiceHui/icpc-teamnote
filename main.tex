@@ -1,21 +1,27 @@
-% Team Note of AC-Complete
+% Team Note of BOJ 2000 Solve
 % These codes should be guaranteed, fast enough, short and easy to type.
 
-\documentclass[landscape, 8pt, a4paper, oneside, twocolumn]{extarticle}
+% 리저널 전까지 선분 - 다각형 교차 판별 넣어야 함
+
+\documentclass[landscape, 8pt, a4paper, oneside]{extarticle} % twocolumn
 \usepackage{kotex}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{import}
 
+\usepackage{multicol}
+
 \usepackage{teamnote}
 
-\teamnote{Soongsil University}{NLP}{Jeounghui \textcolor{red}{\textbf{N}}ah, Seongseo \textcolor{red}{\textbf{L}}ee, Chansol \textcolor{red}{\textbf{P}}ark}
+\teamnote{Soongsil University}{BOJ 20000 Solve}{9000문제, 7000문제, 3000문제}
 
 \ShowUsage
 \ShowComplexity
 \HideAuthor
 
 \begin{document}
+
+\begin{multicols*}{3}
 
 \maketitlepage
 
@@ -24,12 +30,15 @@
 
 \section{DataStructure}
 
-% \Algorithm{Bipartite Union Find}{Union-Find with friend, enemy relations}{}{cpp}{code/DataStructure/BipartiteUF.cpp}{JusticeHui}
+\Algorithm{Bipartite Union Find}
+{Union-Find with friend, enemy relations}{}
+{cpp}{code/DataStructure/BipartiteUF.cpp}
+{JusticeHui}
 
 \Algorithm{Erasable Priority Queue}
 {}{}
 {cpp}{code/DataStructure/ErasablePQ.cpp}
-{JusticeHui}
+{cgiosy}
 
 \Algorithm{Convex Hull Trick}
 {call init() before use}{}
@@ -39,6 +48,11 @@
 \Algorithm{Persistent Segment Tree}
 {call init(root[0], s, e) before use}{}
 {cpp}{code/DataStructure/PersistentSegmentTree.cpp}
+{JusticeHui}
+
+\Algorithm{Kinetic Segment Tree}
+{}{}
+{cpp}{code/DataStructure/KineticSegmentTree.cpp}
 {JusticeHui}
 
 \Algorithm{Splay Tree, Link-Cut Tree}
@@ -78,6 +92,26 @@
 {cpp}{code/Geometry/PointInConvexPolygon.cpp}
 {JusticeHui}
 
+\Algorithm{Polygon Cut}
+{}{}
+{cpp}{code/Geometry/PolygonCut.cpp}
+{aeren} % 2023.07.21 - UCPC
+
+\Algorithm{Segment Distance}
+{}{}
+{cpp}{code/Geometry/SegmentDistance.cpp}
+{JusticeHui} % 2023.07.20 - UCPC
+
+\Algorithm{Segment Intersection}
+{}{}
+{cpp}{code/Geometry/SegmentIntersection.cpp}
+{JusticeHui} % 2023.07.20 - UCPC
+
+\Algorithm{Shamos-Hoey}
+{}{}
+{cpp}{code/Geometry/ShamosHoey.cpp}
+{qwerasdfzxcl} % 2023.07.21 - UCPC
+
 \Algorithm{Half Plane Intersection, Tangent of Convex Hull}
 {Line : $ax + by + c = 0$}{}
 {cpp}{code/Geometry/HPI.cpp}
@@ -103,10 +137,12 @@
 {cpp}{code/Geometry/EnclosingCircle.cpp}
 {JusticeHui}
 
-\Algorithm{Delaunay Triangulation}
+% \Algorithm{Delaunay Triangulation}{}{}{cpp}{code/Geometry/Delaunay.cpp}{kactl}
+
+\Algorithm{Voronoi Diagram}
 {}{}
-{cpp}{code/Geometry/Delaunay.cpp}
-{kactl}
+{cpp}{code/Geometry/Voronoi.cpp}
+{zigui} % 2023.07.21 - UCPC
 
 \section{Graph}
 
@@ -115,10 +151,15 @@
 {cpp}{code/Graph/EulerTour.cpp}
 {JusticeHui}
 
-\Algorithm{SCC + 2-SAT}
-{CNF: (A or B) / alwaysTrue: A => B / setValue / mostOne / exactlyOne}{}
+\Algorithm{2-SAT}
+{}{}
 {cpp}{code/Graph/TwoSat.cpp}
-{JusticeHui}
+{JusticeHui} % 2023.07.21 - UCPC
+
+\Algorithm{Horn SAT}
+{}{}
+{cpp}{code/Graph/HornSAT.cpp}
+{todo} % 2023.07.20 - UCPC
 
 \Algorithm{BCC}
 {call tarjan() before use}{}
@@ -140,10 +181,15 @@
 {cpp}{code/Graph/TreeIsomorphism.cpp}
 {JusticeHui}
 
-\Algorithm{Bipartite Matching}
+\Algorithm{Complement Spanning Forest}
 {}{}
-{cpp}{code/Graph/BipartiteMatching.cpp}
-{DeobureoMinkyuParty}
+{cpp}{code/Graph/ComplementSpanningForest.cpp}
+{aeren} % 2023.07.21 - UCPC, BOJ 1741
+
+\Algorithm{Bipartite Matching, Konig, Dilworth}
+{}{}
+{cpp}{code/Graph/BipartiteMatchingLong.cpp}
+{JusticeHui} % 2023.07.20 - UCPC
 
 %\Algorithm{Maximum Flow, Minimum Cut}{}{}{cpp}{code/Graph/Dinic.cpp}{JusticeHui}
 
@@ -163,6 +209,11 @@
 {}{}
 {cpp}{code/Graph/Hungarian.cpp}
 {e-maxx.ru}
+
+\Algorithm{Count/Find 3/4 Cycle}
+{}{}
+{cpp}{code/Graph/34Cycle.cpp}
+{aeren}
 
 \Algorithm{$O(V^3)$ Global Min Cut}
 {}{}
@@ -245,6 +296,11 @@
 {cpp}{code/Math/xor-basis.cpp}
 {todo}
 
+\Algorithm{Stern Brocot Tree}
+{}{}
+{cpp}{code/Math/SternBrocotTree.cpp}
+{myungwoo} % 2023.07.20 - UCPC
+
 \Algorithm{Gauss Jordan Elimination}
 {}{}
 {cpp}{code/Math/Matrix.cpp}
@@ -322,12 +378,20 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/String/BasicStringAlgo.cpp}
 {JusticeHui}
 
-% \Algorithm{Aho-Corasick}{}{}{cpp}{code/String/Aho-Corasick.cpp}{JongManBook}
+\Algorithm{Aho-Corasick}
+{}{}
+{cpp}{code/String/AhoCorasick.cpp}
+{edenooo}
 
 \Algorithm{$O(N \log N)$ SA + LCP}
 {}{}
 {cpp}{code/String/SA-LCP.cpp}
-{kajebiii}
+{jhnah917}
+
+\Algorithm{Suffix Automaton}
+{}{}
+{cpp}{code/String/SuffixAutomaton.cpp}
+{aeren} % 2023.07.21 - UCPC
 
 \Algorithm{Bitset LCS}
 {}{}
@@ -357,7 +421,7 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 
 \Algorithm{Aliens Trick}
 {}{}
-{cpp}{code/Misc/Aliens.cpp}
+{cpp}{code/Misc/Aliens2.cpp}
 {JusticeHui}
 
 \Algorithm{Slope Trick}
@@ -365,13 +429,54 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/Misc/SlopeTrick.cpp}
 {0xC0DEF}
 
+\Algorithm{Hook Length Formula}
+{}{}
+{cpp}{code/Misc/HookLengthFormula.cpp}
+{hitonanode} % 2023.07.21 - UCPC
+
 \Algorithm{Random, PBDS, Bit Trick}{}{}{cpp}{code/Misc/Cpp-Grammer.cpp}{JusticeHui}%
 
 \Algorithm{Fast I/O, Fast Div/Mod, Hilbert Mo's}{}{}{cpp}{code/Misc/NDS-Optimize.cpp}{JusticeHui}%
 
 \Algorithm{DP Opt, Tree Opt, Well-Known Ideas}{}{}{cpp}{code/Misc/WellKnown-Optimize.cpp}{JusticeHui}%
 
-\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, Area of Quadrangle, Fermat Point}
+\Algorithm{Highly Composite Numbers, Large Prime}{}{}{}{}{koosaga}
+\begin{minted}{cpp}
+< 10^k          number     divisors   2 3 5 71113171923293137
+-------------------------------------------------------------
+1                    6            4   1 1
+2                   60           12   2 1 1
+3                  840           32   3 1 1 1
+4                 7560           64   3 3 1 1
+5                83160          128   3 3 1 1 1
+6               720720          240   4 2 1 1 1 1
+7              8648640          448   6 3 1 1 1 1
+8             73513440          768   5 3 1 1 1 1 1
+9            735134400         1344   6 3 2 1 1 1 1
+10          6983776800         2304   5 3 2 1 1 1 1 1
+11         97772875200         4032   6 3 2 2 1 1 1 1
+12        963761198400         6720   6 4 2 1 1 1 1 1 1
+13       9316358251200        10752   6 3 2 1 1 1 1 1 1 1
+14      97821761637600        17280   5 4 2 2 1 1 1 1 1 1
+15     866421317361600        26880   6 4 2 1 1 1 1 1 1 1 1
+16    8086598962041600        41472   8 3 2 2 1 1 1 1 1 1 1
+17   74801040398884800        64512   6 3 2 2 1 1 1 1 1 1 1 1
+18  897612484786617600       103680   8 4 2 2 1 1 1 1 1 1 1 1
+
+< 10^k    prime   # of prime          < 10^k            prime
+-------------------------------------------------------------
+1             7            4          10           9999999967
+2            97           25          11          99999999977
+3           997          168          12         999999999989
+4          9973         1229          13        9999999999971
+5         99991         9592          14       99999999999973
+6        999983        78498          15      999999999999989
+7       9999991       664579          16     9999999999999937
+8      99999989      5761455          17    99999999999999997
+9     999999937     50847534          18   999999999999999989
+\end{minted}
+
+\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, Area of Quadrangle, Fermat Point, Euler}
 {}{}{}{}{}
 \begin{itemize}
 \setlength\itemsep{0.1em}
@@ -440,6 +545,10 @@ ll count_solve(ll n, ll k, ll b, ll d) { // argument should be positive
 $2\pi/3$ 보다 큰 각이 있으면 그 점이 페르마 포인트, 그렇지 않으면 각 변마다 정삼각형 그린 다음, 정삼각형의 끝점에서 반대쪽 삼각형의 꼭짓점으로 연결한 선분의 교점\\
 $2\pi/3$ 보다 큰 각이 없으면 거리의 합은 $\sqrt{(a^2 + b^2 + c^2 + 4\sqrt 3 S) / 2}$, $S$는 넓이
 
+\item 오일러 정리: 서로소인 두 정수 $a,n$에 대해 $a^{\phi(n)}\equiv 1 \pmod n$\\
+모든 정수에 대해 $a^n \equiv a^{n-\phi(n)} \pmod n$\\
+$m\geq log_2 n$이면 $a^m\equiv a^{m\%\phi(n)+\phi(n)}\pmod n$
+
 \item $g^0+g^1+g^2+\cdots g^{p-2}\equiv -1 \pmod p$ iff $g=1$, otherwise $0$.
 
 \end{itemize}
@@ -457,7 +566,18 @@ $2\pi/3$ 보다 큰 각이 없으면 거리의 합은 $\sqrt{(a^2 + b^2 + c^2 + 
 $B(n,k)=\sum_{j=0}^{k}S(n,j) = \sum_{j=0}^{k} 1/j! \sum_{i=0}^{j} (-1)^{j-i} jCi \times i^n=\sum_{j=0}^{k}\sum_{i=0}^{j} \frac{(-1)^{j-i}}{i!(j-i)!}i^n$\\
 $=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\sum_{j=0}^{k-i}\frac{(-1)^j}{i!j!}i^n = \sum_{i=0}^k \frac{i^n}{i!}\sum_{j=0}^{k-i} \frac{(-1)^j}{j!}$
 
-
+\item Derangement: $D(n)=(n-1)(D(n-1)+D(n-2))$
+\item Signed Stirling 1: $S_1(n,k)=(n-1)S_1(n-1,k)+S_1(n-1,k-1)$
+\item Unsigned Stirling 1: $C_1(n,k)=(n-1)C_1(n-1,k)+C_1(n-1,k-1)$
+\item Stirling 2: $S_2(n,k)=kS_2(n-1,k)+S_2(n-1,k-1)$
+\item Stirling 2: $S_2(n,k)=\frac{1}{k!}\sum_{j=0}^{k} (-1)^{k-j}{k \choose j}j^n$
+\item Partition: $p(n,k)=p(n-1,k-1) + p(n-k,k)$
+\item Partition: $p(n)=\sum (-1)^kp(n-k(3k-1)/2)$
+\item Bell: $B(n)=\sum_{k=1}^n {n-1\choose k-1}B(n-k)$
+\item Catalan: $C_n=\frac{1}{n+1}{2n\choose n}$
+\item Catalan: $C_n={2n\choose n}-{2n\choose n+1}$
+\item Catalan: $C_n=\frac{(2n)!}{n!(n+1)!}$
+\item Catalan: $C_n=\sum C_iC_{n-i}$
 
 \end{itemize}
 
@@ -478,6 +598,20 @@ $=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\su
     각 정점과 간선을 2개씩($(v, v')$, $(e_{i,u},e_{i,v})$)로 복사하자. 모든 간선 $e=(u,v)$에 대해 $e_u$와 $e_v$를 잇는 가중치 w짜리 간선을 만들고(like NEERC18), $(u,e_{i,u}), (u',e_{i,u}), (v,e_{i,v}), (v',e_{i,v})$를 연결하는 가중치 0짜리 간선을 만들자. Perfect 매칭이 존재함 $\leftrightarrow$ Disjoint Cycle Cover 존재. 최대 가중치 매칭 찾은 뒤 모든 간선 가중치 합에서 매칭 빼면 됨.
     \item \textbf{Two Matching} : 각 정점이 최대 2개의 간선과 인접할 수 있는 최대 가중치 매칭 문제.\\
     각 컴포넌트는 정점 하나/경로/사이클이 되어야 함. 모든 서로 다른 정점 쌍에 대해 가중치 0짜리 간선 만들고, 가중치 0짜리 $(v,v')$ 간선 만들면 Disjoing Cycle Cover 문제가 됨. 정점 하나만 있는 컴포넌트는 self-loop, 경로 형태의 컴포넌트는 양쪽 끝점을 연결한다고 생각하면 편함.
+\end{itemize}
+
+\Algorithm{Calculus, Newton's Method}{}{}{}{}{}
+\begin{itemize}
+    \setlength\itemsep{0.1em}
+    \item $(\arcsin x)'=1/\sqrt{1-x^2}$
+    \item $(\tan x)'=1+\tan^2 x$
+    \item $\int tan ax=-\ln |\cos ax|/a$
+    \item $(\arccos x)'=-1/\sqrt{1-x^2}$
+    \item $(\arctan x)'=1/(1+x^2)$
+    \item $\int x \sin ax=(\sin ax - ax\cos ax)/a^2$
+    \item Newton: $x_{n+1}=x_{n}-f(x_n)/f'(x_n)$
+    \item $\oint_C (Ldx+Mdy)=\int\int_D (\frac{\partial M}{\partial x}-\frac{\partial L}{\partial y})dxdy$
+    \item where $C$ is positively oriented, piecewise smooth, simple, closed; $D$ is the region inside $C$; $L$ and $M$ have continuous partial derivatives in $D$.
 \end{itemize}
 
 \Algorithm{Checklist}{}{}{}{}{}
@@ -501,5 +635,7 @@ $=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\su
     \item 확률 : DP, 이분 탐색(NYPC 2019 Finals C)
     \item 최대/최소 : 이분 탐색, 그리디(Prefix 고정, Exchange Argument), DP(순서 고정)
 \end{itemize}
+
+\end{multicols*}
 
 \end{document}

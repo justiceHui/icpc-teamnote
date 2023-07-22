@@ -37,20 +37,15 @@ vector<Point> HPI(vector<Line> v){
   for(auto &[x,y] : ret) x = -x, y = -y;
   return ret;
 }
-template<bool GET_MAX=true> // max - upper hull, min - lower hull
-Point GetPoint(const vector<Point> &hull, double dy, double dx){ // given slope
-  if(hull.size() == 1) return hull.front();
-  if(dx < 0) dx = -dx, dy = -dy;
-  if(dx == 0) return GET_MAX == (dy > 0) ? hull.front() : hull.back();
-  auto cmp = [&](double a, double b){ return GET_MAX ? a < b : a > b; };
-  if(cmp((hull[1].y - hull[0].y) * dx, (hull[1].x - hull[0].x) * dy)) return hull.front();
-  int l = 1, r = (int)hull.size() - 1;
-  while(l < r){
-    int m = (l + r + 1) / 2;
-    if(cmp((hull[m].y - hull[m-1].y) * dx, (hull[m].x - hull[m-1].x) * dy)) r = m - 1;
-    else l = m;
-  }
-  return hull[l];
+template<bool UPPER=true>
+Point GetPoint(const vector<Point> &hull, real_t slope){
+    auto chk = [slope](real_t dx, real_t dy){ return UPPER ? dy >= slope * dx : dy <= slope * dx; };
+    int l = -1, r = hull.size() - 1;
+    while(l + 1 < r){
+        int m = (l + r) / 2;
+        if(chk(hull[m+1].x - hull[m].x, hull[m+1].y - hull[m].y)) l = m; else r = m;
+    }
+    return hull[r];
 }
 int ConvexTangent(const vector<Point> &v, const Point &pt, int up=1){ //given outer point
   auto sign = [&](ll c){ return c > 0 ? up : c == 0 ? 0 : -up; };

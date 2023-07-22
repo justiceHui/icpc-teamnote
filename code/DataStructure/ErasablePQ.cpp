@@ -1,12 +1,11 @@
-template<typename T, T inf>
-struct pq_set{ // for max heap, inf=-1e18, less operator
-  priority_queue<T, vector<T>, greater<T>> in, out; // min heap, inf = 1e18
-  pq_set(){ in.push(inf); }
-  void insert(T v){ in.push(v); } void erase(T v){ out.push(v); }
-  T top(){
-    while(out.size() && in.top() == out.top()) in.pop(), out.pop(); return in.top();
-  }
-  bool empty(){
-    while(out.size() && in.top() == out.top()) in.pop(), out.pop(); return in.top() == inf;
-  }
+template<class T=int, class O=less<T>>
+struct pq_set {
+    priority_queue<T, vector<T>, O> q, del;
+    const T& top() const { return q.top(); }
+    int size() const { return int(q.size()-del.size()); }
+    bool empty() const { return !size(); }
+    void insert(const T x) { q.push(x); flush(); }
+    void pop() { q.pop(); flush(); }
+    void erase(const T x) { del.push(x); flush(); }
+    void flush() { while(del.size() && q.top()==del.top()) q.pop(), del.pop(); }
 };

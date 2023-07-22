@@ -21,7 +21,7 @@ void solve(vector<pii> &E, int N, int M){
     while(!G[u][v0]){
       L.emplace_back(v, d = X[v]);
       if(!C[v][c]) for(a = (int)L.size()-1; a >= 0; a--) c = color(u, L[a].first, c);
-      else if(!C[u][d])for(a=(int)L.size()-1;a>=0;a--)color(u,L[a].first,L[a].second);
+      else if(!C[u][d])for(a=(int)L.size()-1;a>=0;a--) color(u,L[a].first,L[a].second);
       else if( vst[d] ) break;
       else vst[d] = 1, v = C[u][d];
     }

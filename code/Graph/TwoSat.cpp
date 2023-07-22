@@ -1,36 +1,19 @@
-struct TwoSat{ // True(x) = x << 1, False(x) = x << 1 | 1, Inv(x) = x ^ 1
-  int n; vector<vector<int>> g; vector<int> result;
-  TwoSat(int n, int m = 0) : n(n), g(n+n) { if(!m) g.reserve(m+m); }
-  int addVar(){ g.emplace_back(); g.emplace_back(); return n++; }
-  void addEdge(int s, int e){ g[s].push_back(e); }
-  void addCNF(int a, int b){ addEdge(Inv(a), b); addEdge(Inv(b), a); } // (A or B)
-  void setValue(int x){ addCNF(x, x); } // (A or A)
-  void addAlwaysTrue(int a, int b){ addEdge(a, b); addEdge(Inv(b), Inv(a)); } // A => B
-  void addMostOne(const vector<int> &li){
-    if(li.empty()) return; int t;
-    for(int i=0; i<li.size(); i++){
-      t = addVar(); addAlwaysTrue(li[i], True(t));
-      if(!i) continue;
-      addAlwaysTrue(True(t-1), True(t)); addAlwaysTrue(True(t-1), Inv(li[i]));
-    }
+int SZ; vector<vector<int>> G1, G2;
+void Init(int n){ SZ = n; G1 = G2 = vector<vector<int>>(SZ*2); }
+int New(){
+  for(int i=0;i<2;i++) G1.emplace_back(), G2.emplace_back();
+  return SZ++;
+}
+inline void AddEdge(int s, int e){ G1[s].push_back(e); G2[e].push_back(s); }
+// T(x) = x << 1, F(x) = x << 1 | 1, I(x) = x ^ 1
+inline void AddCNF(int a, int b){ AddEdge(I(a), b); AddEdge(I(b), a); }
+void MostOne(vector<int> vec){
+  compress(vec);
+  for(int i=0; i<vec.size(); i++){
+    int now = New();
+    AddEdge(vec[i], T(now)); AddEdge(F(now), I(vec[i]));
+    if(i == 0) continue;
+    AddEdge(T(now-1), T(now)); AddEdge(F(now), F(now-1));
+    AddEdge(T(now-1), I(vec[i])); AddEdge(vec[i], F(now-1));
   }
-  vector<int> val, comp, z; int pv = 0;
-  int dfs(int i){
-    int low = val[i] = ++pv, x; z.push_back(i);
-    for(int e : g[i]) if(!comp[e]) low = min(low, val[e] ?: dfs(e));
-    if(low == val[i]){
-      do{
-        x = z.back(); z.pop_back(); comp[x] = low;
-        if (result[x>>1] == -1) result[x>>1] = ~x&1;
-      }while(x != i);
-    }
-    return val[i] = low;
-  }
-  bool sat(){
-    result.assign(n, -1); val.assign(2*n, 0); comp = val;
-    for(int i=0; i<n+n; i++) if(!comp[i]) dfs(i);
-    for(int i=0; i<n; i++) if(comp[2*i] == comp[2*i+1]) return 0;
-    return 1;
-  }
-  vector<int> getValue(){ return move(result); }
-};
+}
