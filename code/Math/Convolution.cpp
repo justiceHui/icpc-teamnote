@@ -9,8 +9,8 @@ void FFT(vector<cpx> &a, bool inv_fft=false){
     while(j >= bit) j -= bit, bit >>= 1;
     if(i < (j += bit)) swap(a[i], a[j]);
   }
-  real_t ang = 2 * acos(-1) / N * (inv_fft ? -1 : 1);
-  for(int i=0; i<N/2; i++) root[i] = cpx(cos(ang * i), sin(ang * i));
+  long double ang = 2 * acosl(-1) / N * (inv_fft ? -1 : 1);
+  for(int i=0; i<N/2; i++) root[i] = cpx(cosl(ang*i), sinl(ang*i));
   /*
   NTT : ang = pow(w, (mod-1)/n) % mod, inv_fft -> ang^{-1}, root[i] = root[i-1] * ang
   XOR Convolution : set roots[*] = 1, a[j+k] = u+v, a[j+k+i/2] = u-v
@@ -20,9 +20,9 @@ void FFT(vector<cpx> &a, bool inv_fft=false){
   for(int i=2; i<=N; i<<=1){
     int step = N / i;
     for(int j=0; j<N; j+=i) for(int k=0; k<i/2; k++){
-        cpx u = a[j+k], v = a[j+k+i/2] * root[step * k];
-        a[j+k] = u+v; a[j+k+i/2] = u-v;
-      }
+      cpx u = a[j+k], v = a[j+k+i/2] * root[step * k];
+      a[j+k] = u+v; a[j+k+i/2] = u-v;
+    }
   }
   if(inv_fft) for(int i=0; i<N; i++) a[i] /= N; // skip for AND/OR convolution.
 }
@@ -158,7 +158,7 @@ vector<double> interpolate(vector<double> x, vector<double> y, int n){ // n^2
   for(int i=0; i<n; i++) res[i] += y[k] * temp[i], swap(last, temp[i]), temp[i] -= last * x[k];
   }
   return res;
-}
+}//for numerical precision, x[k]=c*cos(k*pi/(n-1))
 vector<ll> Interpolation_0_to_n(vector<ll> y){ // n^2
   int n = y.size();
   vector<ll> res(n), tmp(n), x; // x[i] = i / (i+1)
@@ -173,4 +173,18 @@ vector<ll> Interpolation_0_to_n(vector<ll> y){ // n^2
     if(tmp[i] < 0) tmp[i] += M;
   }
   return res;
+}
+vector<ll> Shift(const vector<ll> &f, ll c){ // O(n log n)
+  if(f.size() <= 1 || c == 0) return f; // return f(x+c)
+  ll n = f.size(), pw = 1; c = (c % M + M) % M;
+  vector<ll> fac(n,1), inv(n,1), a(n), b(n);
+  for(int i=2; i<n; i++) fac[i] = fac[i-1] * i % M;
+  inv[n-1] = Pow(fac[n-1], M-2);
+  for(int i=n-2; i>=2; i--) inv[i] = inv[i+1] * (i+1) % M;
+  for(int i=0; i<n; i++, pw=pw*c%M)
+    a[i] = f[i] * fac[i] % M, b[i] = pw * inv[i] % M;
+  reverse(b.begin(), b.end()); a = Multiply(a, b);
+  a = vector<ll>(a.begin()+n-1, a.begin()+n+n-1);
+  for(int i=0; i<n; i++) a[i] = a[i] * inv[i] % M;
+  return a;
 }

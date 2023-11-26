@@ -23,7 +23,7 @@ struct Line{
   /* bool operator < (const Line &l) const {
     auto le = get_y(), ri = l.get_y();
     if(abs(le-ri) > 1e-7) return le < ri;
-    if(CUR_X == x1 || CUR_X == l.x1) return get_y(1) < l.get_y(1);
+    if(CUR_X==x1 || CUR_X==l.x1) return get_y(1)<l.get_y(1);
     else return get_y(-1) < l.get_y(-1);
   } */
 }; ll Line::CUR_X = 0;
@@ -47,21 +47,20 @@ tuple<bool,int,int> ShamosHoey(vector<array<Point,2>> v){
     if(int t=lines[i].get_k(); 0<=t && t<=n) use[t] = 1;
   }
   int k = find(use.begin(), use.end(), 0) - use.begin();
-  for(int i=0; i<n; i++){
-    lines[i].convert_k(k);
-    E.emplace_back(lines[i], i, 0);
-    E.emplace_back(lines[i], i, 1);
+  for(int i=0; i<n; i++){ lines[i].convert_k(k);
+    E.emplace_back(lines[i], i, 0); E.emplace_back(lines[i], i, 1);
   } sort(E.begin(), E.end());
-  for(auto &e : E){
-    Line::CUR_X = e.x;
+  for(auto &e : E){ Line::CUR_X = e.x;
     if(e.f == 0){
       auto it = T.insert(lines[e.i]);
       if(next(it) != T.end() && Intersect(lines[e.i], *next(it))) return {true, e.i, next(it)->id};
-      if(it != T.begin() && Intersect(lines[e.i], *prev(it))) return {true, e.i, prev(it)->id};
+      if(it != T.begin() && Intersect(lines[e.i], *prev(it)))
+        return {true, e.i, prev(it)->id};
     }
     else{
       auto it = T.lower_bound(lines[e.i]);
-      if(it != T.begin() && next(it) != T.end() && Intersect(*prev(it), *next(it))) return {true, prev(it)->id, next(it)->id};
+      if(it != T.begin() && next(it) != T.end() && Intersect(*prev(it), *next(it)))
+        return {true, prev(it)->id, next(it)->id};
       T.erase(it);
     }
   }

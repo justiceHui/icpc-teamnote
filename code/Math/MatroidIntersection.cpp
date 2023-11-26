@@ -47,9 +47,9 @@ vector<cost_t> MI(const vector<cost_t> &cost, Matroid *m1, Matroid *m2){
     }
     return true;
   };
-  vector<int> res;
+  vector<cost_t> res;
   while(augment()){
-    int now = 0;
+    cost_t now = cost_t(0);
     for(int i=0; i<n; i++) if(flag[i]) now += cost[i];
     res.push_back(now);
   }

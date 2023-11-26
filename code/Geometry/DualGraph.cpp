@@ -15,21 +15,20 @@ pair<vector<int>, int> dual_graph(const vector<Point> &points, const vector<pair
   for(int i=0; i<n; i++){
     const auto base = points[i];
     sort(g[i].begin(), g[i].end(), [&](auto a, auto b){
-      auto p1 = points[a.first] - base, p2 = points[b.first] - base;
+      auto p1=points[a.first]-base, p2=points[b.first]-base;
       return quadrant_id(p1) != quadrant_id(p2) ? quadrant_id(p1) < quadrant_id(p2) : p1.cross(p2) > 0;
     });
     for(int j=0; j<g[i].size(); j++){
       int k = j ? j - 1 : g[i].size() - 1;
       int u = g[i][k].second << 1, v = g[i][j].second << 1 | 1;
-      auto p1 = points[g[i][k].first], p2 = points[g[i][j].first];
+      auto p1=points[g[i][k].first], p2=points[g[i][j].first];
       if(p1 < base) u ^= 1; if(p2 < base) v ^= 1;
       merge(u, v);
     }
   }
   vector<int> res(2*m);
   for(int i=0; i<2*m; i++) res[i] = find(i);
-  auto comp = res; compress(comp);
-  for(auto &i : res) i = IDX(comp, i);
+  auto comp=res;compress(comp);for(auto &i:res)i=IDX(comp,i);
   int mx_idx = max_element(points.begin(), points.end()) - points.begin();
   return {res, res[g[mx_idx].back().second << 1 | 1]};
 }

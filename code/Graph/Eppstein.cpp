@@ -1,25 +1,32 @@
+/**
+ * Author: koosaga
+ * License: 
+ * Source: JusticeHui
+ * Description: https://github.com/koosaga/olympiad/blob/master/Library/codes/graph_etc/k_shortest_path.cpp
+ * Problem: https://judge.yosupo.jp/problem/k_shortest_walk
+ * Code: https://judge.yosupo.jp/submission/173680
+ */
+
 int rnd(int l, int r){ /* return random int [l,r] */ }
-struct node{
+struct node{ // weight>=0, allow multi edge, self loop
   array<node*, 2> son; pair<ll, ll> val;
   node() : node(make_pair(-1e18, -1e18)) {}
   node(pair<ll, ll> val) : node(nullptr, nullptr, val) {}
-  node(node *l, node *r, pair<ll, ll> val) : son({l,r}), val(val) {}
+  node(node *l, node *r, pair<ll,ll> val):son({l,r}),val(val){}
 };
 node* copy(node *x){ return x ? new node(x->son[0], x->son[1], x->val) : nullptr; }
 node* merge(node *x, node *y){ // precondition: x, y both points to new entity
   if(!x || !y) return x ? x : y;
   if(x->val > y->val) swap(x, y);
-  int rd = rnd(0, 1);
-  if(x->son[rd]) x->son[rd] = copy(x->son[rd]);
+  int rd = rnd(0, 1); if(x->son[rd]) x->son[rd]=copy(x->son[rd]);
   x->son[rd] = merge(x->son[rd], y); return x;
 }
 struct edge{
   ll v, c, i; edge() = default;
   edge(ll v, ll c, ll i) : v(v), c(c), i(i) {}
 };
-vector<vector<edge>> gph, rev;
-int idx;
-void init(int n){ gph = rev = vector<vector<edge>>(n); idx = 0; }
+vector<vector<edge>> gph, rev; int idx;
+void init(int n){ gph = rev = vector<vector<edge>>(n); idx=0; }
 void add_edge(int s, int e, ll x){
   gph[s].emplace_back(e, x, idx);
   rev[e].emplace_back(s, x, idx);
@@ -31,7 +38,7 @@ void dijkstra(int snk){ // replace this to SPFA if edge weight is negative
   par = pae = vector<int>(n, -1);
   dist = vector<ll>(n, 0x3f3f3f3f3f3f3f3f);
   heap = vector<node*>(n, nullptr);
-  priority_queue<pair<ll,ll>, vector<pair<ll,ll>>, greater<>> pq;
+  priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<>>pq;
   auto enqueue = [&](int v, ll c, int pa, int pe){
     if(dist[v] > c) dist[v] = c, par[v] = pa, pae[v] = pe, pq.emplace(c, v);
   }; enqueue(snk, 0, -1, -1); vector<int> ord;

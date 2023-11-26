@@ -1,10 +1,23 @@
-int N, M; ull G[40], MX, Clique; // 0-index, adj list with bitset, O(3^{N/3})
-void get_clique(int R = 0, ull P = (1ULL<<N)-1, ull X = 0, ull V=0){
-  if((P|X) == 0){ if(R > MX) MX = R, Clique = V; return; }
-  int u = __builtin_ctzll(P|X); ll c = P&~G[u];
-  while(c){
-    int v = __builtin_ctzll(c);
-    get_clique(R + 1, P&G[v], X&G[v], V | 1ULL << v);
-    P ^= 1ULL << v; X |= 1ULL << v; c ^= 1ULL << v;
-  }
-}
+/**
+ * Author: Simon Lindholm
+ * License: CC0
+ * Source: https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm, https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/MaximalCliques.h
+ * Description: callback for all maximal cliques in a graph
+ * Problem: https://judge.yosupo.jp/problem/maximum_independent_set
+ * Code: https://judge.yosupo.jp/submission/62943
+ */
+
+using B = bitset<128>; template<typename F> //0-based
+void maximal_cliques(vector<B>&g,F f,B P=~B(),B X={},B R={}){
+  if(!P.any()){ if(!X.any()) f(R); return; }
+  auto q = (P|X)._Find_first(); auto c = P & ~g[q];
+  for(int i=0; i<g.size(); i++) if(c[i]) {
+    R[i] = 1; cliques(g, f, P&g[i], X&g[i], R);
+    R[i]=P[i]=0; X[i] = 1; } // faster for sparse gph
+} // undirected, self loop not allowed, O(3^{n/3})
+B max_independent_set(vector<vector<int>> g){ //g=adj matrix
+  int n = g.size(), i, j; vector<B> G(n); B res{};
+  auto chk_mx = [&](B a){ if(a.count()>res.count()) res=a; };
+  for(i=0; i<n; i++) for(int j=0; j<n; j++)
+    if(i!=j && !g[i][j])G[i][j]=1;
+  cliques(G, chk_mx); return res; }

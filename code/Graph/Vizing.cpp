@@ -16,7 +16,7 @@ void solve(vector<pii> &E, int N, int M){
     return p; }; // end of function : flip
   for(int i = 1; i <= N; i++) X[i] = 1;
   for(int t = 0; t < E.size(); t++){
-    int u = E[t].first, v0 = E[t].second, v = v0, c0 = X[u], c = c0, d;
+    int u=E[t].first, v0=E[t].second, v=v0, c0=X[u], c=c0, d;
     vector<pii> L; int vst[MX] = {};
     while(!G[u][v0]){
       L.emplace_back(v, d = X[v]);
@@ -28,7 +28,7 @@ void solve(vector<pii> &E, int N, int M){
     if( !G[u][v0] ){
       for(;v; v = flip(v, c, d), swap(c, d));
       if(C[u][c0]){
-        for(a = (int)L.size()-2; a >= 0 && L[a].second != c; a--);
+        for(a=(int)L.size()-2; a>=0 && L[a].second!=c; a--);
         for(; a >= 0; a--) color(u, L[a].first, L[a].second);
       } else t--;
     }

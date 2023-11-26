@@ -13,8 +13,5 @@ vector<pair<int,int>> ComplementSpanningForest(int n, const vector<pair<int,int>
       for(auto it=alive.begin(); it!=alive.end(); ){
         if(auto t=lower_bound(g[v].begin(), g[v].end(), *it); t != g[v].end() && *it == *t) ++it;
         else que.push(*it), res.emplace_back(u, *it), it = alive.erase(it);
-      }
-    }
-  }
-  return res;
+  }}}return res;
 }

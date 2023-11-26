@@ -102,8 +102,7 @@ void VoronoiDiagram(vector<pdd> &input, vector<pdd> &vertex, vector<pii> &edge, 
   auto add_edge = [&](int u, int v, int a, int b, BNode* c1, BNode* c2){
     if(c1) c1->end = edge.size()*2;
     if(c2) c2->end = edge.size()*2 + 1;
-    edge.emplace_back(u, v);
-    area.emplace_back(a, b);
+    edge.emplace_back(u, v); area.emplace_back(a, b);
   };
   auto write_edge = [&](int idx, int v){ idx%2 == 0 ? edge[idx/2].x = v : edge[idx/2].y = v; };
   auto add_event = [&](BNode* cur){ double nxt; if(bl.get_event(cur, nxt)) events.emplace(nxt, cur); };

@@ -1,4 +1,16 @@
-struct Line{
+/**
+ * Author: (1) JusticeHui (2) Simon Lindholm
+ * License: (1) CC BY-NC-SA (2) CC0
+ * Source: (2) https://github.com/kth-competitive-programming/kactl/blob/main/content/data-structures/LineContainer.h
+ * Problem 1: https://www.acmicpc.net/problem/10067
+ * Code 1: (1) http://boj.kr/75d08d8ae7774e4f8b2fa3f99cb2c1da
+ * Problem 2: https://www.acmicpc.net/problem/12795
+ * Code 2: (2) http://boj.kr/f8e1d97f405c4839aac5ed3c28cf15d8
+ * Problem 3: https://www.acmicpc.net/problem/24894
+ * Code 3: (2) http://boj.kr/6099a68b9a024881a952b82fcccab012
+ */
+
+struct Line{ // call init() before use
   ll a, b, c; // y = ax + b, c = line index
   Line(ll a, ll b, ll c) : a(a), b(b), c(c) {}
   ll f(ll x){ return a * x + b; }
@@ -26,8 +38,8 @@ struct Line {
   bool operator<(ll x) const { return p < x; }
 }; // (for doubles, use inf = 1/.0, div(a,b) = a/b)
 struct LineContainer : multiset<Line, less<>> {
-  static const ll inf = LLONG_MAX;
-  ll div(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // floor
+  static const ll inf = LLONG_MAX; // div: floor
+  ll div(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); }
   bool isect(iterator x, iterator y) {
     if (y == end()) return x->p = inf, 0;
     if (x->k == y->k) x->p = x->m > y->m ? inf : -inf;
@@ -39,9 +51,6 @@ struct LineContainer : multiset<Line, less<>> {
     while (isect(y, z)) z = erase(z);
     if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
     while ((y = x) != begin() && (--x)->p >= y->p) isect(x, erase(y));
-  }
-  ll query(ll x) { assert(!empty());
-    auto l = *lower_bound(x);
-    return l.k * x + l.m;
-  }
+  } ll query(ll x) { assert(!empty());
+    auto l = *lower_bound(x); return l.k * x + l.m; }
 };

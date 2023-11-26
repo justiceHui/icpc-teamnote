@@ -1,5 +1,6 @@
 bool Check(const vector<Point> &v, const Point &pt){
-  if(CCW(v[0], v[1], pt) < 0) return false; int l = 1, r = v.size() - 1;
+  if(CCW(v[0], v[1], pt) < 0) return false;
+  int l = 1, r = v.size() - 1;
   while(l < r){
     int m = l + r + 1 >> 1;
     if(CCW(v[0], v[m], pt) >= 0) l = m; else r = m - 1;

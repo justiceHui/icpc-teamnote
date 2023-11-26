@@ -1,4 +1,13 @@
-// 1-based, only for minimum matching, maximum matching may get TLE
+/**
+ * Author: ?
+ * License: 
+ * Source: ?
+ * Description: 
+ * Problem: https://judge.yosupo.jp/problem/assignment
+ * Code: https://judge.yosupo.jp/submission/173682
+ */
+
+// 1-based, only for min matching, max matching may get TLE
 template<typename cost_t=int, cost_t _INF=0x3f3f3f3f>
 struct Hungarian{
   int n; vector<vector<cost_t>> mat;
@@ -22,9 +31,9 @@ struct Hungarian{
         }
         b = nxt;
       }while(p[b] != 0);
-      do{ int nxt = w[b]; p[b] = p[nxt]; b = nxt; }while(b != 0);
+      do{int nxt = w[b]; p[b] = p[nxt]; b = nxt;}while(b!=0);
     }
-    vector<int> assign(n+1); for(int i=1; i<=n; i++) assign[p[i]] = i;
+    vector<int> assign(n+1);for(int i=1;i<=n;i++)assign[p[i]]=i;
     return {-v[0], assign};
   }
 };

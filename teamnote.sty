@@ -1,6 +1,7 @@
 \ProvidesPackage{teamnote}
 
-\usepackage[left=0.3cm,right=0.3cm,top=1.5cm,bottom=0.3cm,a4paper]{geometry}
+% \usepackage[left=0.3cm,right=0.3cm,top=0.6cm,bottom=0.3cm,headsep=0.1cm,a4paper]{geometry}
+\usepackage[left=0.1cm,right=0.1cm,top=0.3cm,bottom=0.1cm,headsep=0cm,a4paper]{geometry}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{minted}
@@ -8,7 +9,7 @@
 \usepackage{indentfirst}
 
 
-\setlength{\columnseprule}{0.4pt}
+\setlength{\columnseprule}{0.1pt}
 \pagenumbering{arabic}
 \setminted{breaklines=true, tabsize = 2, breaksymbolleft=}
 \usemintedstyle{perldoc}
@@ -18,9 +19,9 @@
 \newcommand{\added}{Should be \textcolor{red}{\textbf{added}}.}
 \newcommand{\WIP}{\textcolor{red}{\textbf{WIP}}}
 
-\newcommand{\schoolname}{Soongsil University}
-\newcommand{\teamname}{AC-complete}
-\newcommand{\authorname}{0xC0DEF, enochjung, jhnah917}
+\newcommand{\schoolname}{}
+\newcommand{\teamname}{}
+\newcommand{\authorname}{}
 
 \newcommand{\maketitlepage}{\maketitle
 	
@@ -76,3 +77,7 @@
 	\ifthenelse{\equal{#5}{}}{}{\ifthenelse{\equal{#4}{}}{\inputminted[]{cpp}{#5}}{\inputminted[]{#4}{#5}}}
 }
 
+\newcommand{\TeamnoteImport}[2]{ % title, code dir
+    \immediate\write18{python3 preprocessor.py #2 build/tempfile.tmp}
+    \immediate\Algorithm{#1}{}{}{cpp}{build/tempfile.tmp}{}
+}

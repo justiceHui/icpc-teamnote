@@ -1,12 +1,16 @@
-struct PSTNode{
-  PSTNode *l, *r; int v;
-  PSTNode(){ l = r = nullptr; v = 0; }
-};
-PSTNode *root[101010];
+/**
+ * Author: JusticeHui
+ * License: CC BY-NC-SA 
+ * Problem: https://www.acmicpc.net/problem/7469
+ * Code: http://boj.kr/93b3f0f0700c411eb5a29b99c00c4921
+ */
+
+struct PSTNode{ // call init(root[0], s, e) before use
+  PSTNode *l, *r; int v; PSTNode(){ l = r = nullptr; v = 0; }
+}; PSTNode *root[101010];
 PST(){ memset(root, 0, sizeof root); } // constructor
 void init(PSTNode *node, int s, int e){
-  if(s == e) return;
-  int m = s + e >> 1;
+  if(s == e) return; int m = s + e >> 1;
   node->l = new PSTNode; node->r = new PSTNode;
   init(node->l, s, m); init(node->r, m+1, e);
 }
@@ -20,10 +24,7 @@ void update(PSTNode *prv, PSTNode *now, int s, int e, int x){
   else{
     now->r = new PSTNode; now->l = prv->l;
     update(prv->r, now->r, m+1, e, x);
-  }
-  int t1 = now->l ? now->l->v : 0;
-  int t2 = now->r ? now->r->v : 0;
-  now->v = t1 + t2;
+  } now->v = (now->l?now->l->v:0) + (now->r?now->r->v:0);
 }
 int kth(PSTNode *prv, PSTNode *now, int s, int e, int k){
   if(s == e) return s;

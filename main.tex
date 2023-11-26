@@ -1,19 +1,27 @@
-% Team Note of BOJ 2000 Solve
+% Team Note of PS akgwi
 % These codes should be guaranteed, fast enough, short and easy to type.
 
-% 리저널 전까지 선분 - 다각형 교차 판별 넣어야 함
+% twocolumn
+% \documentclass[landscape, 8pt, a4paper, oneside, twocolumn]{extarticle}
 
-\documentclass[landscape, 8pt, a4paper, oneside]{extarticle} % twocolumn
+\documentclass[landscape, 8pt, a4paper, oneside]{extarticle}
 \usepackage{kotex}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{import}
-
+\usepackage{enumitem}
 \usepackage{multicol}
+\usepackage{titlesec}
 
 \usepackage{teamnote}
 
-\teamnote{Soongsil University}{BOJ 20000 Solve}{9000문제, 7000문제, 3000문제}
+\teamnote{Soongsil University}{PS akgwi}{Jeounghui Nah, Joowon Oh, Seongseo Lee}
+
+% smaller section title
+% \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
 
 \ShowUsage
 \ShowComplexity
@@ -25,46 +33,43 @@
 
 \maketitlepage
 
+% break column
+% \vfill\null\columnbreak
+
 % Make Pagebreak if you want.
-\pagebreak 
+% \pagebreak
 
 \section{DataStructure}
 
-\Algorithm{Bipartite Union Find}
-{Union-Find with friend, enemy relations}{}
-{cpp}{code/DataStructure/BipartiteUF.cpp}
-{JusticeHui}
+\TeamnoteImport{Bipartite Union Find}
+{code/DataStructure/BipartiteUF.cpp}
 
-\Algorithm{Erasable Priority Queue}
-{}{}
-{cpp}{code/DataStructure/ErasablePQ.cpp}
-{cgiosy}
+\TeamnoteImport{Erasable Priority Queue}
+{code/DataStructure/ErasablePQ.cpp}
 
-\Algorithm{Convex Hull Trick}
-{call init() before use}{}
-{cpp}{code/DataStructure/ConvexHullTrick.cpp}
-{JusticeHui}
+\TeamnoteImport{Convex Hull Trick (Stack, LineContainer)}
+{code/DataStructure/ConvexHullTrick.cpp}
 
-\Algorithm{Persistent Segment Tree}
-{call init(root[0], s, e) before use}{}
-{cpp}{code/DataStructure/PersistentSegmentTree.cpp}
-{JusticeHui}
+\TeamnoteImport{Color Processor}
+{code/DataStructure/ColorProcessor.cpp}
 
-\Algorithm{Kinetic Segment Tree}
-{}{}
-{cpp}{code/DataStructure/KineticSegmentTree.cpp}
-{JusticeHui}
+\TeamnoteImport{Persistent Segment Tree}
+{code/DataStructure/PersistentSegmentTree.cpp}
 
-\Algorithm{Splay Tree, Link-Cut Tree}
-{}{}
-{cpp}{code/DataStructure/Splay-LCT.cpp}
-{JusticeHui}
+\TeamnoteImport{Kinetic Segment Tree}
+{code/DataStructure/KineticSegmentTree.cpp}
+
+\TeamnoteImport{Lazy LiChao Tree}
+{code/DataStructure/LazyLiChaoTree.cpp}
+
+\TeamnoteImport{Splay Tree, Link-Cut Tree}
+{code/DataStructure/Splay-LCT.cpp}
 
 \section{Geometry}
 
-\Algorithm{Triangles}
-{}{}{}{}{Ryute}
+\subsection{Triangles} % from Ryute Teamnote
 
+\noindent
 변 길이 $a, b, c; p = (a+b+c)/2$ \\
 넓이 $A = \sqrt{p(p-a)(p-b)(p-c)}$ \\
 외접원 반지름 $R = abc/4A$, 내접원 반지름 $r = A/p$ \\
@@ -87,62 +92,73 @@
 {cpp}{code/Geometry/Calipers.cpp}
 {JusticeHui}
 
-\Algorithm{Point in Convex Polygon}
+\Algorithm{$O(\log N)$ Point in Convex Polygon}
 {}{}
 {cpp}{code/Geometry/PointInConvexPolygon.cpp}
 {JusticeHui}
 
-\Algorithm{Polygon Cut}
+\Algorithm{Segment Distance, Segment Reflect}
 {}{}
-{cpp}{code/Geometry/PolygonCut.cpp}
-{aeren} % 2023.07.21 - UCPC
+{cpp}{code/Geometry/Segment.cpp}
+{JusticeHui}
 
-\Algorithm{Segment Distance}
+\Algorithm{Tangent Series}
 {}{}
-{cpp}{code/Geometry/SegmentDistance.cpp}
-{JusticeHui} % 2023.07.20 - UCPC
+{cpp}{code/Geometry/Tangent.cpp}
+{JusticeHui, zigui}
 
-\Algorithm{Segment Intersection}
+\Algorithm{Intersect Series}
 {}{}
-{cpp}{code/Geometry/SegmentIntersection.cpp}
-{JusticeHui} % 2023.07.20 - UCPC
+{cpp}{code/Geometry/Intersect.cpp}
+{JusticeHui, kactl}
 
-\Algorithm{Shamos-Hoey}
+\TeamnoteImport{Segment In Polygon}
+{code/Geometry/SegmentInPolygon.cpp}
+
+\Algorithm{Polygon Cut, Center, Union}
+{}{}
+{cpp}{code/Geometry/Polygon.cpp}
+{aeren, kactl}
+
+\Algorithm{Polygon Raycast}
+{}{}
+{cpp}{code/Geometry/PolygonRaycast.cpp}
+{zigui}
+
+\Algorithm{$O(N \log N)$ Shamos-Hoey}
 {}{}
 {cpp}{code/Geometry/ShamosHoey.cpp}
-{qwerasdfzxcl} % 2023.07.21 - UCPC
+{qwerasdfzxcl}
 
-\Algorithm{Half Plane Intersection, Tangent of Convex Hull}
-{Line : $ax + by + c = 0$}{}
+\Algorithm{$O(N \log N)$ Half Plane Intersection}
+{}{}
 {cpp}{code/Geometry/HPI.cpp}
 {DeobureoMinkyuParty & JusticeHui}
 
-\Algorithm{K-D Tree}
-{}{}
-{cpp}{code/Geometry/KD-Tree.cpp}
-{JusticeHui}
-
-\Algorithm{Dual Graph}
+\Algorithm{$O(M \log M)$ Dual Graph}
 {}{}
 {cpp}{code/Geometry/DualGraph.cpp}
 {JusticeHui}
 
-\Algorithm{Bulldozer Trick (Rotating Sweep Line)}
+\Algorithm{$O(N^2 \log N)$ Bulldozer Trick}
 {}{}
 {cpp}{code/Geometry/Bulldozer.cpp}
 {JusticeHui}
 
-\Algorithm{Smallest Enclosing Circle}
+\Algorithm{$O(N)$ Smallest Enclosing Circle}
 {}{}
 {cpp}{code/Geometry/EnclosingCircle.cpp}
 {JusticeHui}
 
-% \Algorithm{Delaunay Triangulation}{}{}{cpp}{code/Geometry/Delaunay.cpp}{kactl}
+\Algorithm{$O(N + Q \log N)$ K-D Tree}
+{}{}
+{cpp}{code/Geometry/KD-Tree.cpp}
+{JusticeHui}
 
-\Algorithm{Voronoi Diagram}
+\Algorithm{$O(N \log N)$ Voronoi Diagram}
 {}{}
 {cpp}{code/Geometry/Voronoi.cpp}
-{zigui} % 2023.07.21 - UCPC
+{zigui}
 
 \section{Graph}
 
@@ -154,15 +170,18 @@
 \Algorithm{2-SAT}
 {}{}
 {cpp}{code/Graph/TwoSat.cpp}
-{JusticeHui} % 2023.07.21 - UCPC
+{JusticeHui}
 
 \Algorithm{Horn SAT}
 {}{}
 {cpp}{code/Graph/HornSAT.cpp}
-{todo} % 2023.07.20 - UCPC
+{todo}
+
+\TeamnoteImport{2-QBF}
+{code/Graph/TwoQBF.cpp}
 
 \Algorithm{BCC}
-{call tarjan() before use}{}
+{}{}
 {cpp}{code/Graph/BCC.cpp}
 {JusticeHui}
 
@@ -171,31 +190,25 @@
 {cpp}{code/Graph/PruferSequence.cpp}
 {JusticeHui}
 
-\Algorithm{Maximum Clique}
-{}{}
-{cpp}{code/Graph/MaximumClique.cpp}
-{molamola}
+\TeamnoteImport{$O(3^{V/3})$ Maximal Clique}
+{code/Graph/MaximumClique.cpp}
 
-\Algorithm{Tree Isomorphism}
+\Algorithm{$O(V \log V)$ Tree Isomorphism}
 {}{}
 {cpp}{code/Graph/TreeIsomorphism.cpp}
 {JusticeHui}
 
-\Algorithm{Complement Spanning Forest}
+\Algorithm{$O(E \log E)$ Complement Spanning Forest}
 {}{}
 {cpp}{code/Graph/ComplementSpanningForest.cpp}
-{aeren} % 2023.07.21 - UCPC, BOJ 1741
+{aeren}
 
-\Algorithm{Bipartite Matching, Konig, Dilworth}
+\Algorithm{$O(E \sqrt V)$ Bipartite Matching, Konig, Dilworth}
 {}{}
 {cpp}{code/Graph/BipartiteMatchingLong.cpp}
-{JusticeHui} % 2023.07.20 - UCPC
+{JusticeHui}
 
-%\Algorithm{Maximum Flow, Minimum Cut}{}{}{cpp}{code/Graph/Dinic.cpp}{JusticeHui}
-
-%\Algorithm{MCMF}{}{}{cpp}{code/Graph/MCMF.cpp}{JusticeHui}
-
-\Algorithm{Push Relabel}
+\Algorithm{$O(V^2 \sqrt E)$ Push Relabel}
 {}{}
 {cpp}{code/Graph/PushRelabel.cpp}
 {}
@@ -205,37 +218,34 @@
 {cpp}{code/Graph/LR-Flow.cpp}
 {JusticeHui}
 
-\Algorithm{Hungarian Method}
-{}{}
-{cpp}{code/Graph/Hungarian.cpp}
-{e-maxx.ru}
+\TeamnoteImport{$O(V^3)$ Hungarian Method}
+{code/Graph/Hungarian.cpp} %{e-maxx.ru}
 
-\Algorithm{Count/Find 3/4 Cycle}
+\Algorithm{$O(V + E \sqrt V)$ Count/Find 3/4 Cycle}
 {}{}
 {cpp}{code/Graph/34Cycle.cpp}
 {aeren}
 
-\Algorithm{$O(V^3)$ Global Min Cut}
-{}{}
-{cpp}{code/Graph/GlobalMinCut.cpp}
-{JusticeHui}
+\TeamnoteImport{$O(V^3)$ Global Min Cut}
+{code/Graph/GlobalMinCut.cpp}
 
-\Algorithm{Gomory-Hu Tree}
+\Algorithm{$O(V^2 + V\times \text{Flow})$ Gomory-Hu Tree}
 {}{}
 {cpp}{code/Graph/GomoryHu.cpp}
 {DeobureoMinkyuParty}
 
-\Algorithm{Rectlinear MST}
-{}{}
-{cpp}{code/Graph/RectlinearMST.cpp}
-{Aeren}
+\TeamnoteImport{$O(V \log V)$ Rectlinear MST}
+{code/Graph/RectlinearMST.cpp}
+
+\TeamnoteImport{$O(VE)$ Shortest Mean Cycle}
+{code/Graph/ShortestMeanCycle.cpp}
 
 \Algorithm{$O((V+E) \log V)$ Dominator Tree}
 {}{}
 {cpp}{code/Graph/DominatorTree.cpp}
 {0xC0DEF}
 
-\Algorithm{$O(N^2)$ Stable Marriage Problem}
+\Algorithm{$O(V^2)$ Stable Marriage Problem}
 {}{}
 {cpp}{code/Graph/StableMarriage.cpp}
 {JusticeHui}
@@ -245,17 +255,16 @@
 {cpp}{code/Graph/Vizing.cpp}
 {molamola}
 
-\Algorithm{$O(E \log V)$ Directed MST}
-{}{}
-{cpp}{code/Graph/DMST.cpp}
-{kactl}
+\TeamnoteImport{$O(E + V^3 + V 3^T + V^2 2^T)$ Minimum Steiner Tree}
+{code/Graph/SteinerTree.cpp}
 
-\Algorithm{$O(E \log V + K \log K)$ K Shortest Path}
-{}{}
-{cpp}{code/Graph/Eppstein.cpp}
-{koosaga}
+\TeamnoteImport{$O(E \log V)$ Directed MST}
+{code/Graph/DMST.cpp}
 
-\Algorithm{Chordal Graph, Tree Decomposition}
+\TeamnoteImport{$O(E \log V + K \log K)$ K Shortest Walk}
+{code/Graph/Eppstein.cpp}
+
+\Algorithm{$O(V+E)$ Chordal Graph, Tree Decomposition}
 {}{}
 {cpp}{code/Graph/Chordal.cpp}
 {edenooo}
@@ -265,9 +274,10 @@
 {cpp}{code/Graph/GeneralMatching.cpp}
 {JusticeHui}
 
-%\Algorithm{$O(V^3)$ Weighted General Matching}{}{}{cpp}{code/Graph/WeightedMatching.cpp}{DeobureoMinkyuParty}
-
-\Algorithm{$O(V^3)$ Weighted General Matching}{}{}{cpp}{code/Graph/WeightedMatchingShort.cpp}{}
+\Algorithm{$O(V^3)$ Weighted General Matching}
+{}{}
+{cpp}{code/Graph/WeightedMatchingShort.cpp}
+{}
 
 \section{Math}
 
@@ -276,42 +286,37 @@
 {cpp}{code/Math/BasicMath.cpp}
 {JusticeHui}
 
-\Algorithm{Diophantine}
-{}{}
-{cpp}{code/Math/Diophantine.cpp}
-{Aeren}
-
 \Algorithm{Partition Number}
 {}{}
 {cpp}{code/Math/PartitionNumber.cpp}
 {Aeren}
 
-\Algorithm{FloorSum}
+\Algorithm{Diophantine}
 {}{}
-{cpp}{code/Math/FloorSum.cpp}
+{cpp}{code/Math/Diophantine.cpp}
 {Aeren}
 
-\Algorithm{XOR Basis(XOR Maximization)}
+\TeamnoteImport{FloorSum}
+{code/Math/FloorSum.cpp}
+
+\Algorithm{XOR Basis (XOR Maximization)}
 {}{}
 {cpp}{code/Math/xor-basis.cpp}
-{todo}
+{Aeren}
 
 \Algorithm{Stern Brocot Tree}
 {}{}
 {cpp}{code/Math/SternBrocotTree.cpp}
-{myungwoo} % 2023.07.20 - UCPC
+{myungwoo}
 
-\Algorithm{Gauss Jordan Elimination}
-{}{}
-{cpp}{code/Math/Matrix.cpp}
-{JusticeHui}
+\TeamnoteImport{$O(N^3 \log 1/\epsilon)$ Polynomial Equation}
+{code/Math/PolyRoot.cpp}
 
-%\Algorithm{Gauss Jordan Elimination (Binary)}{}{}{cpp}{code/Math/BinaryMatrix.cpp}{0xC0DEF}
+\TeamnoteImport{Gauss Jordan Elimination}
+{code/Math/Matrix.cpp}
 
-\Algorithm{Berlekamp + Kitamasa}
-{}{$O(NK + N \log mod), O(N^2 \log X)$}
-{cpp}{code/Math/Berlekamp-Kitamasa.cpp}
-{DeobureoMinkyuParty}
+\TeamnoteImport{Berlekamp + Kitamasa}
+{code/Math/Berlekamp-Kitamasa.cpp}
 
 \Algorithm{Miller Rabin + Pollard Rho}
 {}{}
@@ -323,15 +328,23 @@
 {cpp}{code/Math/LinearSieve.cpp}
 {ahgus89}
 
-\Algorithm{Power Tower}
-{}{}
-{cpp}{code/Math/PowerTower.cpp}
-{}
+\TeamnoteImport{Xudyh Sieve}
+{code/Math/XudyhSieve.cpp}
 
 \Algorithm{Discrete Log / Sqrt}
 {}{Log : $O(\sqrt P \log P)$, $O(\sqrt P)$ with hash set\\Sqrt : $O(\log^2 P)$, $O(\log P)$ in random data}
 {cpp}{code/Math/DiscreteLogSqrt.cpp}
 {JusticeHui / gratus907}
+
+\Algorithm{Power Tower}
+{}{}
+{cpp}{code/Math/PowerTower.cpp}
+{}
+
+\Algorithm{De Bruijn Sequence}
+{}{}
+{cpp}{code/Math/DeBruijnSequence.cpp}
+{DeobureoMinkyuParty}
 
 \Algorithm{Simplex / LP Duality}
 {}{}
@@ -356,12 +369,7 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 - Primal : $\max_{x} c^Tx$, Constraints $Ax \leq b, x \geq 0$\\
 - Dual : $\min_{y} b^Ty$,Constraints $A^Ty \geq c, y \geq 0$ 
 
-\Algorithm{De Bruijn Sequence}
-{}{}
-{cpp}{code/Math/DeBruijnSequence.cpp}
-{DeobureoMinkyuParty}
-
-\Algorithm{FFT, NTT, FWHT, Multipoint Evaluation, Interpolation}
+\Algorithm{FFT, FWHT, MultipointEval, Interpolation, TaylorShift}
 {}{}
 {cpp}{code/Math/Convolution.cpp}
 {JusticeHui}
@@ -388,19 +396,20 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/String/SA-LCP.cpp}
 {jhnah917}
 
+\TeamnoteImport{$O(N \log N)$ Tandem Repeats}
+{code/String/TandemRepeat.cpp}
+
 \Algorithm{Suffix Automaton}
 {}{}
 {cpp}{code/String/SuffixAutomaton.cpp}
-{aeren} % 2023.07.21 - UCPC
+{aeren}
 
 \Algorithm{Bitset LCS}
 {}{}
 {cpp}{code/String/BitsetLCS.cpp}
 
-\Algorithm{Lyndon Factorization, Minimum Rotation}
-{}{}
-{cpp}{code/String/Lyndon.cpp}
-{cp-algorithms.com}
+\TeamnoteImport{Lyndon Factorization, Minimum Rotation}
+{code/String/Lyndon.cpp}
 
 \section{Misc}
 
@@ -409,10 +418,33 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {text}{code/Misc/CMakeLists.txt}
 {JusticeHui}
 
+\Algorithm{Python Decimal}
+{}{}
+{py}{code/Misc/PythonDecimal.py}
+{https://github.com/tzupengwang/PECaveros/blob/master/codebook/basic/python_trick.py}
+
+\Algorithm{Java I/O}
+{}{}
+{java}{code/Misc/Java.java}
+{https://github.com/ssu-sccc/2023scon/blob/master/statement/language.tex}
+
+\TeamnoteImport{Calendar}
+{code/Misc/Calendar.cpp}
+
 \Algorithm{Ternary Search}
 {}{}
 {cpp}{code/Misc/TernarySearch.cpp}
 {JusticeHui}
+
+\Algorithm{Add/Mul Update, Range Sum Query}
+{}{}
+{cpp}{code/Misc/SeqQuery13.cpp}
+{JusticeHui}
+
+\Algorithm{$O(N \times \max W)$ Subset Sum (Fast Knapsack)}
+{}{}
+{cpp}{code/Misc/FastKnapsack.cpp}
+{kactl}
 
 \Algorithm{Monotone Queue Optimization}
 {}{}
@@ -429,18 +461,52 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/Misc/SlopeTrick.cpp}
 {0xC0DEF}
 
+\Algorithm{SWAMK, Min Plus Convolution}
+{}{}
+{cpp}{code/Misc/SMAWK.cpp}
+{maroonrk}
+
+\Algorithm{Money for Nothing (WF17D)}
+{}{}
+{cpp}{code/Misc/MoneyForNothing.cpp}
+{JusticeHui}
+
+\Algorithm{Exchange Argument on Tree (WF16L,CERC13E)}
+{}{}
+{cpp}{code/Misc/TreeExchangeArgument.cpp}
+{JusticeHui}
+
 \Algorithm{Hook Length Formula}
 {}{}
 {cpp}{code/Misc/HookLengthFormula.cpp}
-{hitonanode} % 2023.07.21 - UCPC
+{hitonanode}
 
-\Algorithm{Random, PBDS, Bit Trick}{}{}{cpp}{code/Misc/Cpp-Grammer.cpp}{JusticeHui}%
+\Algorithm{Floating Point Add (Kahan)}
+{}{}
+{cpp}{code/Misc/FloatingPointAdd.cpp}
+{JusticeHui}
 
-\Algorithm{Fast I/O, Fast Div/Mod, Hilbert Mo's}{}{}{cpp}{code/Misc/NDS-Optimize.cpp}{JusticeHui}%
+\Algorithm{Random, PBDS, Bit Trick, Bitset}
+{}{}
+{cpp}{code/Misc/Cpp-Grammer.cpp}
+{koosaga}
 
-\Algorithm{DP Opt, Tree Opt, Well-Known Ideas}{}{}{cpp}{code/Misc/WellKnown-Optimize.cpp}{JusticeHui}%
+\Algorithm{Fast I/O, Fast Div, Fast Mod}
+{}{}
+{cpp}{code/Misc/NDS-Optimize.cpp}
+{JusticeHui}
 
-\Algorithm{Highly Composite Numbers, Large Prime}{}{}{}{}{koosaga}
+\Algorithm{DLAS(Diversified Late Acceptance Search)}
+{}{}
+{cpp}{code/Misc/DLAS.cpp}
+{cgiosy}
+
+\Algorithm{DP Opt, Tree Opt, Well-Known Ideas}
+{}{}
+{cpp}{code/Misc/WellKnown-Optimize.cpp}
+{JusticeHui}
+
+\subsection{Highly Composite Numbers, Large Prime} % koosaga
 \begin{minted}{cpp}
 < 10^k          number     divisors   2 3 5 71113171923293137
 -------------------------------------------------------------
@@ -476,17 +542,16 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 9     999999937     50847534          18   999999999999999989
 \end{minted}
 
-\Algorithm{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, Area of Quadrangle, Fermat Point, Euler}
-{}{}{}{}{}
-\begin{itemize}
-\setlength\itemsep{0.1em}
+\subsection{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, LGV, Area of Quadrangle, Fermat Point, Euler}
+\begin{itemize}[noitemsep]
     
 \item 카탈란 수\\
 1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012,742900\\
 $C_n = binomial(n * 2, n) / (n + 1);$\\
 - 길이가 2n인 올바른 괄호 수식의 수\\
 - n + 1개의 리프를 가진 풀 바이너리 트리의 수\\
-- n + 2각형을 n개의 삼각형으로 나누는 방법의 수
+- n + 2각형을 n개의 삼각형으로 나누는 방법의 수\\
+- 여는 괄호 $n$개, 닫는 괄호 $k(\leq n)$개 경우의 수$(n-k+1)/(n+1) \times {n+k \choose k}$
 
 \item Burnside’s Lemma\\
 - 수식\\
@@ -511,14 +576,11 @@ orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개
 격자점으로 구성된 simple polygon이 주어짐. I 는 polygon 내부의 격자점 수, B 는 polygon 선분 위 격자점 수, A는 polygon의 넓이라고 할 때, 다음과 같은 식이 성립한다. $A=I+B/2-1$
 \begin{minted}{cpp}
 // number of (x, y) : (0 <= x < n && 0 < y <= k/d x + b/d)
-ll count_solve(ll n, ll k, ll b, ll d) { // argument should be positive
-  if (k == 0) {
-    return (b / d) * n;
-  }
+ll count_solve(ll n, ll k, ll b, ll d) { // argument > 0
+  if (k == 0) return (b / d) * n;
   if (k >= d || b >= d) {
     return ((k / d) * (n - 1) + 2 * (b / d)) * n / 2 + count_solve(n, k % d, b % d, d);
-  }
-  return count_solve((k * n + b) / d, d, (k * n + b) % d, k);
+  }return count_solve((k*n+b) / d, d, (k*n+b) % d, k);
 }
 \end{minted}
 
@@ -536,6 +598,8 @@ ll count_solve(ll n, ll k, ll b, ll d) { // argument should be positive
 - m[i][j] := 간선 $(i, j)$가 없으면 0, 있으면 $i < j ? r : -r$, r은 $[0,P)$ 구간의 임의의 정수\\
 - $rank(m) / 2$가 높은 확률로 최대 매칭
 
+\item LGV Theorem: 간선에 가중치 있는 DAG에서 어떤 경로 $P$의 간선 가중치 곱을 $w(P)$, 모든 $a\rightarrow b$ 경로들의 $w(P)$의 합을 $e(a,b)$라고 하자. $n$개의 시작점 $a_i$와 도착점 $b_j$가 주어졌을 때, 서로 정점이 겹치지 않는 $n$개의 경로로 시작점과 도착점을 일대일 대응시키는 모든 경우에서 $w(P)$의 곱의 합은 $\text{det }M(i,j)=e(a_i,b_j)$와 같음. 따라서 모든 가중치를 1로 두면 서로소 경로 경우의 수를 구함
+
 \item 브라마굽타 : 원에 내접하는 사각형의 각 선분의 길이가 $a, b, c, d$일 때\\
 사각형의 넓이 $S=\sqrt{(s-a)(s-b)(s-c)(s-d)}$, $s=(a+b+c+d)/2$
 
@@ -551,12 +615,12 @@ $m\geq log_2 n$이면 $a^m\equiv a^{m\%\phi(n)+\phi(n)}\pmod n$
 
 \item $g^0+g^1+g^2+\cdots g^{p-2}\equiv -1 \pmod p$ iff $g=1$, otherwise $0$.
 
+\item if $n \equiv 0 \pmod 2$, then $1^n + 2^n + \cdots + (n-1)^n \equiv 0 \pmod n$
+
 \end{itemize}
 
-\Algorithm{inclusive and exclusive, Stirling Number, Bell Number}
-{}{}{}{}{}
-\begin{itemize}
-\setlength\itemsep{0.1em}
+\subsection{In\&Exclusive, Stirling Number, Bell Number}
+\begin{itemize}[noitemsep]
 
 \item 공 구별 X, 상자 구별 O, 전사함수 : 포함배제 $\sum_{i=1}^{k} (-1)^{k-i} \times kCi \times i^n$
 \item 공 구별 O, 상자 구별 X, 전사함수 : 제 2종 스털링 수 $S(n,k)=k\times S(n-1,k) + S(n-1, k-1)$\\
@@ -574,16 +638,35 @@ $=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\su
 \item Partition: $p(n,k)=p(n-1,k-1) + p(n-k,k)$
 \item Partition: $p(n)=\sum (-1)^kp(n-k(3k-1)/2)$
 \item Bell: $B(n)=\sum_{k=1}^n {n-1\choose k-1}B(n-k)$
-\item Catalan: $C_n=\frac{1}{n+1}{2n\choose n}$
-\item Catalan: $C_n={2n\choose n}-{2n\choose n+1}$
-\item Catalan: $C_n=\frac{(2n)!}{n!(n+1)!}$
-\item Catalan: $C_n=\sum C_iC_{n-i}$
+\item Catalan: $C_n=\frac{1}{n+1}{2n\choose n}$ = ${2n\choose n}-{2n\choose n+1}$ = $\frac{(2n)!}{n!(n+1)!}$ = $\sum C_iC_{n-i}$
 
 \end{itemize}
 
-\Algorithm{About Graph Matching(Graph with $\vert V \vert \leq 500$)}{}{}{}{}{}
-\begin{itemize}
-    \setlength\itemsep{0.1em}
+\subsection{About Graph Minimum Cut}
+\begin{itemize}[noitemsep]
+    \item $N$개의 boolean 변수 $v_1, \cdots, v_n$을 정해서 비용을 최소화하는 문제\\=true인 점은 $T$, false인 점은 $F$와 연결되게 분할하는 민컷 문제
+    \begin{enumerate}[noitemsep]
+        \item $v_i$가 T일 때 비용 발생: $i$에서 F로 가는 비용 간선
+        \item $v_i$가 F일 때 비용 발생: $i$에서 T로 가는 비용 간선
+        \item $v_i$가 T이고 $v_j$가 F일 때 비용 발생: $i$에서 $j$로 가는 비용 간선
+        \item $v_i \ne v_j$일 때 비용 발생: $i$에서 $j$로, $j$에서 $i$로 가는 비용 간선
+        \item $v_i$가 T면 $v_j$도 T여야 함: $i$에서 $j$로 가는 무한 간선
+        \item $v_i$가 F면 $v_j$도 F여야 함: $j$에서 $i$로 가는 무한 간선
+    \end{enumerate}
+    \item 5/6번 + $v_i$와 $v_j$가 달라야 한다는 조건이 있으면 MAX-2SAT
+    \item Maximum Density Subgraph (NEERC'06H, BOJ 3611 팀의 난이도)
+    \begin{itemize}[noitemsep]
+        \item density $\geq x$인 subgraph가 있는지 이분 탐색
+        \item 정점 $N$개, 간선 $M$개, 차수 $D_i$개
+        \item 그래프의 간선마다 용량 1인 양방향 간선 추가
+        \item 소스에서 정점으로 용량 $M$, 정점에서 싱크로 용량 $M-D_i+2x$
+        \item min cut에서 S와 붙어 있는 애들이 1개 이상이면 x 이상이고, 그게 subgraph의 정점들
+        \item while(r-l $\geq$ 1.0/(n*n)) 으로 해야 함. 너무 많이 돌리면 실수 오차
+    \end{itemize}
+\end{itemize}
+
+\subsection{About Graph Matching(Graph with $\vert V \vert \leq 500$)}
+\begin{itemize}[noitemsep]
     \item \textbf{Game on a Graph} : $s$에 토큰이 있음. 플레이어는 각자의 턴마다 토큰을 인접한 정점으로 옮기고 못 옮기면 짐.\\
     $s$를 포함하지 않는 최대 매칭이 존재함 $\leftrightarrow$ 후공이 이김
     \item \textbf{Chinese Postman Problem} : 모든 간선을 방문하는 최소 가중치 Walk를 구하는 문제.\\
@@ -595,14 +678,13 @@ $=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\su
     기계마다 두 개의 정점을 만들고 간선으로 연결하면 정답은 $\vert M\vert - \vert\text{기계}\vert$임. 정답에 1/2씩 기여한다는 점을 생각해보면 좋음.
     \item \textbf{Min Disjoint Cycle Cover} : 정점이 중복되지 않으면서 모든 정점을 덮는 길이 3 이상의 사이클 집합을 찾는 문제.\\
     모든 정점은 2개의 서로 다른 간선, 일부 간선은 양쪽 끝점과 매칭되어야 하므로 플로우를 생각할 수 있지만 용량 2짜리 간선에 유량을 1만큼 흘릴 수 있으므로 플로우는 불가능.\\
-    각 정점과 간선을 2개씩($(v, v')$, $(e_{i,u},e_{i,v})$)로 복사하자. 모든 간선 $e=(u,v)$에 대해 $e_u$와 $e_v$를 잇는 가중치 w짜리 간선을 만들고(like NEERC18), $(u,e_{i,u}), (u',e_{i,u}), (v,e_{i,v}), (v',e_{i,v})$를 연결하는 가중치 0짜리 간선을 만들자. Perfect 매칭이 존재함 $\leftrightarrow$ Disjoint Cycle Cover 존재. 최대 가중치 매칭 찾은 뒤 모든 간선 가중치 합에서 매칭 빼면 됨.
+    각 정점과 간선을 2개씩($(v, v')$, $(e_{i,u},e_{i,v})$)로 복사하자. 모든 간선 $e=(u,v)$에 대해 $e_u$와 $e_v$를 잇는 가중치 w짜리 간선을 만들고(like NEERC18), $(u,e_{i,u}), (u',e_{i,u}), (v,e_{i,v}), (v',e_{i,v})$를 연결하는 가중치 0짜리 간선을 만들자. Perfect 매칭이 존재함 $\Leftrightarrow$ Disjoint Cycle Cover 존재. 최대 가중치 매칭 찾은 뒤 모든 간선 가중치 합에서 매칭 빼면 됨.
     \item \textbf{Two Matching} : 각 정점이 최대 2개의 간선과 인접할 수 있는 최대 가중치 매칭 문제.\\
     각 컴포넌트는 정점 하나/경로/사이클이 되어야 함. 모든 서로 다른 정점 쌍에 대해 가중치 0짜리 간선 만들고, 가중치 0짜리 $(v,v')$ 간선 만들면 Disjoing Cycle Cover 문제가 됨. 정점 하나만 있는 컴포넌트는 self-loop, 경로 형태의 컴포넌트는 양쪽 끝점을 연결한다고 생각하면 편함.
 \end{itemize}
 
-\Algorithm{Calculus, Newton's Method}{}{}{}{}{}
-\begin{itemize}
-    \setlength\itemsep{0.1em}
+\subsection{Calculus, Newton's Method}
+\begin{itemize}[noitemsep]
     \item $(\arcsin x)'=1/\sqrt{1-x^2}$
     \item $(\tan x)'=1+\tan^2 x$
     \item $\int tan ax=-\ln |\cos ax|/a$
@@ -614,26 +696,28 @@ $=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\su
     \item where $C$ is positively oriented, piecewise smooth, simple, closed; $D$ is the region inside $C$; $L$ and $M$ have continuous partial derivatives in $D$.
 \end{itemize}
 
-\Algorithm{Checklist}{}{}{}{}{}
-\begin{itemize}
-    \setlength\itemsep{0.1em}
-    \item 비슷한 문제를 풀어본 적이 있던가?
+\subsection{Checklist}
+\begin{itemize}[noitemsep]
+    \item (예비소집) bits/stdc++.h, int128, long double 80bit, avx2 확인
+    \item (예비소집) 스택 메모리(지역 변수, 재귀, 람다 재귀), 제출 파일 크기 확인
+    \item (예비소집) MLE(힙,스택), stderr 출력 RTE?, 줄 앞뒤 공백 채점 결과
+    \item 비슷한 문제를 풀어본 적이 있는가?
     \item 단순한 방법에서 시작할 수 있을까? (Brute Force)
-    \item 내가 문제를 푸는 과정을 수식화할 수 있을까? (예제를 직접 해결해보면서)
-    \item 문제를 단순화할 수 없을까?
-    \item 그림으로 그려볼 수 있을까?
-    \item 수식으로 표현할 수 있을까?
-    \item 문제를 분해할 수 있을까?
-    \item 뒤에서부터 생각해서 풀 수 있을까?
-    \item 순서를 강제할 수 있을까?
+    \item 내가 문제를 푸는 과정을 수식화할 수 있을까? (예제를 직접 해결하면서)
+    \item 문제를 단순화할 수 없을까? / 그림으로 그려볼 수 있을까?
+    \item 수식으로 표현할 수 있을까? / 문제를 분해할 수 있을까?
+    \item 뒤에서부터 생각해서 풀 수 있을까? / 순서를 강제할 수 있을까?
     \item 특정 형태의 답만을 고려할 수 있을까? (정규화)
-    \item 구간을 통째로 가져간다 : 플로우 + 적당한 자료구조 $(i,i+1,k,0),(s,e,1,w),(N,T,k,0)$
-    \item a = b : a만 움직이기, b만 움직이기, 두 개 동시에 움직이기, 반대로 움직이기
-    \item 말도 안 되는 것들을 한 번은 생각해보기 / "당연하다고 생각한 것" 다시 생각해보기
+    \item 구간을 통째로 가져간다 : 플로우 + 적당한 자료구조\\$(i,i+1,k,0),(s,e,1,w),(N,T,k,0)$
+    \item a = b : a만 이동, b만 이동, 두 개 동시에 이동, 반대로 이동
+    \item 말도 안 되는 것 / 당연하다고 생각한 것 다시 생각해 보기
     \item Directed MST / Dominator Tree
     \item 일정 비율 충족 or 2~3개로 모두 커버 : 랜덤
     \item 확률 : DP, 이분 탐색(NYPC 2019 Finals C)
     \item 최대/최소 : 이분 탐색, 그리디(Prefix 고정, Exchange Argument), DP(순서 고정)
+    \item 냅색: 파라미터 순서 변경, min plus convolution, FFT
+    \item signal(SIGSEGV,[](int)\{\_Exit(0);\}); converts segfaults into WA. SIGABRT(assertion fail), SIGFPE(0div)
+    \item feenableexcept(29) kills problem on NaNs(1), 0div(4), inf(8), denormals(16)
 \end{itemize}
 
 \end{multicols*}

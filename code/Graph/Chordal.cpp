@@ -1,12 +1,7 @@
-struct Set {
-  list<int> L; int last;
-  Set() { last = 0; }
-};
+struct Set { list<int> L; int last; Set() { last = 0; } };
 struct PEO {
-  int N;
-  vector<vector<int> > g;
-  vector<int> vis, res;
-  list<Set> L;
+  int N; list<Set> L;
+  vector<vector<int>> g; vector<int> vis, res;
   vector<list<Set>::iterator> ptr;
   vector<list<int>::iterator> ptr2;
   PEO(int n, vector<vector<int> > _g) {

@@ -1,7 +1,24 @@
+/**
+ * Author: JusticeHui
+ * License: CC BY-NC-SA 
+ * Problem 1: (splay) https://www.acmicpc.net/problem/13159
+ * Code 1: (splay) http://boj.kr/45e8ede3354940448dfeb20f8e1433e4
+ *
+ * Problem 2: (lct) https://dmoj.ca/problem/ds5easy
+ * Code 2: (lct)
+ * Note 2: MakeRoot, PathUpdate, VertexQuery, Link, Cut, GetLCA
+ *
+ * Problem 3: (lct) https://www.acmicpc.net/problem/18861
+ * Code 3: (lct) http://boj.kr/9a535dc787e1466891298aa01fa9190b
+ * Note 3: IsConnect, GetPar, GetQueryResultNode
+ *
+ * Problem 4: (lct, Ancestor) https://www.acmicpc.net/problem/13511
+ * Code 4: (lct) http://boj.kr/34e00ab9fd084cfd8a96eca185667d98
+ * Node 4: GetDepth, Ancestor
+ */
+
 struct Node{
-  Node *l, *r, *p;
-  bool flip; int sz;
-  T now, sum, lz;
+  Node *l, *r, *p; bool flip; int sz; T now, sum, lz;
   Node(){ l = r = p = nullptr; sz = 1; flip = false; now = sum = lz = 0; }
   bool IsLeft() const { return p && this == p->l; }
   bool IsRoot() const { return !p || (this != p->l && this != p->r); }
@@ -27,7 +44,8 @@ struct Node{
 Node* rt;
 Node* Splay(Node *x, Node *g=nullptr){
   for(g || (rt=x); x->p!=g; x->Rotate()){
-    if(!x->p->IsRoot()) x->p->p->Push(); x->p->Push(); x->Push();
+    if(!x->p->IsRoot()) x->p->p->Push();
+    x->p->Push(); x->Push();
     if(x->p->p != g) (x->IsLeft() ^ x->p->IsLeft() ? x : x->p)->Rotate();
   }
   x->Push(); return x;
@@ -42,10 +60,10 @@ Node* Kth(int k){
 Node* Gather(int s, int e){ auto t = Kth(e+1); return Splay(t, Kth(s-1))->l; }
 Node* Flip(int s, int e){ auto x = Gather(s, e); x->flip ^= 1; return x; }
 Node* Shift(int s, int e, int k){
-  if(k >= 0){
+  if(k >= 0){ // shift to right
     k %= e-s+1; if(k) Flip(s, e), Flip(s, s+k-1), Flip(s+k, e);
   }
-  else{
+  else{ // shift to left
     k = -k; k %= e-s+1; if(k) Flip(s, e), Flip(s, e-k), Flip(e-k+1, e);
   }
   return Gather(s, e);
@@ -54,7 +72,8 @@ int Idx(Node *x){ return x->l->sz; }
 //////////// Link Cut Tree Start ////////////
 Node* Splay(Node *x){
   for(; !x->IsRoot(); x->Rotate()){
-    if(!x->p->IsRoot()) x->p->p->Push(); x->p->Push(); x->Push();
+    if(!x->p->IsRoot()) x->p->p->Push();
+    x->p->Push(); x->Push();
     if(!x->p->IsRoot()) (x->IsLeft() ^ x->p->IsLeft() ? x : x->p)->Rotate();
   }
   x->Push(); return x;
@@ -63,9 +82,9 @@ void Access(Node *x){
   Splay(x); x->r = nullptr; x->Update();
   for(auto y=x; x->p; Splay(x)) y = x->p, Splay(y), y->r = x, y->Update();
 }
-int GetDepth(Node *x){ Access(x); x->Push(); return GetSize(x->l); }
+int GetDepth(Node *x){Access(x);x->Push();return GetSize(x->l);}
 Node* GetRoot(Node *x){
-  Access(x); for(x->Push(); x->l; x->Push()) x = x->l; return Splay(x);
+  Access(x);for(x->Push();x->l;x->Push())x=x->l;return Splay(x);
 }
 Node* GetPar(Node *x){
   Access(x); x->Push(); if(!x->l) return nullptr;
@@ -84,13 +103,14 @@ Node* Ancestor(Node *x, int k){
     if(s < k) k -= s + 1, x = x->r; else x = x->l;
   }
 }
-void MakeRoot(Node *x){ Access(x); Splay(x); x->flip ^= 1; }
-bool IsConnect(Node *x, Node *y){ return GetRoot(x) == GetRoot(y); }
+void MakeRoot(Node *x){ Access(x); Splay(x); x->flip ^= 1; x->Push(); }
+bool IsConnect(Node *x, Node *y){return GetRoot(x)==GetRoot(y);}
 void PathUpdate(Node *x, Node *y, T val){
   Node *root = GetRoot(x); // original root
   MakeRoot(x); Access(y);  // make x to root, tie with y
   Splay(x); x->lz += val; x->Push();
   MakeRoot(root);    // Revert
+  // edge update without edge vertex...
   Node *lca = GetLCA(x, y);
   Access(lca); Splay(lca); lca->Push();
   lca->Update(lca->now - val);
@@ -102,9 +122,9 @@ T VertexQuery(Node *x, Node *y){
   return ret;
 }
 Node* GetQueryResultNode(Node *u, Node *v){
-  if(GetRoot(u) != GetRoot(v)) return 0;
+  if(!IsConnect(u, v)) return 0;
   MakeRoot(u); Access(v); auto ret = v->l;
-  while(ret->mx != ret->v){
+  while(ret->mx != ret->now){
     if (ret->l && ret->mx == ret->l->mx) ret = ret->l;
     else ret = ret->r;
   }

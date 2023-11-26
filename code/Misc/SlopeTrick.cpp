@@ -24,8 +24,8 @@ struct SlopeTrick{
     l.ans+=a.l.ans;
     while(sz(a.r.pq)) sf_inc(-a.r.argmin()),a.r.pq.pop();
     r.ans+=a.r.ans; ans+=a.ans;
-  }
-  int size()const{return l.size()+r.size();} LeftHull l,r; int ans=0;
+  } LeftHull l,r; int ans=0;
+  int size()const{return l.size()+r.size();}
 };
 //LeftHull 역추적 방법: 스텝i의 argmin값을 am(i)라고 하자. 스텝n부터 스텝1까지 ans[i]=min(ans[i+1],am(i))하면 된다. 아래는 증명..은 아니고 간략한 이유
 //am(i)<=ans[i+1]일때: ans[i]=am(i)

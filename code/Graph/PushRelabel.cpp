@@ -40,8 +40,7 @@ template<typename flow_t, size_t _Sz> struct PushRelabel {
     if(excess[v] > 0) if(count[dist[v]] == 1) gap(dist[v]); else relabel(v);
   }
   flow_t maximumFlow(int _n, int s, int t){
-    memset(dist, 0, sizeof dist); memset(excess, 0, sizeof excess);
-    memset(count, 0, sizeof count); memset(active, 0, sizeof active);
+    // memset dist, excess, count, active 0
     n = _n; b = 0;
     for(auto &e : g[s]) excess[s] += e.c;
     count[s] = n; enqueue(s); active[t] = true;

@@ -4,8 +4,7 @@ pt getCenter(pt a, pt b, pt c){
   auto c1 = aa*aa * 0.5, c2 = bb*bb * 0.5, d = aa / bb;
   auto x = a.x + (c1 * bb.y - c2 * aa.y) / d;
   auto y = a.y + (c2 * aa.x - c1 * bb.x) / d;
-  return pt(x, y);
-}
+  return pt(x, y); }
 Circle solve(vector<pt> v){
   pt p = {0, 0};
   double r = 0; int n = v.size();
@@ -15,8 +14,5 @@ Circle solve(vector<pt> v){
       p = getCenter(v[i], v[j]); r = dst(p, v[i]);
       for(int k=0; k<j; k++) if(dst(p, v[k]) > r + EPS){
         p = getCenter(v[i], v[j], v[k]); r = dst(v[k], p);
-      }
-    }
-  }
-  return {p, r};
-}
+  }}}
+  return {p, r}; }

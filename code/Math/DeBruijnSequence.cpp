@@ -6,13 +6,11 @@ int de_bruijn(int k, int n) { // Returns size (k^n)
   int sz = 0;
   function<void(int, int)> db = [&](int t, int p) {
     if(t > n) {
-      if(n % p == 0) for(int i = 1; i <= p; i++) res[sz++] = aux[i];
+      if(n % p == 0) for(int i=1; i<=p; i++) res[sz++]=aux[i];
     }
     else {
       aux[t] = aux[t - p]; db(t + 1, p);
-      for(int i = aux[t - p] + 1; i < k; i++) aux[t] = i, db(t + 1, t);
+      for(int i=aux[t-p]+1; i<k; i++) aux[t]=i, db(t+1, t);
     }
-  };
-  db(1, 1);
-  return sz;
+  }; db(1, 1); return sz;
 }
