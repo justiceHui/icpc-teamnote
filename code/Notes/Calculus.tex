@@ -1,0 +1,32 @@
+\begin{itemize}[noitemsep]
+    \item 음함수 미분: $f(x,y)=0$의 양변을 $x$에 대해 미분한 뒤 $dy/dx$에 대해 정리
+    \item (예시) $\frac{d}{dx}(x^3)+\frac{d}{dx}(y^3) - 3\frac{d}{dx}(xy) = 3x^2+3y^2\frac{dy}{dx}-3(y+x\frac{dy}{dx}) = 0$
+    \item 역함수 미분: $(f^{-1})\prime(x)=1/f\prime(f^{-1}(x))$
+    \item 뉴턴 랩슨: $x_{n+1}=x_{n}-f(x_n)/f'(x_n)$
+    \item 치환 적분: $x=g(t)$로 두면, $\int f(x)dx=\int f(g(t))g\prime(t) dt$
+    \item (예시) $\int \frac{f\prime(x)}{f(x)}dx$에서 $t=f(x)$라고 두면 $f\prime(x)=dt/dx$\\
+    따라서 $\int \frac{f\prime(x)}{f(x)}dx = \int 1/t\ dt = \ln \vert t\vert + C=\ln\vert f(x)\vert + C$
+    \item 삼각 치환: $\sqrt{a^2-x^2}$에서는 $x=a\sin t$, $\sqrt{a^2+x^2}$에서는 $x=a\tan t$, 범위 조심
+    \item 입체 도형 부피: $x=a, x=b$ 사이에서 단면의 넓이 함수 $A(x)$가 연속이면 부피는 $\int_a^b A(x)dx$
+    \item (원주각법): 연속함수 $f(x)$가 $[a,b]$에서 $f(x)\ge 0$일 때, $f(x)$와 두 직선 $x=a,x=b$, 그리고 x축으로 둘러싸인 영역을 y축으로 회전시킨 부피는 $\int_a^b 2\pi xf(x)dx$
+    \item 곡선 길이: $f\prime(x)$가 $[a,b]$에서 연속이면, $x=a,x=b$사이의 곡선 길이는 $\int_a^b\sqrt{1+[f\prime(x)]^2}dx$
+    \item 회전 곡면 넓이: x축으로 회전시킨 부피는 $\int_a^b 2\pi f(x)\sqrt{1+[f\prime(x)]^2}dx$
+    \item $\oint_C (Ldx+Mdy)=\int\int_D (\frac{\partial M}{\partial x}-\frac{\partial L}{\partial y})dxdy$
+    \item where $C$ is positively oriented, piecewise smooth, simple, closed; $D$ is the region inside $C$; $L$ and $M$ have continuous partial derivatives in $D$.
+\end{itemize}
+\begin{tabular}{|l|l|l|}
+\hline
+    $f(x)$ & $f\prime(x)$ & $\int f(x) dx$ \\ \hline
+    $\sin x$ & $\cos x$ & $-\cos x$ \\ \hline
+    $\cos x$ & $-\sin x$ & $\sin x$ \\ \hline
+    $\tan x$ & $\sec^2 x=1+\tan^2 x$ & $-\ln \vert \cos x \vert$ \\ \hline
+    $\csc x$ & $-\csc x \cot x$ & $\ln \vert \tan(x/2) \vert$ \\ \hline
+    $\sec x$ & $\sec x \tan x$ & $\ln \vert \tan(x/2+\pi/4) \vert$ \\ \hline
+    $\cot x$ & $-\csc^2 x$ & $\ln \vert \sin x \vert$ \\ \hline
+    $\arcsin x$ & $1/\sqrt{1-x^2}$ & $x \arcsin x + \sqrt{1-x^2}$ \\ \hline
+    $\arccos x$ & $-1/\sqrt{1-x^2}$ & $x \arccos x - \sqrt{1-x^2}$ \\ \hline
+    $\arctan x$ & $1/(1+x^2)$ & $x \arctan x - \frac{\ln(x^2+1)}{2}$ \\ \hline
+    $\csc^{-1} x$ & $-1/x\sqrt{x^2-1}$ & $x \csc^{-1}(x) + \cosh^{-1} \vert x \vert$ \\ \hline
+    $\sec^{-1} x$ & $1/x\sqrt{x^2-1}$ & $x \sec^{-1}(x) - \cosh^{-1} \vert x \vert$ \\ \hline
+    $\cot^{-1} x$ & $-1/(1+x^2)$ & $x \cot^{-1} x + \frac{\ln(x^2+1)}{2}$ \\ \hline
+\end{tabular}

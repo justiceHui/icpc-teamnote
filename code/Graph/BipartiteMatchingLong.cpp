@@ -1,16 +1,12 @@
 struct HopcroftKarp{
-  int n, m;
-  vector<vector<int>> g;
-  vector<int> dst, le, ri;
-  vector<char> visit, track;
+  int n, m; vector<vector<int>> g;
+  vector<int> dst, le, ri; vector<char> visit, track;
   HopcroftKarp(int n, int m) : n(n), m(m), g(n), dst(n), le(n, -1), ri(m, -1), visit(n), track(n+m) {}
   void add_edge(int s, int e){ g[s].push_back(e); }
-  bool bfs(){
-    bool res = false; queue<int> que;
-fill(dst.begin(), dst.end(), 0);
+  bool bfs(){ bool res = false; queue<int> que;
+    fill(dst.begin(), dst.end(), 0);
     for(int i=0; i<n; i++)if(le[i] == -1)que.push(i),dst[i]=1;
-    while(!que.empty()){
-      int v = que.front(); que.pop();
+    while(!que.empty()){ int v = que.front(); que.pop();
       for(auto i : g[v]){
         if(ri[i] == -1) res = true;
         else if(!dst[ri[i]])dst[ri[i]]=dst[v]+1,que.push(ri[i]);
@@ -21,19 +17,15 @@ fill(dst.begin(), dst.end(), 0);
   bool dfs(int v){
     if(visit[v]) return false; visit[v] = 1;
     for(auto i : g[v]){
-      if(ri[i] == -1 || !visit[ri[i]] && dst[ri[i]] == dst[v] + 1 && dfs(ri[i])){
-        le[v] = i; ri[i] = v; return true;
-      }
-    }
-    return false;
+      if(ri[i] == -1 || !visit[ri[i]] && dst[ri[i]] == dst[v] + 1 && dfs(ri[i])){ le[v] = i; ri[i] = v; return true; }
+    } return false;
   }
   int maximum_matching(){
     int res = 0; fill(all(le), -1); fill(all(ri), -1);
     while(bfs()){
       fill(visit.begin(), visit.end(), 0);
       for(int i=0; i<n; i++) if(le[i] == -1) res += dfs(i);
-    }
-    return res;
+    } return res;
   }
   vector<pair<int,int>> maximum_matching_edges(){
     int matching = maximum_matching();
@@ -75,7 +67,8 @@ fill(dst.begin(), dst.end(), 0);
       while(le[v] != -1) path.push_back(v=le[v]);
       return path;
     };
-    for(int i=0; i<n; i++) if(!track[n+i] && ri[i] == -1) res.push_back(get_path(i));
+    for(int i=0; i<n; i++) if(!track[n+i] && ri[i] == -1)
+      res.push_back(get_path(i));
     return res; // sz(res) = n-mat
   }
   vector<int> maximum_anti_chain(){ // n = m
@@ -85,7 +78,6 @@ fill(dst.begin(), dst.end(), 0);
       while(j < a.size() && a[j] < i) j++;
       while(k < b.size() && b[k] < i) k++;
       if((j == a.size() || a[j] != i) && (k == b.size() || b[k] != i)) res.push_back(i);
-    }
-    return res; // sz(res) = n-mat
+    } return res; // sz(res) = n-mat
   }
 };

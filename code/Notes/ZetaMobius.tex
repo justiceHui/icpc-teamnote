@@ -1,0 +1,15 @@
+\begin{itemize}[noitemsep]
+    \item Subset Zeta/Mobius Transform(n=sz=$2^k$,i*=2)\\
+    - for i=1..n-1 for j=0..n-1 if(i and j) v[j] ±= v[i xor j]
+    \item Superset Zeta/Mobius Transform(n=sz=$2^k$,i*=2)\\
+    - for i=1..n-1 for j=0..n-1 if(i and j) v[i xor j] ±= v[j]
+    \item Divisor Zeta/Mobuis Transform(n=sz-1)\\
+    - for p:Prime for i=1..n/p v[i*p] += v[i]\\
+    - for p:Prime for i=n/p..1 v[i*p] -= v[i]
+    \item Multiple Zeta/Mobius Transform(n=sz-1)\\
+    - for p:Prime for i=n/p..1 v[i] += v[i*p]\\
+    - for p:Prime for i=1..n/p v[i] -= v[i*p]
+    \item AND Convolution: SupZeta(A), SupZeta(B), SupMobius(mul)
+    \item OR Conv.: Subset, GCD Conv.: Multiple, LCM Conv.: Divisor
+    \item AND/OR: $2^20$ 0.3s, Subset: $2^{20}$ 2.5s, GCD/LCM: 1e6 0.3s
+\end{itemize}

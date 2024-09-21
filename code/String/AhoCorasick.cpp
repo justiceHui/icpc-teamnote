@@ -23,13 +23,10 @@ void Build(){
       int next = T[n].g[i]; if(next == 0) continue;
      if(n == 1)T[next].fail=1;else T[next].fail=go(T[n].fail,i);
       q.push(next); T[next].out += T[T[next].fail].out;
-    }
-  }
-}
+    } /* for i */ } /* while q */ } /* build */
 bool Find(const string &s){
   int n = 1, ok = 0;
   for(int i=0; i<s.size(); i++){
     n = go(n, s[i] - 'a'); if(T[n].out != 0) ok = 1;
-  }
-  return ok;
+  } return ok;
 }

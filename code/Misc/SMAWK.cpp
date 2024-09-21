@@ -9,9 +9,7 @@ vector<int> SMAWK(F f, int n, int m){
         for(int j=0; j<y; j++){
           int c = cs[j]; T w = f(r, c);
           if(ans[r] == -1 || w > mx) ans[r] = c, mx = w;
-      }}
-      return;
-    }
+    }} /* for j i */ return; } /* base case */
     if(x < y){ int s = 0;
       for(int i=0; i<y; i++){ int c = cs[i];
         while(s && f(rs[s-1], cs[s-1]) < f(rs[s-1], c)) s--;

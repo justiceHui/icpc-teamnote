@@ -21,11 +21,9 @@ struct suffix_automaton{
     int now = len.size(); len.push_back(l); link.push_back(-1);
     set_link(now, sl); firstpos.push_back(fp);
     is_clone.push_back(c); next.push_back(adj); return now;
-  }
-  int last = 0;
+  } int last = 0;
   void extend(const vector<Char_Type> &s){
-    last = 0; for(auto c: s) extend(c);
-  }
+    last = 0; for(auto c: s) extend(c); }
   void extend(Char_Type c){
     int cur = new_state(len[last] + 1, -1, len[last], false, {}), p = last;
     while(~p && !next[p][c]) next[p][c] = cur, p = link[p];
@@ -36,8 +34,7 @@ struct suffix_automaton{
       else{
         int clone = new_state(len[p] + 1, link[q], firstpos[q], true, next[q]);
         while(~p && next[p][c] == q) next[p][c] = clone, p = link[p];
-        set_link(cur, clone);
-        set_link(q, clone);
+        set_link(cur, clone); set_link(q, clone);
       }
     }
     last = cur;

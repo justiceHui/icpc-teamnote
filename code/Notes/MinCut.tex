@@ -1,0 +1,21 @@
+\begin{itemize}[noitemsep]
+    \item $N$개의 boolean 변수 $v_1, \cdots, v_n$을 정해서 비용을 최소화하는 문제\\=true인 점은 $T$, false인 점은 $F$와 연결되게 분할하는 민컷 문제
+    \begin{enumerate}[noitemsep]
+        \item $v_i$가 T일 때 비용 발생: $i$에서 F로 가는 비용 간선
+        \item $v_i$가 F일 때 비용 발생: $i$에서 T로 가는 비용 간선
+        \item $v_i$가 T이고 $v_j$가 F일 때 비용 발생: $i$에서 $j$로 가는 비용 간선
+        \item $v_i \ne v_j$일 때 비용 발생: $i$에서 $j$로, $j$에서 $i$로 가는 비용 간선
+        \item $v_i$가 T면 $v_j$도 T여야 함: $i$에서 $j$로 가는 무한 간선
+        \item $v_i$가 F면 $v_j$도 F여야 함: $j$에서 $i$로 가는 무한 간선
+    \end{enumerate}
+    \item 5/6번 + $v_i$와 $v_j$가 달라야 한다는 조건이 있으면 MAX-2SAT
+    \item Maximum Density Subgraph (NEERC'06H, BOJ 3611 팀의 난이도)
+    \begin{itemize}[noitemsep]
+        \item density $\geq x$인 subgraph가 있는지 이분 탐색
+        \item 정점 $N$개, 간선 $M$개, 차수 $D_i$개
+        \item 그래프의 간선마다 용량 1인 양방향 간선 추가
+        \item 소스에서 정점으로 용량 $M$, 정점에서 싱크로 용량 $M-D_i+2x$
+        \item min cut에서 S와 붙어 있는 애들이 1개 이상이면 x 이상이고, 그게 subgraph의 정점들
+        \item while(r-l $\geq$ 1.0/(n*n)) 으로 해야 함. 너무 많이 돌리면 실수 오차
+    \end{itemize}
+\end{itemize}

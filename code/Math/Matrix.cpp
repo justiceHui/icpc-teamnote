@@ -5,18 +5,21 @@
  * Description: get RREF, rank, det, inverse matrix of A
  * Problem (rref): https://www.acmicpc.net/problem/20307
  * Code (rref): http://boj.kr/72e7455edc2044aa93cd0fa347b44c81
- * Problem (rank): https://www.acmicpc.net/problem/15737
- * Code (rank): http://boj.kr/bc9bbe60a5144744acf94289368c2e01
- * Problem (Det): https://judge.yosupo.jp/problem/matrix_det
- * Code (Det, Gauss): https://judge.yosupo.jp/submission/62842
- * Code (Det, Det): https://judge.yosupo.jp/submission/173048
- * Problem (Inv): https://www.acmicpc.net/problem/9254
- * Code (Inv): http://boj.kr/2e9185babd8b4c049b534d80c6951893
+ * Problem (rank): https://judge.yosupo.jp/problem/matrix_rank
+ * Code (rank): https://judge.yosupo.jp/submission/193513
+ * Problem (Det mod P): https://judge.yosupo.jp/problem/matrix_det
+ * Code (Det mod P): https://judge.yosupo.jp/submission/193511
+ * Problem (Det mod M): https://judge.yosupo.jp/problem/matrix_det_arbitrary_mod
+ * Code (Det mod M): https://judge.yosupo.jp/submission/193510
+ * Problem (Inv float): https://www.acmicpc.net/problem/9254
+ * Code (Inv float): http://boj.kr/2e9185babd8b4c049b534d80c6951893
+ * Problem (Inv mod P): https://judge.yosupo.jp/submission/193514
+ * Code (Inv mod P): https://judge.yosupo.jp/submission/193514
  */
 
 template<typename T> // return {rref, rank, det, inv}
-tuple<vector<vector<T>>, int, T, vector<vector<T>>> Gauss(vector<vector<T>> a, bool square=true){
-  int n = a.size(), m = a[0].size(), rank = 0;
+tuple<vector<vector<T>>, int, T, vector<vector<T>>> Gauss(vector<vector<T>> a, bool square=true){ // n500 -400ms
+  int n = a.size(), m = a[0].size(), rank = 0;//bitset 4096-700
   vector<vector<T>> out(n, vector<T>(m, 0)); T det = T(1);
   for(int i=0; i<n; i++) if(square) out[i][i] = T(1);
   for(int i=0; i<m; i++){
@@ -45,7 +48,7 @@ tuple<vector<vector<T>>, int, T, vector<vector<T>>> Gauss(vector<vector<T>> a, b
 } // 0 0 ... 0 b[i]: inconsistent, rank < len(A[0]): multiple
 // get det(A) mod M, M can be composite number
 // remove mod M -> get pure det(A) in integer
-ll Det(vector<vector<ll>> a){//destroy matrix
+ll Det(vector<vector<ll>> a){//destroy matrix, n500 -400ms
   int n = a.size(); ll ans = 1;
   for(int i=0; i<n; i++){
     for(int j=i+1; j<n; j++){

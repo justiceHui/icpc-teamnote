@@ -1,4 +1,4 @@
-namespace weighted_blossom_tree{
+namespace weighted_blossom_tree{ // n 400 w 1e8 700ms, n 500 w 1e6 300ms
   #define d(x) (lab[x.u]+lab[x.v]-e[x.u][x.v].w*2)
   const int N=403*2; using ll = long long; using T = int; // sum of weight, single weight
   const T inf=numeric_limits<T>::max()>>1;
@@ -14,26 +14,22 @@ namespace weighted_blossom_tree{
     if ((v=find(p[u].begin(), p[u].end(), v) - p[u].begin()) & 1){
       reverse(p[u].begin()+1, p[u].end()); return (int)p[u].size() - v;
     }
-    return v;
-  }
+    return v; }
   void stm(int u, int v){
     lk[u] = e[u][v].v;
     if(u <= n) return; Q w = e[u][v];
     int x = b[u][w.u], y = gr(u,x);
     for(int i=0; i<y; i++) stm(p[u][i], p[u][i^1]);
-    stm(x, v); rotate(p[u].begin(), p[u].begin()+y, p[u].end());
-  }
+    stm(x,v);rotate(p[u].begin(), p[u].begin()+y, p[u].end()); }
   void aug(int u, int v){
     int w = st[lk[u]]; stm(u, v); if (!w) return;
-    stm(w, st[f[w]]); aug(st[f[w]], w);
-  }
+    stm(w, st[f[w]]); aug(st[f[w]], w); }
   int lca(int u, int v){
     for(++id; u|v; swap(u, v)){
       if(!u) continue; if(ed[u] == id) return u;
       ed[u] = id; if(u = st[lk[u]]) u = st[f[u]]; // not ==
     }
-    return 0;
-  }
+    return 0; }
   void add(int u, int a, int v){
     int x = n+1; while(x <= m && st[x]) x++;
     if(x > m) m++;
@@ -42,33 +38,30 @@ namespace weighted_blossom_tree{
     for(int i=u, j; i!=a; i=st[f[j]]) p[x].push_back(i), p[x].push_back(j=st[lk[i]]), ins(j);
     reverse(p[x].begin()+1, p[x].end());
     for(int i=v, j; i!=a; i=st[f[j]]) p[x].push_back(i), p[x].push_back(j=st[lk[i]]), ins(j);
-    mdf(x, x); for(int i=1; i<=m; i++) e[x][i].w = e[i][x].w = 0;
+    mdf(x,x); for(int i=1; i<=m; i++) e[x][i].w=e[i][x].w=0;
     memset(b[x]+1, 0, n*sizeof b[0][0]);
     for (int u : p[x]){
       for(v=1; v<=m; v++) if(!e[x][v].w || d(e[u][v]) < d(e[x][v])) e[x][v] = e[u][v],e[v][x] = e[v][u];
       for(v=1; v<=n; v++) if(b[u][v]) b[x][v] = u;
     }
-    ss(x);
-  }
+    ss(x); }
   void ex(int u){  // s[u] == 1
     for(int x : p[u]) mdf(x, x);
     int a = b[u][e[u][f[u]].u],r = gr(u, a);
     for(int i=0; i<r; i+=2){
       int x = p[u][i], y = p[u][i+1];
-      f[x] = e[y][x].u; s[x] = 1; s[y] = 0; sl[x] = 0; ss(y); ins(y);
-    }
+      f[x] = e[y][x].u; s[x] = 1; s[y] = 0; sl[x] = 0; ss(y);;;
+      ins(y); }
     s[a] = 1; f[a] = f[u];
-    for(int i=r+1; i<p[u].size(); i++) s[p[u][i]] = -1, ss(p[u][i]);
-    st[u] = 0;
-  }
+    for(int i=r+1;i<p[u].size();i++)s[p[u][i]]=-1, ss(p[u][i]);
+    st[u] = 0; }
   bool on(const Q &e){
     int u=st[e.u], v=st[e.v], a;
     if(s[v] == -1) f[v] = e.u, s[v] = 1, a = st[lk[v]], sl[v] = sl[a] = s[a] = 0, ins(a);
     else if(!s[v]){
       a = lca(u, v); if(!a) return aug(u,v), aug(v,u), true; else add(u,a,v);
     }
-    return false;
-  }
+    return false; }
   bool bfs(){
     memset(s+1, -1, m*sizeof s[0]); memset(sl+1, 0, m*sizeof sl[0]);
     h = 1; t = 0; for(int i=1; i<=m; i++) if(st[i] == i && !lk[i]) f[i] = s[i] = 0, ins(i);
@@ -88,8 +81,7 @@ namespace weighted_blossom_tree{
       for(int i=1; i<=m; i++) if(st[i] == i && sl[i] && st[sl[i]] != i && !d(e[sl[i]][i]) && on(e[sl[i]][i])) return true;
       for(int i=n+1; i<=m; i++) if(st[i] == i && s[i] == 1 && !lab[i]) ex(i);
     }
-    return 0;
-  }
+    return 0; }
   template<typename TT> pair<int,ll> run(int N, const vector<tuple<int,int,TT>> &edges){ // 1-based
     memset(ed+1, 0, m*sizeof ed[0]); memset(lk+1, 0, m*sizeof lk[0]);
     n = m = N; id = 0; iota(st+1, st+n+1, 1); T wm = 0; ll r = 0;

@@ -1,76 +1,45 @@
 /**
- * Author: chilli, Takanori MAEHARA, Benq, Simon Lindholm
- * License: CC0
- * Source: https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/DirectedMST.h
+ * Author: std_abs
+ * License: 
+ * Source: https://github.com/abc864197532/std_abs/blob/main/codebook/Graph/DirectedMST.cpp
  * Description: 
  * Problem: https://judge.yosupo.jp/problem/directedmst
- * Code: https://judge.yosupo.jp/submission/173684
+ * Code: https://judge.yosupo.jp/submission/184786
  */
 
-struct Edge{
-  int s, e; cost_t x; Edge() = default;
-  Edge(int s, int e, cost_t x) : s(s), e(e), x(x) {}
-  bool operator < (const Edge &t) const { return x < t.x; }
-};
-struct UnionFind{
-  vector<int> P, S; vector<pair<int,int>> stk;
-  UnionFind(int n):P(n),S(n,1){ iota(P.begin(), P.end(), 0); }
-  int find(int v) const { return v == P[v] ? v : find(P[v]); }
-  int time() const { return stk.size(); }
-  void rollback(int t){
-    while(stk.size() > t){
-      auto [u,v]=stk.back(); stk.pop_back(); P[u]=u; S[v]-=S[u];
+using D = int; struct edge { int u, v; D w; };
+vector<int> DirectedMST(vector<edge> &e, int n, int root){
+  using T = pair<D, int>;  // 0-based, return index of edges
+  using PQ = pair<priority_queue <T,vector<T>,greater<T>>, D>;
+  auto push = [](PQ &pq, T v){ pq.first.emplace(v.first-pq.second, v.second); };
+  auto top = [](const PQ &pq) -> T {
+    auto r = pq.first.top(); return {r.first + pq.second, r.second}; };
+  auto join = [&push, &top](PQ &a, PQ &b) {
+    if(a.first.size() < b.first.size()) swap(a, b);
+    while(!b.first.empty()) push(a, top(b)), b.first.pop(); };
+  vector<PQ> h(n * 2);
+  for(int i=0; i<e.size(); i++) push(h[e[i].v], {e[i].w, i});
+  vector<int> a(n*2), v(n*2, -1), pa(n*2, -1), r(n*2);
+  iota(a.begin(), a.end(), 0);
+  auto o = [&](int x) { int y; for(y=x; a[y]!=y; y=a[y]);;;
+    for(int ox=x; x!=y; ox=x) x = a[x], a[ox] = y;
+    return y; };
+  v[root] = n + 1; int pc = n;
+  for(int i=0; i<n; i++) if(v[i] == -1) {
+    for(int p=i; v[p]==-1 || v[p]==i; p=o(e[r[p]].u)){
+      if(v[p] == i){ int q = p; p = pc++;
+        do{ h[q].second = -h[q].first.top().first;
+          join(h[pa[q]=a[q]=p], h[q]);
+        }while((q=o(e[r[q]].u)) != p);
+      } v[p] = i;
+      while(!h[p].first.empty() && o(e[top(h[p]).second].u) == p) h[p].first.pop();
+      r[p] = top(h[p]).second;
     }
   }
-  bool merge(int u, int v){
-    u = find(u); v = find(v); if(u == v) return false;
-    if(S[u] > S[v]) swap(u, v);
-    stk.emplace_back(u, v); S[v] += S[u]; P[u] = v;
-    return true;
+  vector<int> ans;
+  for(int i=pc-1; i>=0; i--) if(i != root && v[i] != n) {
+    for(int f=e[r[i]].v; f!=-1 && v[f]!=n; f=pa[f]) v[f] = n;;;
+    ans.push_back(r[i]);
   }
-};
-struct Node{
-  Edge key; Node *l, *r; cost_t lz; Node() : Node(Edge()) {}
-  Node(const Edge &edge):key(edge),l(nullptr),r(nullptr),lz(0){}
-  void push(){
-    key.x += lz; if(l) l->lz += lz; if(r) r->lz += lz; lz = 0; }
-  Edge top(){ push(); return key; }
-};
-Node* merge(Node *a, Node *b){
-  if(!a || !b) return a ? a : b;
-  a->push(); b->push(); if(b->key < a->key) swap(a, b);
-  swap(a->l, (a->r = merge(b, a->r))); return a;
-}
-void pop(Node* &a){ a->push(); a = merge(a->l, a->r); }
-// 0-based, par[rt] = -1
-pair<cost_t, vector<int>> DirectMST(int n, int rt, vector<Edge> &edges){
-  vector<Node*> heap(n); UnionFind uf(n);
-  for(const auto &i : edges) heap[i.e] = merge(heap[i.e], new Node(i));
-  cost_t res = 0; vector<int> seen(n, -1), path(n), par(n);
-  seen[rt] = rt; vector<Edge> Q(n), in(n, {-1,-1, 0}), comp;
-  deque<tuple<int, int, vector<Edge>>> cyc;
-  for(int s=0; s<n; s++){
-    int u = s, qi = 0, w;
-    while(seen[u] < 0){
-      if(!heap[u]) return {-1, {}};
-      Edge e = heap[u]->top();
-      heap[u]->lz -= e.x; pop(heap[u]);
-      Q[qi] = e; path[qi++] = u; seen[u] = s;
-      res += e.x; u = uf.find(e.s);
-      if(seen[u] == s){ // found cycle, contract
-        Node* nd = 0; int end = qi, time = uf.time();
-        do nd = merge(nd, heap[w = path[--qi]]); while(uf.merge(u, w));
-        u = uf.find(u); heap[u] = nd; seen[u] = -1;
-        cyc.emplace_front(u,time,vector<Edge>{&Q[qi],&Q[end]});
-      }
-    }
-    for(int i=0; i<qi; i++) in[uf.find(Q[i].e)] = Q[i];
-  }
-  for(auto& [u,t,comp] : cyc){
-    uf.rollback(t); Edge inEdge = in[u];
-    for (auto& e : comp) in[uf.find(e.e)] = e;
-    in[uf.find(inEdge.e)] = inEdge;
-  }
-  for(int i=0; i<n; i++) par[i] = in[i].s;
-  return {res, par};
+  return ans;
 }

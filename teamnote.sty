@@ -22,6 +22,7 @@
 \newcommand{\schoolname}{}
 \newcommand{\teamname}{}
 \newcommand{\authorname}{}
+\newcommand{\contestname}{}
 
 \newcommand{\maketitlepage}{\maketitle
 	
@@ -30,10 +31,11 @@
 \thispagestyle{fancy}
     
 }
-\DeclareRobustCommand{\teamnote}[3]{
+\DeclareRobustCommand{\teamnote}[4]{
 	\renewcommand{\schoolname}{#1}
     \renewcommand{\teamname}{#2}
     \renewcommand{\authorname}{#3}
+    \renewcommand{\contestname}{#4}
 }
 \pagestyle{fancy}
 \lhead{\schoolname{} -- \teamname}
@@ -42,8 +44,9 @@
 \fancyfoot{}
 
 \title{Team Note of \teamname}
-\author{\authorname}
-\date{Compiled on \today}
+\author{\authorname\\\\\contestname}
+\date{}
+% \date{Compiled on \today}
 
 
 

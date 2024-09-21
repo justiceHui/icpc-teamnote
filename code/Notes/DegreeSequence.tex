@@ -1,0 +1,8 @@
+\begin{itemize}[noitemsep]
+
+    \item 단순 무향 그래프(Erdos-Gallai): 차수열 $d_1 \geq \cdots \geq d_n$의 합이 짝수 and 모든 $1 \leq k \leq n$에 대해 $\sum_{i=1}^{k} d_i \leq k(k-1) + \sum_{i=k+1}^{n} \min(d_i, k)$
+
+    \item 단순 이분 그래프(Gale-Ryser): 차수열 $a_1 \geq \cdots \geq a_n$, $b_i$에서 $sum(a) = sum(b)$ and 모든 $1 \leq k \leq n$에 대해 $\sum_{i=1}^{k} a_i \leq \sum_{i=1}^{n} \min(b_i,k)$
+
+    \item 단순 방향 그래프(Fulkerson-Chen-Anstee): $a_1 \geq \cdots \geq a_n$를 만족하는 진입/진출 차수열 $(a_1,b_1), \cdots, (a_n, b_n)$에서 $sum(a) = sum(b)$ and 모든 $1 \leq k \leq n$에 대해 $\sum_{i=1}^{k} a_i \leq \sum_{i=1}^{k} \min(b_i, k-1) + \sum_{i=k+1}^{n} \min(b_i, k)$
+\end{itemize}

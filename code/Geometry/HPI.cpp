@@ -30,11 +30,8 @@ vector<Point> HPI(vector<Line> v){
     Line now = dq[i], nxt = dq[(i+1)%dq.size()];
     if(CCW(o, now.slope(), nxt.slope()) <= eps) return vector<Point>();
     ret.push_back(LineIntersect(now, nxt));
-  }
-  //for(auto &[x,y] : ret) x = -x, y = -y;
+  } //for(auto &[x,y] : ret) x = -x, y = -y;
   return ret;
-}
+} // MakeLine: left side of ray (x1,y1) -> (x2,y2)
 Line MakeLine(T x1, T y1, T x2, T y2){
-  // left side of ray (x1,y1) -> (x2,y2)
-  T a = y2-y1, b = x1-x2, c = x1*a + y1*b; return {a,b,c};
-}
+  T a = y2-y1, b = x1-x2, c = x1*a + y1*b; return {a,b,c}; }

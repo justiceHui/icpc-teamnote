@@ -1,0 +1,16 @@
+\textbf{Simplex Example}\\
+Maximize $p = 6x + 14y + 13z$\\
+Constraints \\
+- $0.5x + 2y + z \leq 24$\\
+- $x + 2y + 4z \leq 60$\\
+Coding\\
+- $n = 2, m = 3, a = \begin{pmatrix} 0.5 & 2 & 1 \\ 1 & 2 & 4 \end{pmatrix}, b = \begin{pmatrix} 24 \\ 60 \end{pmatrix}, c = [6, 14, 13]$
+
+\noindent
+\textbf{LP Duality \& Example}\\
+tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제의 답)\\
+- Primal : $n = 2, m = 3, a = \begin{pmatrix} 0.5 & 2 & 1 \\ 1 & 2 & 4 \end{pmatrix}, b = \begin{pmatrix} 24 \\ 60 \end{pmatrix}, c = [6, 14, 13]$\\
+- Dual : $n = 3, m = 2, a = \begin{pmatrix} -0.5 & -1 \\ -2 & -2 \\ -1 & -4 \end{pmatrix}, b = \begin{pmatrix} -6 \\ -14 \\ -13 \end{pmatrix}, c = [-24, -60]$\\
+공식\\
+- Primal : $\max_{x} c^Tx$, Constraints $Ax \leq b, x \geq 0$\\
+- Dual : $\min_{y} b^Ty$,Constraints $A^Ty \geq c, y \geq 0$ 

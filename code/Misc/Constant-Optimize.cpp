@@ -8,15 +8,13 @@ namespace io { // thanks to cgiosy
     while(*++J>='0'&&++k<N);++J;return x;}
   template<int N=10,typename T=int>inline T geti(){
     daer();bool e=*J=='-';J+=e;return(e?-1:1)*getu<N,T>();}
-  struct f{f(){I[read(0,I,IS)]=0;}}flu;
-};
+  struct f{f(){I[read(0,I,IS)]=0;}}flu; };
 struct FastMod{ // typedef __uint128_t L;
   ull b, m; FastMod(ull b) : b(b), m(ull((L(1) << 64) / b)) {}
   ull reduce(ull a){ // can be proven that 0 <= r < 2*b
     ull q = (ull)((L(m) * a) >> 64), r = a - q * b;
     return r >= b ? r - b : r;
-  }
-};
+} };
 inline pair<uint32_t, uint32_t> Div(uint64_t a, uint32_t b){
   if(__builtin_constant_p(b)) return {a/b, a%b};
   uint32_t lo=a, hi=a>>32;

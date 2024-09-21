@@ -1,0 +1,55 @@
+\begin{itemize}[noitemsep]
+    
+\item Burnside’s Lemma\\
+- 수식\\
+G=(X,A): 집합X와 액션A로 정의되는 군G에 대해, $\vert A\vert\vert X/A \vert=sum(\vert \text{Fixed points of a}\vert,\text{for all a in A})$\\
+X/A 는 Action으로 서로 변형가능한 X의 원소들을 동치로 묶었을때 동치류(파티션) 집합\\
+- 풀어쓰기\\
+orbit: 그룹에 대해 두 원소 a,b와 액션f에 대해 f(a)=b인거에 간선연결한 컴포넌트(연결집합)\\
+orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개수\\
+- 자유도 치트시트\\
+회전 n개: 회전i의 고정점 자유도=gcd(n,i)\\
+임의뒤집기 n=홀수: n개 원소중심축(자유도 (n+1)/2)\\
+임의뒤집기 n=짝수: n/2개 원소중심축(자유도 n/2+1) + n/2개 원소안지나는축(자유도 n/2)
+
+\item 알고리즘 게임\\
+- Nim Game의 해법(마지막에 가져가는 사람이 승) : XOR = 0이면 후공 승, 0 아니면 선공 승\\
+- Subtraction Game : 한 번에 k 개까지의 돌만 가져갈 수 있는 경우, 각 더미의 돌의 개수를 k + 1로 나눈 나머지를 XOR 합하여 판단한다.\\
+- Index-k Nim : 한 번에 최대 k개의 더미를 골라 각각의 더미에서 아무렇게나 돌을 제거할 수 있을 때, 각 binary digit에 대하여 합을 k + 1로 나눈 나머지를 계산한다. 만약 이 나머지가 모든 digit에 대하여 0이라면 두번째, 하나라도 0이 아니라면 첫번째 플레이어가 승리.\\
+- Misere Nim : 모든 돌 무더기가 1이면 N이 홀수일 때 후공 승, 그렇지 않은 경우 XOR 합 0이면 후공 승
+
+\item Pick’s Theorem\\
+격자점으로 구성된 simple polygon이 주어짐. I 는 polygon 내부의 격자점 수, B 는 polygon 선분 위 격자점 수, A는 polygon의 넓이라고 할 때, 다음과 같은 식이 성립한다. $A=I+B/2-1$
+
+\item 홀의 결혼 정리 : 이분그래프(L-R)에서, 모든 L을 매칭하는 필요충분 조건 = L에서 임의의 부분집합 S를 골랐을 때, 반드시 (S의 크기) $<=$ (S와 연결되어있는 모든 R의 크기)이다.
+
+\item Simpson 공식 (적분) : Simpson 공식, $S_n(f) = \frac{h}{3}[f(x_0)+f(x_n)+ 4\sum f(x_{2i+1}) + 2\sum f(x_{2i})]$\\
+- $M = \max \vert f^4(x) \vert$이라고 하면 오차 범위는 최대 $E_n \leq \frac{M(b-a)}{180}h^4$
+
+\item 브라마굽타 : 원에 내접하는 사각형의 각 선분의 길이가 $a, b, c, d$일 때\\
+사각형의 넓이 $S=\sqrt{(s-a)(s-b)(s-c)(s-d)}$, $s=(a+b+c+d)/2$
+
+\item 브레치나이더 : 임의의 사각형의 각 변의 길이를 $a,b,c,d$라고 하고, 마주보는 두 각의 합을 2로 나눈 값을 $\theta$라 하면, $S=\sqrt{(s-a)(s-b)(s-c)(s-d)-abcd\times cos^2 \theta}$
+
+\item 페르마 포인트 : 삼각형의 세 꼭짓점으로부터 거리의 합이 최소가 되는 점\\
+$2\pi/3$ 보다 큰 각이 있으면 그 점이 페르마 포인트, 그렇지 않으면 각 변마다 정삼각형 그린 다음, 정삼각형의 끝점에서 반대쪽 삼각형의 꼭짓점으로 연결한 선분의 교점\\
+$2\pi/3$ 보다 큰 각이 없으면 거리의 합은 $\sqrt{(a^2 + b^2 + c^2 + 4\sqrt 3 S) / 2}$, $S$는 넓이
+
+\item 오일러 정리: 서로소인 두 정수 $a,n$에 대해 $a^{\phi(n)}\equiv 1 \pmod n$\\
+모든 정수에 대해 $a^n \equiv a^{n-\phi(n)} \pmod n$\\
+$m\geq log_2 n$이면 $a^m\equiv a^{m\%\phi(n)+\phi(n)}\pmod n$
+
+\item $g^0+g^1+g^2+\cdots g^{p-2}\equiv -1 \pmod p$ iff $g=1$, otherwise $0$.
+
+\item if $n \equiv 0 \pmod 2$, then $1^n + 2^n + \cdots + (n-1)^n \equiv 0 \pmod n$
+
+\item Eulerian numbers\\
+Number of permutations $\pi \in S_n$ in which exactly $k$ elements are greater than the previous element. $k$ $j$:s s.t. $\pi(j)>\pi(j+1)$, $k+1$ $j$:s s.t. $\pi(j)\geq j$, $k$ $j$:s s.t. $\pi(j)>j$.\\
+$E(n,k) = (n-k)E(n-1,k-1) + (k+1)E(n-1,k)$\\
+$E(n,0) = E(n,n-1) = 1$\\
+$E(n,k) = \sum_{j=0}^k(-1)^j\binom{n+1}{j}(k+1-j)^n$
+
+\item Pythagorean triple: $a^2+b^2=c^2$이고 서로소인 $(a,b,c)$ 생성\\
+$(a, b, c) = (st, \frac{s^2-t^2}{2}, \frac{s^2+t^2}{2})$, $gcd(s,t)=1, s>t$
+
+\end{itemize}

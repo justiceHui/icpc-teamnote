@@ -1,9 +1,8 @@
 // pair<T, vector<int>> f(T c): return opt_val, prv
 // cost function must be multiplied by 2
 template<class T, bool GET_MAX = false>
-pair<T, vector<int>> AliensTrick(int n, int k, auto f, T lo, T hi){
-    T l = lo, r = hi;
-    while(l < r){
+pair<T,vector<int>> AliensTrick(int n,int k,auto f,T lo,T hi){
+    T l = lo, r = hi; while(l < r) {
         T m = (l + r + (GET_MAX?1:0)) >> 1;
         vector<int> prv = f(m*2+(GET_MAX?-1:+1)).second;
         int cnt = 0; for(int i=n; i; i=prv[i]) cnt++;
@@ -26,6 +25,5 @@ pair<T, vector<int>> AliensTrick(int n, int k, auto f, T lo, T hi){
             res.insert(res.end(), p1.begin(), p1.begin()+i);
             res.insert(res.end(), p2.begin()+j, p2.end());
             return {opt_value, res};
-        }
-    } assert(false);
+    } /* if */ } /* for */ assert(false);
 }

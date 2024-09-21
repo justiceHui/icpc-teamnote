@@ -1,6 +1,5 @@
 template<typename flow_t> struct Edge {
-  int u, v, r; flow_t c, f;
-  Edge() = default;
+  int u, v, r; flow_t c, f; Edge() = default;
   Edge(int u, int v, flow_t c, int r) : u(u), v(v), r(r), c(c), f(0) {}
 };
 template<typename flow_t, size_t _Sz> struct PushRelabel {
@@ -16,19 +15,17 @@ template<typename flow_t, size_t _Sz> struct PushRelabel {
   }
   void enqueue(int v){
     if(!active[v] && excess[v] > 0 && dist[v] < n){
-      active[v] = true; bucket[dist[v]].push_back(v); b = max(b, dist[v]);
-    }
+      active[v] = true; bucket[dist[v]].push_back(v); b = max(b, dist[v]); }
   }
   void push(edge_t &e){
     flow_t fl = min(excess[e.u], e.c - e.f);
     if(dist[e.u] == dist[e.v] + 1 && fl > flow_t(0)){
-      e.f += fl; g[e.v][e.r].f -= fl; excess[e.u] -= fl; excess[e.v] += fl; enqueue(e.v);
-    }
+      e.f += fl; g[e.v][e.r].f -= fl; excess[e.u] -= fl; excess[e.v] += fl; enqueue(e.v); }
   }
   void gap(int k){
     for(int i=0; i<n; i++){
-      if(dist[i] >= k) count[dist[i]]--, dist[i] = max(dist[i], n), count[dist[i]]++; enqueue(i);
-    }
+      if(dist[i] >= k) count[dist[i]]--, dist[i] = max(dist[i], n), count[dist[i]]++;
+      enqueue(i); }
   }
   void relabel(int v){
     count[dist[v]]--; dist[v] = n;
@@ -37,20 +34,18 @@ template<typename flow_t, size_t _Sz> struct PushRelabel {
   }
   void discharge(int v){
     for(auto &e : g[v]) if(excess[v] > 0) push(e); else break;
-    if(excess[v] > 0) if(count[dist[v]] == 1) gap(dist[v]); else relabel(v);
+    if(excess[v] > 0) if(count[dist[v]] == 1) gap(dist[v]);
+    else relabel(v);
   }
   flow_t maximumFlow(int _n, int s, int t){
     // memset dist, excess, count, active 0
-    n = _n; b = 0;
-    for(auto &e : g[s]) excess[s] += e.c;
+    n = _n; b = 0; for(auto &e : g[s]) excess[s] += e.c;
     count[s] = n; enqueue(s); active[t] = true;
     while(b >= 0){
       if(bucket[b].empty()) b--;
       else{
         int v = bucket[b].back(); bucket[b].pop_back();
         active[v] = false; discharge(v);
-      }
-    }
-    return excess[t];
+    } /*else*/ } /*while*/ return excess[t];
   }
 };

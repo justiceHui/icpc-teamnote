@@ -29,6 +29,6 @@ pair<vector<int>, int> dual_graph(const vector<Point> &points, const vector<pair
   vector<int> res(2*m);
   for(int i=0; i<2*m; i++) res[i] = find(i);
   auto comp=res;compress(comp);for(auto &i:res)i=IDX(comp,i);
-  int mx_idx = max_element(points.begin(), points.end()) - points.begin();
+  int mx_idx = max_element(all(points)) - points.begin();
   return {res, res[g[mx_idx].back().second << 1 | 1]};
 }

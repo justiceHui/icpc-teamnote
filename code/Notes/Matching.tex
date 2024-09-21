@@ -1,0 +1,16 @@
+\begin{itemize}[noitemsep]
+    \item \textbf{Game on a Graph} : $s$에 토큰이 있음. 플레이어는 각자의 턴마다 토큰을 인접한 정점으로 옮기고 못 옮기면 짐.\\
+    $s$를 포함하지 않는 최대 매칭이 존재함 $\leftrightarrow$ 후공이 이김
+    \item \textbf{Chinese Postman Problem} : 모든 간선을 방문하는 최소 가중치 Walk를 구하는 문제.\\
+    Floyd를 돌린 다음, 홀수 정점들을 모아서 최소 가중치 매칭 (홀수 정점은 짝수 개 존재)
+    \item \textbf{Unweighted Edge Cover} : 모든 정점을 덮는 가장 작은(minimum cardinality/weight) 간선 집합을 구하는 문제\\
+    $\vert V\vert - \vert M\vert$, 길이 3짜리 경로 없음, star graph 여러 개로 구성
+    \item \textbf{Weighted Edge Cover} : $sum_{v \in V}(w(v)) - sum_{(u,v) \in M}(w(u) + w(v) - d(u,v))$, $w(x)$는 $x$와 인접한 간선의 최소 가중치
+    \item \textbf{NEERC'18 B} : 각 기계마다 2명의 노동자가 다뤄야 하는 문제.\\
+    기계마다 두 개의 정점을 만들고 간선으로 연결하면 정답은 $\vert M\vert - \vert\text{기계}\vert$임. 정답에 1/2씩 기여한다는 점을 생각해보면 좋음.
+    \item \textbf{Min Disjoint Cycle Cover} : 정점이 중복되지 않으면서 모든 정점을 덮는 길이 3 이상의 사이클 집합을 찾는 문제.\\
+    모든 정점은 2개의 서로 다른 간선, 일부 간선은 양쪽 끝점과 매칭되어야 하므로 플로우를 생각할 수 있지만 용량 2짜리 간선에 유량을 1만큼 흘릴 수 있으므로 플로우는 불가능.\\
+    각 정점과 간선을 2개씩($(v, v')$, $(e_{i,u},e_{i,v})$)로 복사하자. 모든 간선 $e=(u,v)$에 대해 $e_u$와 $e_v$를 잇는 가중치 w짜리 간선을 만들고(like NEERC18), $(u,e_{i,u}), (u',e_{i,u}), (v,e_{i,v}), (v',e_{i,v})$를 연결하는 가중치 0짜리 간선을 만들자. Perfect 매칭이 존재함 $\Leftrightarrow$ Disjoint Cycle Cover 존재. 최대 가중치 매칭 찾은 뒤 모든 간선 가중치 합에서 매칭 빼면 됨.
+    \item \textbf{Two Matching} : 각 정점이 최대 2개의 간선과 인접할 수 있는 최대 가중치 매칭 문제.\\
+    각 컴포넌트는 정점 하나/경로/사이클이 되어야 함. 모든 서로 다른 정점 쌍에 대해 가중치 0짜리 간선 만들고, 가중치 0짜리 $(v,v')$ 간선 만들면 Disjoing Cycle Cover 문제가 됨. 정점 하나만 있는 컴포넌트는 self-loop, 경로 형태의 컴포넌트는 양쪽 끝점을 연결한다고 생각하면 편함.
+\end{itemize}

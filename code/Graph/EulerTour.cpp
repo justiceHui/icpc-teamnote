@@ -13,4 +13,4 @@ void DFS(int v){
 void Get(){
   for(int i=1; i<=pv; i++) if(In[i] < Out[i]){ DFS(i); return; }
   for(int i=1; i<=pv; i++) if(Out[i]){ DFS(i); return; }
-}
+}// WARNING: path.size() == M + 1 && not trail

@@ -16,8 +16,7 @@ struct Node{
 };
 template<bool IsFirst = 1> struct Cmp {
   bool operator() (const Node &a, const Node &b) const {
-    return IsFirst ? a.p.x < b.p.x : a.p.y < b.p.y;
-  }
+    return IsFirst ? a.p.x < b.p.x : a.p.y < b.p.y; }
 };
 struct KDTree { // Warning : no duplicate
   constexpr static size_t NAIVE_THRESHOLD = 16;
@@ -42,7 +41,7 @@ struct KDTree { // Warning : no duplicate
     if(r - l <= NAIVE_THRESHOLD){
       for(int i=l; i<r; i++) if(p != tree[i].p && res.dist(p) > tree[i].dist(p)) res = tree[i];
     }
-    else{
+    else{ // else 1
       const int m = (l + r) >> 1;
       const T t = IsFirst ? p.x - tree[m].p.x : p.y - tree[m].p.y;
       if(p != tree[m].p && res.dist(p) > tree[m].dist(p)) res = tree[m];
@@ -51,13 +50,10 @@ struct KDTree { // Warning : no duplicate
         Query<!IsFirst>(p, l, m, res);
         if(t*t < res.dist(p)) Query<!IsFirst>(p, m+1, r, res);
       }
-      else{
+      else{ // else 2
         Query<!IsFirst>(p, m+1, r, res);
         if(t*t < res.dist(p)) Query<!IsFirst>(p, l, m, res);
-      }
-    }
-  }
+  } /*else 1*/ } /*else 2*/ } /*void Query*/
   int Query(const P& p) const {
-    Node ret(make_pair<T>(1e9, 1e9), -1); Query(p, 0, tree.size(), ret); return ret.idx;
-  }
+    Node ret(make_pair<T>(1e9, 1e9), -1); Query(p, 0, tree.size(), ret); return ret.idx; }
 };

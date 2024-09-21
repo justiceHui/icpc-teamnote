@@ -1,0 +1,21 @@
+\begin{itemize}[noitemsep]
+    \item 등차수열: $(pn + q)x^n = p / (1-x) + q / (1-x)^2$
+    \item 등비수열: $(rx)^n = (1 - rx)^-1$
+    \item 조합: $C(m, n)x^n = (1+x)^m$
+    \item 중복조합: $C(m+n-1, n)x^n = (1-x)^{-m}$
+    \item $f(n)=\sum_{k=0}^{n} k! \times S_2(n, k)$의 EGF: $1 / (2-e^x)$
+    % source: https://github.com/abc864197532/std_abs/blob/main/codebook/Math/gf.tex
+    \item Ordinary Generating Function $A(x) = \sum_{i\ge 0} a_ix^i$\\
+        $A(rx)             \Rightarrow r^na_n$,
+        $xA(x)'            \Rightarrow na_n$\\
+        $A(x) + B(x)       \Rightarrow a_n + b_n$,
+        $A(x)B(x)          \Rightarrow \sum_{i=0}^{n} a_ib_{n-i}$\\
+        $A(x)^k            \Rightarrow \sum_{i_1+i_2+\cdots+i_k=n} a_{i_1}a_{i_2}\ldots a_{i_k}$\\
+        $\frac{A(x)}{1-x}  \Rightarrow \sum_{i=0}^{n} a_i$
+    \item Exponential Generating Function $A(x) = \sum_{i\ge 0} \frac{a_i}{i!}x_i$\\
+        $A(x) + B(x)       \Rightarrow a_n + b_n$,
+        $A(x)B(x)          \Rightarrow \sum_{i=0}^{n} \binom{n}{i}a_ib_{n-i}$\\
+        $A^{(k)}(x)        \Rightarrow a_{n+k}$,
+        $xA(x)             \Rightarrow na_n$\\
+        $A(x)^k            \Rightarrow \sum_{i_1+i_2+\cdots+i_k=n} \binom{n}{i_1, i_2, \ldots, i_k}a_{i_1}a_{i_2}\ldots a_{i_k}$
+\end{itemize}

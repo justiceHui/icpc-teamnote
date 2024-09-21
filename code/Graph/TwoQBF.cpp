@@ -36,6 +36,6 @@ vector<int> TwoQBF(int n, string con, vector<pair<int,int>> cnf){
     else if(from[i]) for(auto v : SCC[i]) res[v/2] = v % 2 == 0;
     else if(to[i]) for(auto v : SCC[i]) res[v/2] = v % 2 == 1;
   }
-  for(int i=0; i<n; i++) if(res[i] == -1) res[i] = C[F(i)] < C[T(i)];
+  for(int i=0; i<n; i++) if(res[i]==-1) res[i]=C[F(i)]<C[T(i)];
   return res;
 }

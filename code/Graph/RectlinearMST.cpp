@@ -22,10 +22,8 @@ rectilinear_minimum_spanning_tree(vector<point<T>> a){
       mp.insert({-a[i].y, i});
     }
     for(auto &p: a) if(k & 1) p.x = -p.x; else swap(p.x, p.y);
-  }
-  sort(edge.begin(), edge.end());
-  disjoint_set dsu(n);
-  vector<tuple<T, int, int>> res;
-  for(auto [x, i, j]: edge) if(dsu.merge(i, j)) res.push_back({x, i, j});
-  return res;
-}
+  } /*for-k end*/ sort(edge.begin(), edge.end());
+  disjoint_set dsu(n); vector<tuple<T, int, int>> res;
+  for(auto [x, i, j]: edge) if(dsu.merge(i, j))
+    res.push_back({x, i, j});
+  return res; }

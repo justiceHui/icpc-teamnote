@@ -32,7 +32,7 @@ double polyUnion(vector<vector<P>>& poly) { // (points)^2
   rep(i,0,sz(poly)) rep(v,0,sz(poly[i])) {
     P A = poly[i][v], B = poly[i][(v + 1) % sz(poly[i])];
     vector<pair<double, int>> segs = {{0, 0}, {1, 0}};
-    rep(j,0,sz(poly)) if (i != j) {
+    rep(j,0,sz(poly)) if (i != j) { // START
       rep(u,0,sz(poly[j])) {
         P C = poly[j][u], D = poly[j][(u + 1) % sz(poly[j])];
         int sc = sideOf(A, B, C), sd = sideOf(A, B, D);
@@ -44,18 +44,14 @@ double polyUnion(vector<vector<P>>& poly) { // (points)^2
         else if (!sc && !sd && j<i && sgn((B-A).dot(D-C))>0){
           segs.emplace_back(rat(C - A, B - A), 1);
           segs.emplace_back(rat(D - A, B - A), -1);
-        }
-      }
-    }
+    } /*else if*/ } /*rep u*/ } /*rep j*/ // END
     sort(all(segs));
     for (auto& s : segs) s.first = min(max(s.first, 0.0), 1.0);
-    double sum = 0;
-    int cnt = segs[0].second;
+    double sum = 0; int cnt = segs[0].second;
     rep(j,1,sz(segs)) {
       if (!cnt) sum += segs[j].first - segs[j - 1].first;
       cnt += segs[j].second;
     }
     ret += A.cross(B) * sum;
-  }
-  return abs(ret) / 2;
+  } return abs(ret) / 2;
 }

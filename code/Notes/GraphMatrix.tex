@@ -1,0 +1,13 @@
+\begin{itemize}[noitemsep]
+\item Kirchhoff’s Theorem : 그래프의 스패닝 트리 개수\\
+- m[i][j] :=  -(i-j 간선 개수) (i ≠ j) / (유향) -(i $\rightarrow$ j 간선)\\
+- m[i][i] :=  정점 i의 degree / (유향) 정점 i의 in degree\\
+- res = (m의 첫 번째 행과 첫 번째 열을 없앤 (n-1) by (n-1) matrix의 행렬식)\\
+- (유향) m의 루트 번째 행과 열을 삭제한 행렬의 행렬식
+
+\item Tutte Matrix : 그래프의 최대 매칭\\
+- m[i][j] := 간선 $(i, j)$가 없으면 0, 있으면 $i < j ? r : -r$, r은 $[0,P)$ 구간의 임의의 정수\\
+- $rank(m) / 2$가 높은 확률로 최대 매칭 (mod P)
+
+\item LGV Theorem: 간선에 가중치 있는 DAG에서 어떤 경로 $P$의 간선 가중치 곱을 $w(P)$, 모든 $a\rightarrow b$ 경로들의 $w(P)$의 합을 $e(a,b)$라고 하자. $n$개의 시작점 $a_i$와 도착점 $b_j$가 주어졌을 때, 서로 정점이 겹치지 않는 $n$개의 경로로 시작점과 도착점을 일대일 대응시키는 모든 경우에서 $w(P)$의 곱의 합은 $\text{det }M(i,j)=e(a_i,b_j)$와 같음. 따라서 모든 가중치를 1로 두면 서로소 경로 경우의 수를 구함
+\end{itemize}

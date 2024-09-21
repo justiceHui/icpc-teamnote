@@ -6,8 +6,5 @@ vector<Edge> GomoryHuTree(int n, const vector<Edge> &e){
     int fl = Flow.MaxFlow(pr[i], i);
     for(int j=i+1; j<n; j++){
       if(!Flow.Level[i] == !Flow.Level[j] && pr[i] == pr[j]) pr[j] = i;
-    }
-    res[i-1] = Edge(pr[i], i, fl);
-  }
-  return res;
-}
+    } /*for-j end*/ res[i-1] = Edge(pr[i], i, fl);
+  } /*for-i end*/ return res; }

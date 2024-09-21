@@ -14,11 +14,9 @@ struct Line{
   }
   ld get_y(ll offset=0) const { // OVERFLOW
     ld t = ld(CUR_X-x1+offset) / (x2-x1);
-    return t * (y2 - y1) + y1;
-  }
+    return t * (y2 - y1) + y1; }
   bool operator < (const Line &l) const {
-    return get_y() < l.get_y();
-  }
+    return get_y() < l.get_y(); }
   // strict
   /* bool operator < (const Line &l) const {
     auto le = get_y(), ri = l.get_y();

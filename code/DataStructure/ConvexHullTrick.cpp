@@ -21,8 +21,8 @@ int chk(const Line &a, const Line &b, const Line &c) const {
   return (__int128_t)(a.b - b.b) * (b.a - c.a) <= (__int128_t)(c.b - b.b) * (b.a - a.a);
 }
 void insert(Line l){
-  if(v.size() > pv && v.back().a == l.a){
-    if(l.b < v.back().b) l = v.back(); v.pop_back();
+  if(v.size() > pv && v.back().a == l.a){ // fix if min query
+    if(l.b < v.back().b) l = v.back();    v.pop_back();
   }
   while(v.size() >= pv+2 && chk(v[v.size()-2], v.back(), l)) v.pop_back();
   v.push_back(l);

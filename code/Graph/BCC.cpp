@@ -37,7 +37,7 @@ vector<PII> cutEdge(int n){
   return move(res); // sort(all(res));
 }
 vector<int> BCC[MAX_V]; // BCC[v] = components which contains v
-void vertexDisjointBCC(int n){ // allow multi edge, no self loop
+void TwoConnected(int n){ // allow multi edge, no self loop
   int cnt = 0; array<char,MAX_V> vis; vis.fill(0);
   function<void(int,int)> dfs = [&dfs,&vis,&cnt](int v, int c){
     vis[v] = 1; if(c > 0) BCC[v].push_back(c);
@@ -47,4 +47,4 @@ void vertexDisjointBCC(int n){ // allow multi edge, no self loop
   }};
   for(int i=1; i<=n; i++) if(!vis[i]) dfs(i, 0);
   for(int i=1; i<=n; i++) if(BCC[i].empty()) BCC[i].push_back(++cnt);
-}void edgeDisjointBCC(int n){} // remove cut edge, do flood fill
+}void TwoEdgeConnected(int n){}//remove bridge, do flood fill

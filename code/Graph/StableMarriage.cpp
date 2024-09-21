@@ -17,9 +17,6 @@ struct StableMarriage{
         }
         if(u < v){
           match[m] = 0; q.push(m); match[i] = j; match[j] = i; break;
-        }
-      }
-    }
-    return match;
-  }
+    } /*if u < v*/ } /*for-p*/ } /*while*/
+    return match; } /*vector<int> run*/
 };

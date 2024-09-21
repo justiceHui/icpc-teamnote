@@ -15,7 +15,7 @@
 
 \usepackage{teamnote}
 
-\teamnote{Soongsil University}{PS akgwi}{Jeounghui Nah, Joowon Oh, Seongseo Lee}
+\teamnote{Soongsil University}{PS akgwi}{Jeounghui Nah, Joowon Oh, Seongseo Lee}{48th ICPC World Finals (Astana, Kazakhstan)}
 
 % smaller section title
 % \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
@@ -41,8 +41,8 @@
 
 \section{DataStructure}
 
-\TeamnoteImport{Bipartite Union Find}
-{code/DataStructure/BipartiteUF.cpp}
+% 240212
+% \TeamnoteImport{Bipartite Union Find}{code/DataStructure/BipartiteUF.cpp}
 
 \TeamnoteImport{Erasable Priority Queue}
 {code/DataStructure/ErasablePQ.cpp}
@@ -53,8 +53,8 @@
 \TeamnoteImport{Color Processor}
 {code/DataStructure/ColorProcessor.cpp}
 
-\TeamnoteImport{Persistent Segment Tree}
-{code/DataStructure/PersistentSegmentTree.cpp}
+% 240212
+% \TeamnoteImport{Persistent Segment Tree}{code/DataStructure/PersistentSegmentTree.cpp}
 
 \TeamnoteImport{Kinetic Segment Tree}
 {code/DataStructure/KineticSegmentTree.cpp}
@@ -67,30 +67,8 @@
 
 \section{Geometry}
 
-\subsection{Triangles} % from Ryute Teamnote
-
-\noindent
-변 길이 $a, b, c; p = (a+b+c)/2$ \\
-넓이 $A = \sqrt{p(p-a)(p-b)(p-c)}$ \\
-외접원 반지름 $R = abc/4A$, 내접원 반지름 $r = A/p$ \\
-중선 길이 $m_a = 0.5\sqrt{2b^2 + 2c^2 - a^2}$ \\
-각 이등분선 길이 $s_a = \sqrt{bc(1-\frac{a}{b+c}^2)}$ \\
-사인 법칙 $\frac{sin A}{a} = 1/2R$, 코사인 법칙 $a^2 = b^2 + c^2 - 2bc\cos A$, 탄젠트 법칙 $\frac{a+b}{a-b} = \frac{\tan (A+B)/2}{\tan (A-B)/2}$ \\
-중심 좌표 $(\frac{\alpha x_a + \beta x_b + \gamma x_c}{\alpha+\beta+\gamma}, \frac{\alpha y_a + \beta y_b + \gamma y_c}{\alpha+\beta+\gamma})$ \\
-
-\begin{tabular}{|c|c|c|c|c|}
-    이름 & $\alpha$ & $\beta$ & $\gamma$ & \\ \hline
-    외심 & $a^2\mathcal{A}$ & $b^2\mathcal{B}$ & $c^2\mathcal{C}$ & $\mathcal{A}=b^2+c^2-a^2$ \\
-    내심 & $a$ & $b$ & $c$ & $\mathcal{B} = a^2 + c^2 - b^2$ \\
-    무게중심 & $1$ & $1$ & $1$ & $\mathcal{C} = a^2 + b^2 - c^2$ \\
-    수심 & $\mathcal{BC}$ & $\mathcal{CA}$ & $\mathcal{AB}$ & \\
-    방심(A) & $-a$ & $b$ & $c$ & 
-\end{tabular}
-
-\Algorithm{Rotating Calipers}
-{}{}
-{cpp}{code/Geometry/Calipers.cpp}
-{JusticeHui}
+% 240212
+% \Algorithm{Rotating Calipers}{}{}{cpp}{code/Geometry/Calipers.cpp}{JusticeHui}
 
 \Algorithm{$O(\log N)$ Point in Convex Polygon}
 {}{}
@@ -112,6 +90,11 @@
 {cpp}{code/Geometry/Intersect.cpp}
 {JusticeHui, kactl}
 
+\Algorithm{$O(N^2 \log N)$ Circles Area}
+{}{}
+{cpp}{code/Geometry/CircleArea.cpp}
+{https://github.com/abc864197532/std_abs/blob/main/codebook/Geometry/Union_of_Circles.cpp}
+
 \TeamnoteImport{Segment In Polygon}
 {code/Geometry/SegmentInPolygon.cpp}
 
@@ -120,10 +103,8 @@
 {cpp}{code/Geometry/Polygon.cpp}
 {aeren, kactl}
 
-\Algorithm{Polygon Raycast}
-{}{}
-{cpp}{code/Geometry/PolygonRaycast.cpp}
-{zigui}
+\TeamnoteImport{Polycon Raycast}
+{code/Geometry/PolygonRaycast.cpp}
 
 \Algorithm{$O(N \log N)$ Shamos-Hoey}
 {}{}
@@ -190,6 +171,12 @@
 {cpp}{code/Graph/PruferSequence.cpp}
 {JusticeHui}
 
+\TeamnoteImport{Tree Compress}
+{code/Graph/TreeCompress.cpp}
+
+\TeamnoteImport{Tree Binarization}
+{code/Graph/TreeBinarization.cpp}
+
 \TeamnoteImport{$O(3^{V/3})$ Maximal Clique}
 {code/Graph/MaximumClique.cpp}
 
@@ -213,18 +200,16 @@
 {cpp}{code/Graph/PushRelabel.cpp}
 {}
 
-\Algorithm{LR Flow}
+\Algorithm{LR Flow, Circulation}
 {}{}
 {cpp}{code/Graph/LR-Flow.cpp}
 {JusticeHui}
 
+\TeamnoteImport{Min Cost Circulation}
+{code/Graph/CostScaling.cpp}
+
 \TeamnoteImport{$O(V^3)$ Hungarian Method}
 {code/Graph/Hungarian.cpp} %{e-maxx.ru}
-
-\Algorithm{$O(V + E \sqrt V)$ Count/Find 3/4 Cycle}
-{}{}
-{cpp}{code/Graph/34Cycle.cpp}
-{aeren}
 
 \TeamnoteImport{$O(V^3)$ Global Min Cut}
 {code/Graph/GlobalMinCut.cpp}
@@ -234,21 +219,26 @@
 {cpp}{code/Graph/GomoryHu.cpp}
 {DeobureoMinkyuParty}
 
+\Algorithm{$O(V + E \sqrt V)$ Count/Find 3/4 Cycle}
+{}{}
+{cpp}{code/Graph/34Cycle.cpp}
+{aeren}
+
 \TeamnoteImport{$O(V \log V)$ Rectlinear MST}
 {code/Graph/RectlinearMST.cpp}
 
 \TeamnoteImport{$O(VE)$ Shortest Mean Cycle}
 {code/Graph/ShortestMeanCycle.cpp}
 
-\Algorithm{$O((V+E) \log V)$ Dominator Tree}
-{}{}
-{cpp}{code/Graph/DominatorTree.cpp}
-{0xC0DEF}
-
 \Algorithm{$O(V^2)$ Stable Marriage Problem}
 {}{}
 {cpp}{code/Graph/StableMarriage.cpp}
 {JusticeHui}
+
+\Algorithm{$O((V+E) \log V)$ Dominator Tree}
+{}{}
+{cpp}{code/Graph/DominatorTree.cpp}
+{0xC0DEF}
 
 \Algorithm{$O(VE)$ Vizing Theorem}
 {}{}
@@ -281,7 +271,7 @@
 
 \section{Math}
 
-\Algorithm{Extend GCD, CRT, Combination}
+\Algorithm{Binary GCD, Extend GCD, CRT, Combination}
 {}{}
 {cpp}{code/Math/BasicMath.cpp}
 {JusticeHui}
@@ -318,11 +308,6 @@
 \TeamnoteImport{Berlekamp + Kitamasa}
 {code/Math/Berlekamp-Kitamasa.cpp}
 
-\Algorithm{Miller Rabin + Pollard Rho}
-{}{}
-{cpp}{code/Math/MillerRabin-PollardRho.cpp}
-{JusticeHui}
-
 \Algorithm{Linear Sieve}
 {}{}
 {cpp}{code/Math/LinearSieve.cpp}
@@ -331,10 +316,13 @@
 \TeamnoteImport{Xudyh Sieve}
 {code/Math/XudyhSieve.cpp}
 
-\Algorithm{Discrete Log / Sqrt}
-{}{Log : $O(\sqrt P \log P)$, $O(\sqrt P)$ with hash set\\Sqrt : $O(\log^2 P)$, $O(\log P)$ in random data}
-{cpp}{code/Math/DiscreteLogSqrt.cpp}
-{JusticeHui / gratus907}
+\Algorithm{Miller Rabin + Pollard Rho}
+{}{}
+{cpp}{code/Math/MillerRabin-PollardRho.cpp}
+{JusticeHui}
+
+\TeamnoteImport{Primitive Root, Discrete Log/Sqrt}
+{code/Math/DiscreteLogSqrt.cpp}
 
 \Algorithm{Power Tower}
 {}{}
@@ -352,27 +340,10 @@
 {molamola}
 
 \noindent
-\textbf{Simplex Example}\\
-Maximize $p = 6x + 14y + 13z$\\
-Constraints \\
-- $0.5x + 2y + z \leq 24$\\
-- $x + 2y + 4z \leq 60$\\
-Coding\\
-- $n = 2, m = 3, a = \begin{pmatrix} 0.5 & 2 & 1 \\ 1 & 2 & 4 \end{pmatrix}, b = \begin{pmatrix} 24 \\ 60 \end{pmatrix}, c = [6, 14, 13]$
+\input{code/Math/SimplexExample}
 
-\noindent
-\textbf{LP Duality \& Example}\\
-tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제의 답)\\
-- Primal : $n = 2, m = 3, a = \begin{pmatrix} 0.5 & 2 & 1 \\ 1 & 2 & 4 \end{pmatrix}, b = \begin{pmatrix} 24 \\ 60 \end{pmatrix}, c = [6, 14, 13]$\\
-- Dual : $n = 3, m = 2, a = \begin{pmatrix} -0.5 & -1 \\ -2 & -2 \\ -1 & -4 \end{pmatrix}, b = \begin{pmatrix} -6 \\ -14 \\ -13 \end{pmatrix}, c = [-24, -60]$\\
-공식\\
-- Primal : $\max_{x} c^Tx$, Constraints $Ax \leq b, x \geq 0$\\
-- Dual : $\min_{y} b^Ty$,Constraints $A^Ty \geq c, y \geq 0$ 
-
-\Algorithm{FFT, FWHT, MultipointEval, Interpolation, TaylorShift}
-{}{}
-{cpp}{code/Math/Convolution.cpp}
-{JusticeHui}
+\TeamnoteImport{Polynomial \& Convolution}
+{code/Math/Convolution.cpp}
 
 \Algorithm{Matroid Intersection}
 {}{}
@@ -411,22 +382,15 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 \TeamnoteImport{Lyndon Factorization, Minimum Rotation}
 {code/String/Lyndon.cpp}
 
+\TeamnoteImport{All LCS}
+{code/String/AllLCS.cpp}
+
 \section{Misc}
 
 \Algorithm{CMakeLists.txt}
 {}{}
 {text}{code/Misc/CMakeLists.txt}
 {JusticeHui}
-
-\Algorithm{Python Decimal}
-{}{}
-{py}{code/Misc/PythonDecimal.py}
-{https://github.com/tzupengwang/PECaveros/blob/master/codebook/basic/python_trick.py}
-
-\Algorithm{Java I/O}
-{}{}
-{java}{code/Misc/Java.java}
-{https://github.com/ssu-sccc/2023scon/blob/master/statement/language.tex}
 
 \TeamnoteImport{Calendar}
 {code/Misc/Calendar.cpp}
@@ -436,10 +400,8 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/Misc/TernarySearch.cpp}
 {JusticeHui}
 
-\Algorithm{Add/Mul Update, Range Sum Query}
-{}{}
-{cpp}{code/Misc/SeqQuery13.cpp}
-{JusticeHui}
+% 240212
+\Algorithm{Add/Mul Update, Range Sum Query}{}{}{cpp}{code/Misc/SeqQuery13.cpp}{JusticeHui}
 
 \Algorithm{$O(N \times \max W)$ Subset Sum (Fast Knapsack)}
 {}{}
@@ -451,40 +413,34 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 {cpp}{code/Misc/MonotoneQueueOpt.cpp}
 {aeren}
 
-\Algorithm{Aliens Trick}
-{}{}
-{cpp}{code/Misc/Aliens2.cpp}
-{JusticeHui}
-
 \Algorithm{Slope Trick}
 {}{}
 {cpp}{code/Misc/SlopeTrick.cpp}
 {0xC0DEF}
+
+\Algorithm{Aliens Trick}
+{}{}
+{cpp}{code/Misc/Aliens2.cpp}
+{JusticeHui}
 
 \Algorithm{SWAMK, Min Plus Convolution}
 {}{}
 {cpp}{code/Misc/SMAWK.cpp}
 {maroonrk}
 
-\Algorithm{Money for Nothing (WF17D)}
-{}{}
-{cpp}{code/Misc/MoneyForNothing.cpp}
-{JusticeHui}
+% 240212
+\Algorithm{Money for Nothing (WF17D)}{}{}{cpp}{code/Misc/MoneyForNothing.cpp}{JusticeHui}
 
-\Algorithm{Exchange Argument on Tree (WF16L,CERC13E)}
-{}{}
-{cpp}{code/Misc/TreeExchangeArgument.cpp}
-{JusticeHui}
+% 240212
+\Algorithm{Exchange Argument on Tree (WF16L,CERC13E)}{}{}{cpp}{code/Misc/TreeExchangeArgument.cpp}{JusticeHui}
 
 \Algorithm{Hook Length Formula}
 {}{}
 {cpp}{code/Misc/HookLengthFormula.cpp}
 {hitonanode}
 
-\Algorithm{Floating Point Add (Kahan)}
-{}{}
-{cpp}{code/Misc/FloatingPointAdd.cpp}
-{JusticeHui}
+% 240212
+\Algorithm{Floating Point Add (Kahan)}{}{}{cpp}{code/Misc/FloatingPointAdd.cpp}{JusticeHui}
 
 \Algorithm{Random, PBDS, Bit Trick, Bitset}
 {}{}
@@ -493,232 +449,74 @@ tableu를 대각선으로 뒤집고 음수 부호를 붙인 답 = -(원 문제�
 
 \Algorithm{Fast I/O, Fast Div, Fast Mod}
 {}{}
-{cpp}{code/Misc/NDS-Optimize.cpp}
+{cpp}{code/Misc/Constant-Optimize.cpp}
 {JusticeHui}
+
+\Algorithm{DP Optimization}
+{}{}
+{cpp}{code/Misc/DP-Optimize.cpp}
+{JusticeHui}
+
+\subsection{Highly Composite Numbers, Large Prime} % koosaga
+\input{code/Misc/Primes}
 
 \Algorithm{DLAS(Diversified Late Acceptance Search)}
 {}{}
 {cpp}{code/Misc/DLAS.cpp}
 {cgiosy}
 
-\Algorithm{DP Opt, Tree Opt, Well-Known Ideas}
+\Algorithm{Stack Hack}
 {}{}
-{cpp}{code/Misc/WellKnown-Optimize.cpp}
-{JusticeHui}
+{cpp}{code/Misc/StackHack.cpp}
+{}
 
-\subsection{Highly Composite Numbers, Large Prime} % koosaga
-\begin{minted}{cpp}
-< 10^k          number     divisors   2 3 5 71113171923293137
--------------------------------------------------------------
-1                    6            4   1 1
-2                   60           12   2 1 1
-3                  840           32   3 1 1 1
-4                 7560           64   3 3 1 1
-5                83160          128   3 3 1 1 1
-6               720720          240   4 2 1 1 1 1
-7              8648640          448   6 3 1 1 1 1
-8             73513440          768   5 3 1 1 1 1 1
-9            735134400         1344   6 3 2 1 1 1 1
-10          6983776800         2304   5 3 2 1 1 1 1 1
-11         97772875200         4032   6 3 2 2 1 1 1 1
-12        963761198400         6720   6 4 2 1 1 1 1 1 1
-13       9316358251200        10752   6 3 2 1 1 1 1 1 1 1
-14      97821761637600        17280   5 4 2 2 1 1 1 1 1 1
-15     866421317361600        26880   6 4 2 1 1 1 1 1 1 1 1
-16    8086598962041600        41472   8 3 2 2 1 1 1 1 1 1 1
-17   74801040398884800        64512   6 3 2 2 1 1 1 1 1 1 1 1
-18  897612484786617600       103680   8 4 2 2 1 1 1 1 1 1 1 1
+\Algorithm{Python Decimal}
+{}{}
+{py}{code/Misc/PythonDecimal.py}
+{https://github.com/tzupengwang/PECaveros/blob/master/codebook/basic/python_trick.py}
 
-< 10^k    prime   # of prime          < 10^k            prime
--------------------------------------------------------------
-1             7            4          10           9999999967
-2            97           25          11          99999999977
-3           997          168          12         999999999989
-4          9973         1229          13        9999999999971
-5         99991         9592          14       99999999999973
-6        999983        78498          15      999999999999989
-7       9999991       664579          16     9999999999999937
-8      99999989      5761455          17    99999999999999997
-9     999999937     50847534          18   999999999999999989
-\end{minted}
+\Algorithm{Java I/O}
+{}{}
+{java}{code/Misc/Java.java}
+{https://github.com/ssu-sccc/2023scon/blob/master/statement/language.tex}
 
-\subsection{Catalan, Burnside, Grundy, Pick, Hall, Simpson, Kirchhoff, LGV, Area of Quadrangle, Fermat Point, Euler}
-\begin{itemize}[noitemsep]
-    
-\item 카탈란 수\\
-1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012,742900\\
-$C_n = binomial(n * 2, n) / (n + 1);$\\
-- 길이가 2n인 올바른 괄호 수식의 수\\
-- n + 1개의 리프를 가진 풀 바이너리 트리의 수\\
-- n + 2각형을 n개의 삼각형으로 나누는 방법의 수\\
-- 여는 괄호 $n$개, 닫는 괄호 $k(\leq n)$개 경우의 수$(n-k+1)/(n+1) \times {n+k \choose k}$
+\section{Notes}
 
-\item Burnside’s Lemma\\
-- 수식\\
-G=(X,A): 집합X와 액션A로 정의되는 군G에 대해, $\vert A\vert\vert X/A \vert=sum(\vert \text{Fixed points of a}\vert,\text{for all a in A})$\\
-X/A 는 Action으로 서로 변형가능한 X의 원소들을 동치로 묶었을때 동치류(파티션) 집합\\
-- 풀어쓰기\\
-orbit: 그룹에 대해 두 원소 a,b와 액션f에 대해 f(a)=b인거에 간선연결한 컴포넌트(연결집합)\\
-orbit개수 = sum(각 액션 g에 대해 f(x)=x인 x(고정점)개수)/액션개수\\
-- 자유도 치트시트\\
-회전 n개: 회전i의 고정점 자유도=gcd(n,i)\\
-임의뒤집기 n=홀수: n개 원소중심축(자유도 (n+1)/2)\\
-임의뒤집기 n=짝수: n/2개 원소중심축(자유도 n/2+1) + n/2개 원소안지나는축(자유도 n/2)
-
-\item 알고리즘 게임\\
-- Nim Game의 해법 : 각 더미의 돌의 개수를 모두 XOR했을 때 0 이 아니면 첫번째, 0 이면 두번째 플레이어가 승리.\\
-- Grundy Number : 어떤 상황의 Grundy Number는, 가능한 다음 상황들의 Grundy Number를 모두 모은 다음, 그 집합에 포함 되지 않는 가장 작은 수가 현재 state의 Grundy Number가 된다. 만약 다음 state가 독립된 여러개의 state들로 나뉠 경우, 각각의 state의 Grundy Number의 XOR 합을 생각한다.\\
-- Subtraction Game : 한 번에 k 개까지의 돌만 가져갈 수 있는 경우, 각 더미의 돌의 개수를 k + 1로 나눈 나머지를 XOR 합하여 판단한다.\\
-- Index-k Nim : 한 번에 최대 k개의 더미를 골라 각각의 더미에서 아무렇게나 돌을 제거할 수 있을 때, 각 binary digit에 대하여 합을 k + 1로 나눈 나머지를 계산한다. 만약 이 나머지가 모든 digit에 대하여 0이라면 두번째, 하나라도 0이 아니라면 첫번째 플레이어가 승리.\\
-- Misere Nim : 모든 돌 무더기가 1이면 N이 홀수일 때 후공 승, 그렇지 않은 경우 XOR 합 0이면 후공 승
-
-\item Pick’s Theorem\\
-격자점으로 구성된 simple polygon이 주어짐. I 는 polygon 내부의 격자점 수, B 는 polygon 선분 위 격자점 수, A는 polygon의 넓이라고 할 때, 다음과 같은 식이 성립한다. $A=I+B/2-1$
-\begin{minted}{cpp}
-// number of (x, y) : (0 <= x < n && 0 < y <= k/d x + b/d)
-ll count_solve(ll n, ll k, ll b, ll d) { // argument > 0
-  if (k == 0) return (b / d) * n;
-  if (k >= d || b >= d) {
-    return ((k / d) * (n - 1) + 2 * (b / d)) * n / 2 + count_solve(n, k % d, b % d, d);
-  }return count_solve((k*n+b) / d, d, (k*n+b) % d, k);
-}
-\end{minted}
-
-\item 홀의 결혼 정리 : 이분그래프(L-R)에서, 모든 L을 매칭하는 필요충분 조건 = L에서 임의의 부분집합 S를 골랐을 때, 반드시 (S의 크기) $<=$ (S와 연결되어있는 모든 R의 크기)이다.
-
-\item Simpson 공식 (적분) : Simpson 공식, $S_n(f) = \frac{h}{3}[f(x_0)+f(x_n)+ 4\sum f(x_{2i+1}) + 2\sum f(x_{2i})]$\\
-- $M = \max \vert f^4(x) \vert$이라고 하면 오차 범위는 최대 $E_n \leq \frac{M(b-a)}{180}h^4$
-
-\item Kirchhoff’s Theorem : 그래프의 스패닝 트리 개수\\
-- m[i][j] :=  -(i-j 간선 개수) (i ≠ j)\\
-- m[i][i] :=  정점 i의 degree\\
-- res =  (m의 첫 번째 행과 첫 번째 열을 없앤 (n-1) by (n-1) matrix의 행렬식)
-
-\item Tutte Matrix : 그래프의 최대 매칭\\
-- m[i][j] := 간선 $(i, j)$가 없으면 0, 있으면 $i < j ? r : -r$, r은 $[0,P)$ 구간의 임의의 정수\\
-- $rank(m) / 2$가 높은 확률로 최대 매칭
-
-\item LGV Theorem: 간선에 가중치 있는 DAG에서 어떤 경로 $P$의 간선 가중치 곱을 $w(P)$, 모든 $a\rightarrow b$ 경로들의 $w(P)$의 합을 $e(a,b)$라고 하자. $n$개의 시작점 $a_i$와 도착점 $b_j$가 주어졌을 때, 서로 정점이 겹치지 않는 $n$개의 경로로 시작점과 도착점을 일대일 대응시키는 모든 경우에서 $w(P)$의 곱의 합은 $\text{det }M(i,j)=e(a_i,b_j)$와 같음. 따라서 모든 가중치를 1로 두면 서로소 경로 경우의 수를 구함
-
-\item 브라마굽타 : 원에 내접하는 사각형의 각 선분의 길이가 $a, b, c, d$일 때\\
-사각형의 넓이 $S=\sqrt{(s-a)(s-b)(s-c)(s-d)}$, $s=(a+b+c+d)/2$
-
-\item 브레치나이더 : 임의의 사각형의 각 변의 길이를 $a,b,c,d$라고 하고, 마주보는 두 각의 합을 2로 나눈 값을 $\theta$라 하면, $S=\sqrt{(s-a)(s-b)(s-c)(s-d)-abcd\times cos^2 \theta}$
-
-\item 페르마 포인트 : 삼각형의 세 꼭짓점으로부터 거리의 합이 최소가 되는 점\\
-$2\pi/3$ 보다 큰 각이 있으면 그 점이 페르마 포인트, 그렇지 않으면 각 변마다 정삼각형 그린 다음, 정삼각형의 끝점에서 반대쪽 삼각형의 꼭짓점으로 연결한 선분의 교점\\
-$2\pi/3$ 보다 큰 각이 없으면 거리의 합은 $\sqrt{(a^2 + b^2 + c^2 + 4\sqrt 3 S) / 2}$, $S$는 넓이
-
-\item 오일러 정리: 서로소인 두 정수 $a,n$에 대해 $a^{\phi(n)}\equiv 1 \pmod n$\\
-모든 정수에 대해 $a^n \equiv a^{n-\phi(n)} \pmod n$\\
-$m\geq log_2 n$이면 $a^m\equiv a^{m\%\phi(n)+\phi(n)}\pmod n$
-
-\item $g^0+g^1+g^2+\cdots g^{p-2}\equiv -1 \pmod p$ iff $g=1$, otherwise $0$.
-
-\item if $n \equiv 0 \pmod 2$, then $1^n + 2^n + \cdots + (n-1)^n \equiv 0 \pmod n$
-
-\end{itemize}
-
-\subsection{In\&Exclusive, Stirling Number, Bell Number}
-\begin{itemize}[noitemsep]
-
-\item 공 구별 X, 상자 구별 O, 전사함수 : 포함배제 $\sum_{i=1}^{k} (-1)^{k-i} \times kCi \times i^n$
-\item 공 구별 O, 상자 구별 X, 전사함수 : 제 2종 스털링 수 $S(n,k)=k\times S(n-1,k) + S(n-1, k-1)$\\
-포함배제하면 $O(K \log N)$, $S(n,k) = 1/k! \times \sum_{i=1}^{k} (-1)^{k-i} \times kCi \times i^n$
-\item 공 구별 O, 상자 구별 X, 제약없음 : 벨 수 $B(n,k) = \sum_{i=0}^{k} S(n,i)$ 몇 개의 상자를 버릴지 다 돌아보기\\
-수식 정리하면 $O(\min(N,K)\log N)$에 됨. $B(n,n) = \sum_{i=0}^{n-1} (n-1)Ci \times B(i,i)$\\
-$B(n,k)=\sum_{j=0}^{k}S(n,j) = \sum_{j=0}^{k} 1/j! \sum_{i=0}^{j} (-1)^{j-i} jCi \times i^n=\sum_{j=0}^{k}\sum_{i=0}^{j} \frac{(-1)^{j-i}}{i!(j-i)!}i^n$\\
-$=\sum_{i=0}^{k}\sum_{j=i}^{k}\frac{(-1)^{j-i}}{i!(j-i)!}i^n = \sum_{i=0}^{k}\sum_{j=0}^{k-i}\frac{(-1)^j}{i!j!}i^n = \sum_{i=0}^k \frac{i^n}{i!}\sum_{j=0}^{k-i} \frac{(-1)^j}{j!}$
-
-\item Derangement: $D(n)=(n-1)(D(n-1)+D(n-2))$
-\item Signed Stirling 1: $S_1(n,k)=(n-1)S_1(n-1,k)+S_1(n-1,k-1)$
-\item Unsigned Stirling 1: $C_1(n,k)=(n-1)C_1(n-1,k)+C_1(n-1,k-1)$
-\item Stirling 2: $S_2(n,k)=kS_2(n-1,k)+S_2(n-1,k-1)$
-\item Stirling 2: $S_2(n,k)=\frac{1}{k!}\sum_{j=0}^{k} (-1)^{k-j}{k \choose j}j^n$
-\item Partition: $p(n,k)=p(n-1,k-1) + p(n-k,k)$
-\item Partition: $p(n)=\sum (-1)^kp(n-k(3k-1)/2)$
-\item Bell: $B(n)=\sum_{k=1}^n {n-1\choose k-1}B(n-k)$
-\item Catalan: $C_n=\frac{1}{n+1}{2n\choose n}$ = ${2n\choose n}-{2n\choose n+1}$ = $\frac{(2n)!}{n!(n+1)!}$ = $\sum C_iC_{n-i}$
-
-\end{itemize}
-
-\subsection{About Graph Minimum Cut}
-\begin{itemize}[noitemsep]
-    \item $N$개의 boolean 변수 $v_1, \cdots, v_n$을 정해서 비용을 최소화하는 문제\\=true인 점은 $T$, false인 점은 $F$와 연결되게 분할하는 민컷 문제
-    \begin{enumerate}[noitemsep]
-        \item $v_i$가 T일 때 비용 발생: $i$에서 F로 가는 비용 간선
-        \item $v_i$가 F일 때 비용 발생: $i$에서 T로 가는 비용 간선
-        \item $v_i$가 T이고 $v_j$가 F일 때 비용 발생: $i$에서 $j$로 가는 비용 간선
-        \item $v_i \ne v_j$일 때 비용 발생: $i$에서 $j$로, $j$에서 $i$로 가는 비용 간선
-        \item $v_i$가 T면 $v_j$도 T여야 함: $i$에서 $j$로 가는 무한 간선
-        \item $v_i$가 F면 $v_j$도 F여야 함: $j$에서 $i$로 가는 무한 간선
-    \end{enumerate}
-    \item 5/6번 + $v_i$와 $v_j$가 달라야 한다는 조건이 있으면 MAX-2SAT
-    \item Maximum Density Subgraph (NEERC'06H, BOJ 3611 팀의 난이도)
-    \begin{itemize}[noitemsep]
-        \item density $\geq x$인 subgraph가 있는지 이분 탐색
-        \item 정점 $N$개, 간선 $M$개, 차수 $D_i$개
-        \item 그래프의 간선마다 용량 1인 양방향 간선 추가
-        \item 소스에서 정점으로 용량 $M$, 정점에서 싱크로 용량 $M-D_i+2x$
-        \item min cut에서 S와 붙어 있는 애들이 1개 이상이면 x 이상이고, 그게 subgraph의 정점들
-        \item while(r-l $\geq$ 1.0/(n*n)) 으로 해야 함. 너무 많이 돌리면 실수 오차
-    \end{itemize}
-\end{itemize}
-
-\subsection{About Graph Matching(Graph with $\vert V \vert \leq 500$)}
-\begin{itemize}[noitemsep]
-    \item \textbf{Game on a Graph} : $s$에 토큰이 있음. 플레이어는 각자의 턴마다 토큰을 인접한 정점으로 옮기고 못 옮기면 짐.\\
-    $s$를 포함하지 않는 최대 매칭이 존재함 $\leftrightarrow$ 후공이 이김
-    \item \textbf{Chinese Postman Problem} : 모든 간선을 방문하는 최소 가중치 Walk를 구하는 문제.\\
-    Floyd를 돌린 다음, 홀수 정점들을 모아서 최소 가중치 매칭 (홀수 정점은 짝수 개 존재)
-    \item \textbf{Unweighted Edge Cover} : 모든 정점을 덮는 가장 작은(minimum cardinality/weight) 간선 집합을 구하는 문제\\
-    $\vert V\vert - \vert M\vert$, 길이 3짜리 경로 없음, star graph 여러 개로 구성
-    \item \textbf{Weighted Edge Cover} : $sum_{v \in V}(w(v)) - sum_{(u,v) \in M}(w(u) + w(v) - d(u,v))$, $w(x)$는 $x$와 인접한 간선의 최소 가중치
-    \item \textbf{NEERC'18 B} : 각 기계마다 2명의 노동자가 다뤄야 하는 문제.\\
-    기계마다 두 개의 정점을 만들고 간선으로 연결하면 정답은 $\vert M\vert - \vert\text{기계}\vert$임. 정답에 1/2씩 기여한다는 점을 생각해보면 좋음.
-    \item \textbf{Min Disjoint Cycle Cover} : 정점이 중복되지 않으면서 모든 정점을 덮는 길이 3 이상의 사이클 집합을 찾는 문제.\\
-    모든 정점은 2개의 서로 다른 간선, 일부 간선은 양쪽 끝점과 매칭되어야 하므로 플로우를 생각할 수 있지만 용량 2짜리 간선에 유량을 1만큼 흘릴 수 있으므로 플로우는 불가능.\\
-    각 정점과 간선을 2개씩($(v, v')$, $(e_{i,u},e_{i,v})$)로 복사하자. 모든 간선 $e=(u,v)$에 대해 $e_u$와 $e_v$를 잇는 가중치 w짜리 간선을 만들고(like NEERC18), $(u,e_{i,u}), (u',e_{i,u}), (v,e_{i,v}), (v',e_{i,v})$를 연결하는 가중치 0짜리 간선을 만들자. Perfect 매칭이 존재함 $\Leftrightarrow$ Disjoint Cycle Cover 존재. 최대 가중치 매칭 찾은 뒤 모든 간선 가중치 합에서 매칭 빼면 됨.
-    \item \textbf{Two Matching} : 각 정점이 최대 2개의 간선과 인접할 수 있는 최대 가중치 매칭 문제.\\
-    각 컴포넌트는 정점 하나/경로/사이클이 되어야 함. 모든 서로 다른 정점 쌍에 대해 가중치 0짜리 간선 만들고, 가중치 0짜리 $(v,v')$ 간선 만들면 Disjoing Cycle Cover 문제가 됨. 정점 하나만 있는 컴포넌트는 self-loop, 경로 형태의 컴포넌트는 양쪽 끝점을 연결한다고 생각하면 편함.
-\end{itemize}
+\subsection{Triangles/Trigonometry} % from Ryute Teamnote
+\input{code/Notes/Triangle}
 
 \subsection{Calculus, Newton's Method}
-\begin{itemize}[noitemsep]
-    \item $(\arcsin x)'=1/\sqrt{1-x^2}$
-    \item $(\tan x)'=1+\tan^2 x$
-    \item $\int tan ax=-\ln |\cos ax|/a$
-    \item $(\arccos x)'=-1/\sqrt{1-x^2}$
-    \item $(\arctan x)'=1/(1+x^2)$
-    \item $\int x \sin ax=(\sin ax - ax\cos ax)/a^2$
-    \item Newton: $x_{n+1}=x_{n}-f(x_n)/f'(x_n)$
-    \item $\oint_C (Ldx+Mdy)=\int\int_D (\frac{\partial M}{\partial x}-\frac{\partial L}{\partial y})dxdy$
-    \item where $C$ is positively oriented, piecewise smooth, simple, closed; $D$ is the region inside $C$; $L$ and $M$ have continuous partial derivatives in $D$.
-\end{itemize}
+\input{code/Notes/Calculus}
+
+\subsection{Zeta/Mobius Transform}
+\input{code/Notes/ZetaMobius}
+
+\subsection{Generating Function}
+\input{code/Notes/GeneratingFunction}
+
+\subsection{Counting}
+\input{code/Notes/Counting}
+
+\subsection{Faulhaber's Formula ($\sum_{k=1}^{n} k^c$)}
+\input{code/Notes/Faulhaber}
+
+\subsection{About Graph Degree Sequence}
+\input{code/Notes/DegreeSequence}
+
+\subsection{Burnside, Grundy, Pick, Hall, Simpson, Area of Quadrangle, Fermat Point, Euler, Pythagorean}
+\input{code/Notes/Theorems}
+
+\subsection{About Graph Minimum Cut}
+\input{code/Notes/MinCut}
+
+\subsection{Matrix with Graph(Kirchhoff, Tutte, LGV)}
+\input{code/Notes/GraphMatrix}
+
+\subsection{About Graph Matching(Graph with $\vert V \vert \leq 500$)}
+\input{code/Notes/Matching}
 
 \subsection{Checklist}
-\begin{itemize}[noitemsep]
-    \item (예비소집) bits/stdc++.h, int128, long double 80bit, avx2 확인
-    \item (예비소집) 스택 메모리(지역 변수, 재귀, 람다 재귀), 제출 파일 크기 확인
-    \item (예비소집) MLE(힙,스택), stderr 출력 RTE?, 줄 앞뒤 공백 채점 결과
-    \item 비슷한 문제를 풀어본 적이 있는가?
-    \item 단순한 방법에서 시작할 수 있을까? (Brute Force)
-    \item 내가 문제를 푸는 과정을 수식화할 수 있을까? (예제를 직접 해결하면서)
-    \item 문제를 단순화할 수 없을까? / 그림으로 그려볼 수 있을까?
-    \item 수식으로 표현할 수 있을까? / 문제를 분해할 수 있을까?
-    \item 뒤에서부터 생각해서 풀 수 있을까? / 순서를 강제할 수 있을까?
-    \item 특정 형태의 답만을 고려할 수 있을까? (정규화)
-    \item 구간을 통째로 가져간다 : 플로우 + 적당한 자료구조\\$(i,i+1,k,0),(s,e,1,w),(N,T,k,0)$
-    \item a = b : a만 이동, b만 이동, 두 개 동시에 이동, 반대로 이동
-    \item 말도 안 되는 것 / 당연하다고 생각한 것 다시 생각해 보기
-    \item Directed MST / Dominator Tree
-    \item 일정 비율 충족 or 2~3개로 모두 커버 : 랜덤
-    \item 확률 : DP, 이분 탐색(NYPC 2019 Finals C)
-    \item 최대/최소 : 이분 탐색, 그리디(Prefix 고정, Exchange Argument), DP(순서 고정)
-    \item 냅색: 파라미터 순서 변경, min plus convolution, FFT
-    \item signal(SIGSEGV,[](int)\{\_Exit(0);\}); converts segfaults into WA. SIGABRT(assertion fail), SIGFPE(0div)
-    \item feenableexcept(29) kills problem on NaNs(1), 0div(4), inf(8), denormals(16)
-\end{itemize}
+\input{code/Notes/Checklist}
 
 \end{multicols*}
 
